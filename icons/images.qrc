@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="image">
+    <file>excel.png</file>
+    <file>books.png</file>
+    <file>history.png</file>
+    <file>book.png</file>
+    <file>main..png</file>
+    <file>shoes.jpeg</file>
+    <file>images.qrc</file>
+  </qresource>
+</RCC>

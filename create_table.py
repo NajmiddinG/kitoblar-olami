@@ -12,21 +12,21 @@ cur.execute("""CREATE TABLE IF NOT EXISTS Kitob (
             )""")
 conn.commit()
 
-cur.execute("""CREATE TABLE IF NOT EXISTS TarixItem (
+cur.execute("""CREATE TABLE IF NOT EXISTS Tarix (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            Kitob INTEGER NOT NULL,
-            soni INTEGER NOT NULL,
-            hisob INTEGER NOT NULL,
-            FOREIGN KEY (Kitob) REFERENCES Kitob(id) ON DELETE SET NULL
+            sana TEXT NOT NULL,
+            hisob INTEGER NOT NULL
             )""")
 conn.commit()
 
-cur.execute("""CREATE TABLE IF NOT EXISTS Tarix (
+cur.execute("""CREATE TABLE IF NOT EXISTS TarixItem (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            TarixItem INTEGER NOT NULL,
-            sana TEXT NOT NULL,
+            Tarix INTEGER NOT NULL,
+            Kitob TEXT NOT NULL,
+            soni INTEGER NOT NULL,
             hisob INTEGER NOT NULL,
-            FOREIGN KEY (TarixItem) REFERENCES TarixItem(id) ON DELETE SET NULL
+            FOREIGN KEY (Kitob) REFERENCES Kitob(id) ON DELETE SET NULL,
+            FOREIGN KEY (Tarix) REFERENCES Tarix(id) ON DELETE SET NULL
             )""")
 conn.commit()
 

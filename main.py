@@ -1,9 +1,10 @@
 from main_ui import Ui_MainWindow
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget
-from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QTimer, pyqtSlot
 from PyQt5 import QtWidgets
 import sqlite3
 import sys, create_table as db
+from datetime import datetime
 
 conn = db.conn
 cur = db.cur
@@ -38,6 +39,7 @@ class window(QMainWindow, Ui_MainWindow):
         self.lineEdit_2.textChanged.connect(self.on_line_edit_changed)
         self.lineEdit_2.returnPressed.connect(self.scanner_returned)
         self.pushButton_5.clicked.connect(self.add_selected_item_to_table)
+        self.pushButton_2.clicked.connect(self.accept_buy)
         self.pushButton.clicked.connect(self.cancel_buy)
         self.tableWidget.itemChanged.connect(self.handle_item_changed)
 
@@ -45,9 +47,10 @@ class window(QMainWindow, Ui_MainWindow):
         self.timer = QTimer(self)
         self.timer.setSingleShot(True)
         self.timer.timeout.connect(self.search_database)
+
     def scanner_returned(self):
         scanned_text = self.lineEdit_2.text()
-        print(f"Barcode scanned: {scanned_text}")
+        # print(f"Barcode scanned: {scanned_text}")
 
     def handle_item_changed(self, item):
         # Check if the item is in column 2
@@ -64,10 +67,17 @@ class window(QMainWindow, Ui_MainWindow):
 
             if item is not None:
                 count = int(item.text())
-                id = int(self.tableWidget.item(row_index, 0).text())  # Assuming the ID is in column 0
+                id = int(self.tableWidget.item(row_index, 0).text())
                 cur.execute("SELECT narxi FROM Kitob WHERE id=?", (id,))
-                narxi = cur.fetchone()[0]
-                total_amount += int(narxi) * count
+                narxi = int(cur.fetchone()[0])
+                cur.execute("SELECT qoldiq FROM Kitob WHERE id=?", (id,))
+                qoldiq = int(cur.fetchone()[0])
+                if count>qoldiq:
+                    self.tableWidget.setItem(row_index, 2, QTableWidgetItem(str(qoldiq)))
+                    count = qoldiq
+                total_amount += narxi * count
+                self.tableWidget.setItem(row_index, 6, QTableWidgetItem(str(narxi*count)))
+
         s_text = ''
         money = str(total_amount)[::-1]
         for i in range(len(money)//3+1):
@@ -80,6 +90,30 @@ class window(QMainWindow, Ui_MainWindow):
         self.lineEdit_2.clear()
         self.lineEdit.setText("0 so'm")
 
+    def accept_buy(self):
+        rows = self.tableWidget.rowCount()
+        if rows:
+            current_datetime = datetime.now()
+            formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+            tex  = self.lineEdit.text()
+            umumiy_hisob = ''
+            for i in tex:
+                if i.isdigit():
+                    umumiy_hisob+=i
+            cur.execute("INSERT INTO Tarix (sana, hisob) VALUES (?, ?)", (formatted_datetime, umumiy_hisob))
+            conn.commit()
+            tarix_id = cur.lastrowid
+            for row_index in range(rows):
+                kitob_id = int(self.tableWidget.item(row_index, 0).text())
+                soni = int(self.tableWidget.item(row_index, 2).text())
+                qoldiq = int(self.tableWidget.item(row_index, 5).text())
+                hisob = int(self.tableWidget.item(row_index, 6).text())
+                cur.execute("UPDATE Kitob SET qoldiq = ? WHERE id = ?", (qoldiq-soni, kitob_id))
+                conn.commit()
+                cur.execute("INSERT INTO TarixItem (Tarix, Kitob, soni, hisob) VALUES (?, ?, ?, ?)", (tarix_id, kitob_id, soni, hisob))
+                conn.commit()
+            self.cancel_buy()
+    
     def on_line_edit_changed(self):
         # Start the timer when the text in the line edit changes
         self.timer.start(1000)  # 1000 milliseconds = 1 second
@@ -94,13 +128,7 @@ class window(QMainWindow, Ui_MainWindow):
             query = "SELECT id, nomi, barcode FROM Kitob WHERE nomi LIKE ? OR id LIKE ? OR barcode LIKE ?"
             cur.execute(query, (f'%{user_input}%', f'%{user_input}%', f'%{user_input}%'))
             result = cur.fetchall()
-
-            # Populate the tableWidget_2 with the search results
-            for row_num, row_data in enumerate(result):
-                self.tableWidget_2.insertRow(row_num)
-                for col_num, col_data in enumerate(row_data):
-                    item = QTableWidgetItem(str(col_data))
-                    self.tableWidget_2.setItem(row_num, col_num, item)
+            self.display_data_in_table(result, self.tableWidget_2)
 
     def add_selected_item_to_table(self):
         selected_item = self.tableWidget_2.currentRow()
@@ -112,12 +140,16 @@ class window(QMainWindow, Ui_MainWindow):
                 self.tableWidget.insertRow(row_position)
                 cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
                 data = cur.fetchone()
-                # Populate the new row with the selected item data
-                for col_num, col_data in enumerate(data):
-                    item = QTableWidgetItem(str(col_data))
-                    if col_num>1: col_num+=1
-                    self.tableWidget.setItem(row_position, col_num, item)
-                self.tableWidget.setItem(row_position, 2, QTableWidgetItem('1'))
+                if int(data[4]):
+                    for col_num, col_data in enumerate(data):
+                        item = QTableWidgetItem(str(col_data))
+                        if col_num>1: col_num+=1
+                        self.tableWidget.setItem(row_position, col_num, item)
+                    self.tableWidget.setItem(row_position, 2, QTableWidgetItem('1'))
+                else:
+                    current_row_count = self.tableWidget.rowCount()
+                    if current_row_count > 0:
+                        self.tableWidget.removeRow(current_row_count - 1)
         self.tableWidget_2.setRowCount(0)
 
     def check_tablewidget_add(self, id):
@@ -130,25 +162,23 @@ class window(QMainWindow, Ui_MainWindow):
         self.populate_tableWidget_4()
         self.pushButton_3.clicked.connect(self.save_tableWidget_data_to_database)
         
-    def populate_tableWidget_4(self):
+    def populate_tableWidget_4(self):   
         # Clear existing data
         self.tableWidget_4.setRowCount(0)
 
-        # Fetch data from the "Kitob" table
         cur.execute("SELECT * FROM Kitob")
         data = cur.fetchall()
 
         # Ensure at least 10 rows in the tableWidget_4
         num_rows_to_add = 10 + len(data)
         self.tableWidget_4.setRowCount(num_rows_to_add)
+        for row_index, row_data in enumerate(data):
+            for col_index, col_data in enumerate(row_data):
+                item = QTableWidgetItem(str(col_data))
+                self.tableWidget_4.setItem(row_index, col_index, item)
 
-        # Populate data into tableWidget_4
-        for row_number, row_data in enumerate(data):
-            for column_number, column_data in enumerate(row_data):
-                item = QTableWidgetItem(str(column_data))
-                self.tableWidget_4.setItem(row_number, column_number, item)
+        # self.display_data_in_table(data, self.tableWidget_4)
 
-        # Add extra rows for creating new elements
         for i in range(len(data), num_rows_to_add):
             for j in range(self.tableWidget_4.columnCount()):
                 item = QTableWidgetItem("")
@@ -189,6 +219,43 @@ class window(QMainWindow, Ui_MainWindow):
 
     def tab3_clicked(self):
         print(3)
+        self.show_tarix()
+        self.tableWidget_5.itemSelectionChanged.connect(self.handle_tableWidget_5_selected)
+
+    def handle_tableWidget_5_selected(self):
+        selected_items = self.tableWidget_5.selectedItems()
+        row = 0
+        for item in selected_items: row = int(item.row())
+        self.show_table_widget_3(row)
+    
+    def show_table_widget_3(self, row):
+        try:
+            tarix_id = int(self.tableWidget_5.item(row, 0).text())
+            cur.execute("""
+                SELECT TarixItem.id, Kitob.nomi, TarixItem.soni, TarixItem.hisob
+                FROM TarixItem
+                JOIN Kitob ON TarixItem.Kitob = Kitob.id
+                WHERE TarixItem.Tarix = ?
+            """, (tarix_id,))
+            data = cur.fetchall()
+            self.display_data_in_table(data, self.tableWidget_3)
+        except:
+            pass
+
+    def show_tarix(self):
+        cur.execute("SELECT * FROM Tarix ORDER BY sana DESC")
+        tarix_data = cur.fetchall()
+        self.display_data_in_table(tarix_data, self.tableWidget_5)
+    
+    def display_data_in_table(self, data, table_widget):
+        table_widget.setRowCount(len(data))
+        table_widget.setColumnCount(len(data[0]))
+
+        for row_index, row_data in enumerate(data):
+            for col_index, col_data in enumerate(row_data):
+                item = QTableWidgetItem(str(col_data))
+                table_widget.setItem(row_index, col_index, item)
+
 
 if __name__ == "__main__":
     App = QApplication(sys.argv)

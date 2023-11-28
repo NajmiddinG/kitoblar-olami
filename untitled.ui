@@ -485,6 +485,18 @@
                   </font>
                  </property>
                 </column>
+                <column>
+                 <property name="text">
+                  <string>Hisob</string>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>14</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                </column>
                </widget>
               </item>
              </layout>
@@ -752,7 +764,7 @@
               </column>
               <column>
                <property name="text">
-                <string>Umumiy hisob</string>
+                <string>Vaqt</string>
                </property>
                <property name="font">
                 <font>
@@ -764,7 +776,7 @@
               </column>
               <column>
                <property name="text">
-                <string>Vaqt</string>
+                <string>Umumiy hisob</string>
                </property>
                <property name="font">
                 <font>

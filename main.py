@@ -1,7 +1,11 @@
 from main_ui import Ui_MainWindow
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QFileDialog
 from PyQt5.QtCore import QTimer, pyqtSlot
 from PyQt5 import QtWidgets
+from openpyxl import Workbook
+from openpyxl.styles import Font
+import pandas as pd
+import openpyxl
 import sqlite3
 import sys, create_table as db
 from datetime import datetime
@@ -35,7 +39,6 @@ class window(QMainWindow, Ui_MainWindow):
         elif index==2: self.tab3_clicked()
     
     def tab1_clicked(self):
-        # print(1)
         self.lineEdit_2.textChanged.connect(self.on_line_edit_changed)
         self.lineEdit_2.returnPressed.connect(self.scanner_returned)
         self.pushButton_5.clicked.connect(self.add_selected_item_to_table)
@@ -50,7 +53,6 @@ class window(QMainWindow, Ui_MainWindow):
 
     def scanner_returned(self):
         scanned_text = self.lineEdit_2.text()
-        # print(f"Barcode scanned: {scanned_text}")
 
     def handle_item_changed(self, item):
         # Check if the item is in column 2
@@ -158,11 +160,67 @@ class window(QMainWindow, Ui_MainWindow):
         return is_present
     
     def tab2_clicked(self):
-        # print(2)
         self.populate_tableWidget_4()
         self.pushButton_3.clicked.connect(self.save_tableWidget_data_to_database)
-        
-    def populate_tableWidget_4(self):   
+        self.pushButton_6.clicked.connect(self.clicked_export_book)
+        self.pushButton_4.clicked.connect(self.clicked_new_book)
+    
+    def clicked_export_book(self):
+        query = "SELECT * FROM Kitob"
+        df = pd.read_sql_query(query, conn)
+
+        file_dialog = QFileDialog()
+        file_path, _ = file_dialog.getSaveFileName(self, 'Save Excel File', '', 'Excel Files (*.xlsx)')
+
+        if file_path:
+            # Create a workbook and add a worksheet
+            workbook = Workbook()
+            worksheet = workbook.active
+
+            # Customize the header row
+            header_row = df.columns
+            for col_num, value in enumerate(header_row, 1):
+                cell = worksheet.cell(row=1, column=col_num, value=value.title() if type(value)==str else value)
+                cell.font = Font(size=20, bold=True)
+
+            # Add data to the worksheet
+            for row_num, (_, row) in enumerate(df.iterrows(), 2):
+                for col_num, value in enumerate(row, 1):
+                    worksheet.cell(row=row_num, column=col_num, value=value)
+
+            # Save the workbook to the specified file path
+            workbook.save(file_path)
+
+    def clicked_new_book(self):
+        file_dialog = QFileDialog()
+        file_path, _ = file_dialog.getOpenFileName(self, 'Excel fileni tanlang', '', 'Excel Files (*.xlsx *.xls)')
+
+        if file_path:
+            # Assuming the Excel file has a sheet named 'Sheet1'
+            df = pd.read_excel(file_path, sheet_name='Sheet1', header=None, skiprows=1)
+
+            for index, row in df.iterrows():
+                # Assuming the columns are in order: id, book name, price, barcode, qoldiq
+                book_data = (row[0], row[1], row[2], row[3], row[4])
+
+                # Check if the record already exists based on book name
+                cur.execute("SELECT * FROM Kitob WHERE nomi=?", (book_data[1],))
+                existing_record = cur.fetchone()
+
+                if existing_record is None:
+                    # Insert the record if it doesn't exist
+                    cur.execute("INSERT INTO Kitob (nomi, narxi, barcode, qoldiq) VALUES (?, ?, ?, ?)", book_data[1:])
+                else:
+                    existing_qoldiq = existing_record[4]
+                    existing_narxi = existing_record[2]
+                    new_qoldiq = int(existing_qoldiq) + int(book_data[4])
+                    new_narxi = book_data[2]
+                    cur.execute("UPDATE Kitob SET qoldiq=?, narxi=? WHERE nomi=?", (new_qoldiq, new_narxi, book_data[1]))
+
+            conn.commit()
+            self.populate_tableWidget_4()
+
+    def populate_tableWidget_4(self):
         # Clear existing data
         self.tableWidget_4.setRowCount(0)
 
@@ -193,8 +251,6 @@ class window(QMainWindow, Ui_MainWindow):
             barcode = self.tableWidget_4.item(row, 3).text()
             qoldiq = self.tableWidget_4.item(row, 4).text()
             if nomi and narxi and barcode and qoldiq:
-                # Check if the record with the same id already exists
-                print(nomi, narxi, barcode, qoldiq)
                 cur.execute("SELECT id FROM Kitob WHERE id=?", (id,))
                 existing_id = cur.fetchone()
 
@@ -218,7 +274,6 @@ class window(QMainWindow, Ui_MainWindow):
         self.populate_tableWidget_4()
 
     def tab3_clicked(self):
-        print(3)
         self.show_tarix()
         self.tableWidget_5.itemSelectionChanged.connect(self.handle_tableWidget_5_selected)
 
@@ -248,14 +303,16 @@ class window(QMainWindow, Ui_MainWindow):
         self.display_data_in_table(tarix_data, self.tableWidget_5)
     
     def display_data_in_table(self, data, table_widget):
-        table_widget.setRowCount(len(data))
-        table_widget.setColumnCount(len(data[0]))
+        try:
+            table_widget.setRowCount(len(data))
+            table_widget.setColumnCount(len(data[0]))
 
-        for row_index, row_data in enumerate(data):
-            for col_index, col_data in enumerate(row_data):
-                item = QTableWidgetItem(str(col_data))
-                table_widget.setItem(row_index, col_index, item)
-
+            for row_index, row_data in enumerate(data):
+                for col_index, col_data in enumerate(row_data):
+                    item = QTableWidgetItem(str(col_data))
+                    table_widget.setItem(row_index, col_index, item)
+        except:
+            pass
 
 if __name__ == "__main__":
     App = QApplication(sys.argv)

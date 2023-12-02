@@ -72,6 +72,7 @@ class window(QMainWindow, Ui_MainWindow):
                 id = int(self.tableWidget.item(row_index, 0).text())
                 cur.execute("SELECT narxi FROM Kitob WHERE id=?", (id,))
                 narxi = int(cur.fetchone()[0])
+                # print(narxi)
                 cur.execute("SELECT qoldiq FROM Kitob WHERE id=?", (id,))
                 qoldiq = int(cur.fetchone()[0])
                 if count>qoldiq:
@@ -93,28 +94,30 @@ class window(QMainWindow, Ui_MainWindow):
         self.lineEdit.setText("0 so'm")
 
     def accept_buy(self):
-        rows = self.tableWidget.rowCount()
-        if rows:
-            current_datetime = datetime.now()
-            formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
-            tex  = self.lineEdit.text()
-            umumiy_hisob = ''
-            for i in tex:
-                if i.isdigit():
-                    umumiy_hisob+=i
-            cur.execute("INSERT INTO Tarix (sana, hisob) VALUES (?, ?)", (formatted_datetime, umumiy_hisob))
-            conn.commit()
-            tarix_id = cur.lastrowid
-            for row_index in range(rows):
-                kitob_id = int(self.tableWidget.item(row_index, 0).text())
-                soni = int(self.tableWidget.item(row_index, 2).text())
-                qoldiq = int(self.tableWidget.item(row_index, 5).text())
-                hisob = int(self.tableWidget.item(row_index, 6).text())
-                cur.execute("UPDATE Kitob SET qoldiq = ? WHERE id = ?", (qoldiq-soni, kitob_id))
+        try:
+            rows = self.tableWidget.rowCount()
+            if rows:
+                current_datetime = datetime.now()
+                formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+                tex  = self.lineEdit.text()
+                umumiy_hisob = ''
+                for i in tex:
+                    if i.isdigit():
+                        umumiy_hisob+=i
+                cur.execute("INSERT INTO Tarix (sana, hisob) VALUES (?, ?)", (formatted_datetime, umumiy_hisob))
                 conn.commit()
-                cur.execute("INSERT INTO TarixItem (Tarix, Kitob, soni, hisob) VALUES (?, ?, ?, ?)", (tarix_id, kitob_id, soni, hisob))
-                conn.commit()
-            self.cancel_buy()
+                tarix_id = cur.lastrowid
+                for row_index in range(rows):
+                    kitob_id = int(self.tableWidget.item(row_index, 0).text())
+                    soni = int(self.tableWidget.item(row_index, 2).text())
+                    qoldiq = int(self.tableWidget.item(row_index, 5).text())
+                    hisob = int(self.tableWidget.item(row_index, 6).text())
+                    cur.execute("UPDATE Kitob SET qoldiq = ? WHERE id = ?", (qoldiq-soni, kitob_id))
+                    conn.commit()
+                    cur.execute("INSERT INTO TarixItem (Tarix, Kitob, soni, hisob) VALUES (?, ?, ?, ?)", (tarix_id, kitob_id, soni, hisob))
+                    conn.commit()
+        except: pass
+        self.cancel_buy()
     
     def on_line_edit_changed(self):
         # Start the timer when the text in the line edit changes
@@ -166,59 +169,63 @@ class window(QMainWindow, Ui_MainWindow):
         self.pushButton_4.clicked.connect(self.clicked_new_book)
     
     def clicked_export_book(self):
-        query = "SELECT * FROM Kitob"
-        df = pd.read_sql_query(query, conn)
+        try:
+            query = "SELECT * FROM Kitob"
+            df = pd.read_sql_query(query, conn)
 
-        file_dialog = QFileDialog()
-        file_path, _ = file_dialog.getSaveFileName(self, 'Save Excel File', '', 'Excel Files (*.xlsx)')
+            file_dialog = QFileDialog()
+            file_path, _ = file_dialog.getSaveFileName(self, 'Save Excel File', '', 'Excel Files (*.xlsx)')
 
-        if file_path:
-            # Create a workbook and add a worksheet
-            workbook = Workbook()
-            worksheet = workbook.active
+            if file_path:
+                # Create a workbook and add a worksheet
+                workbook = Workbook()
+                worksheet = workbook.active
 
-            # Customize the header row
-            header_row = df.columns
-            for col_num, value in enumerate(header_row, 1):
-                cell = worksheet.cell(row=1, column=col_num, value=value.title() if type(value)==str else value)
-                cell.font = Font(size=20, bold=True)
+                # Customize the header row
+                header_row = df.columns
+                for col_num, value in enumerate(header_row, 1):
+                    cell = worksheet.cell(row=1, column=col_num, value=value.title() if type(value)==str else value)
+                    cell.font = Font(size=20, bold=True)
 
-            # Add data to the worksheet
-            for row_num, (_, row) in enumerate(df.iterrows(), 2):
-                for col_num, value in enumerate(row, 1):
-                    worksheet.cell(row=row_num, column=col_num, value=value)
+                # Add data to the worksheet
+                for row_num, (_, row) in enumerate(df.iterrows(), 2):
+                    for col_num, value in enumerate(row, 1):
+                        worksheet.cell(row=row_num, column=col_num, value=value)
 
-            # Save the workbook to the specified file path
-            workbook.save(file_path)
+                # Save the workbook to the specified file path
+                workbook.save(file_path)
+        except: pass
 
     def clicked_new_book(self):
-        file_dialog = QFileDialog()
-        file_path, _ = file_dialog.getOpenFileName(self, 'Excel fileni tanlang', '', 'Excel Files (*.xlsx *.xls)')
+        try:
+            file_dialog = QFileDialog()
+            file_path, _ = file_dialog.getOpenFileName(self, 'Excel fileni tanlang', '', 'Excel Files (*.xlsx *.xls)')
 
-        if file_path:
-            # Assuming the Excel file has a sheet named 'Sheet1'
-            df = pd.read_excel(file_path, sheet_name='Sheet1', header=None, skiprows=1)
+            if file_path:
+                # Assuming the Excel file has a sheet named 'Sheet1'
+                df = pd.read_excel(file_path, sheet_name='Sheet1', header=None, skiprows=1)
 
-            for index, row in df.iterrows():
-                # Assuming the columns are in order: id, book name, price, barcode, qoldiq
-                book_data = (row[0], row[1], row[2], row[3], row[4])
+                for index, row in df.iterrows():
+                    # Assuming the columns are in order: id, book name, price, barcode, qoldiq
+                    book_data = (row[0], row[1], row[2], row[3], row[4])
 
-                # Check if the record already exists based on book name
-                cur.execute("SELECT * FROM Kitob WHERE nomi=?", (book_data[1],))
-                existing_record = cur.fetchone()
+                    # Check if the record already exists based on book name
+                    cur.execute("SELECT * FROM Kitob WHERE nomi=?", (book_data[1],))
+                    existing_record = cur.fetchone()
 
-                if existing_record is None:
-                    # Insert the record if it doesn't exist
-                    cur.execute("INSERT INTO Kitob (nomi, narxi, barcode, qoldiq) VALUES (?, ?, ?, ?)", book_data[1:])
-                else:
-                    existing_qoldiq = existing_record[4]
-                    existing_narxi = existing_record[2]
-                    new_qoldiq = int(existing_qoldiq) + int(book_data[4])
-                    new_narxi = book_data[2]
-                    cur.execute("UPDATE Kitob SET qoldiq=?, narxi=? WHERE nomi=?", (new_qoldiq, new_narxi, book_data[1]))
+                    if existing_record is None:
+                        # Insert the record if it doesn't exist
+                        cur.execute("INSERT INTO Kitob (nomi, narxi, barcode, qoldiq) VALUES (?, ?, ?, ?)", book_data[1:])
+                    else:
+                        existing_qoldiq = existing_record[4]
+                        existing_narxi = existing_record[2]
+                        new_qoldiq = int(existing_qoldiq) + int(book_data[4])
+                        new_narxi = book_data[2]
+                        cur.execute("UPDATE Kitob SET qoldiq=?, narxi=? WHERE nomi=?", (new_qoldiq, new_narxi, book_data[1]))
 
-            conn.commit()
-            self.populate_tableWidget_4()
+                conn.commit()
+                self.populate_tableWidget_4()
+        except: pass
 
     def populate_tableWidget_4(self):
         # Clear existing data

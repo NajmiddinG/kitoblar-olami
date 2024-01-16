@@ -8,13 +8,16 @@ cur.execute("""CREATE TABLE IF NOT EXISTS Kitob (
             nomi TEXT NOT NULL,
             narxi TEXT NOT NULL,
             barcode TEXT NOT NULL,
-            qoldiq TEXT NOT NULL
+            qoldiq TEXT NOT NULL,
+            kelgan_sana DATE NOT NULL,
+            tan_narx TEXT NOT NULL,
+            pachka_narx TEXT NOT NULL
             )""")
 conn.commit()
 
 cur.execute("""CREATE TABLE IF NOT EXISTS Tarix (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            sana TEXT NOT NULL,
+            sana DATETIME NOT NULL,
             hisob INTEGER NOT NULL
             )""")
 conn.commit()

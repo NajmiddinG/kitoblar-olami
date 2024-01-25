@@ -1,5 +1,5 @@
 from main_ui import Ui_MainWindow
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QFileDialog, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QFileDialog, QLabel, QShortcut, QAction
 from PyQt5.QtCore import QTimer, pyqtSlot
 from PyQt5 import QtWidgets
 from openpyxl import Workbook
@@ -11,7 +11,7 @@ import sys, create_table as db
 from datetime import datetime, date
 from PyQt5 import QtGui
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtGui import QIcon, QColor
+from PyQt5.QtGui import QIcon, QColor, QKeySequence
 from PyQt5.QtCore import Qt, QDate
 
 conn = db.conn
@@ -40,7 +40,19 @@ class window(QMainWindow, Ui_MainWindow):
         except: pass
         self.tabWidget.tabBarClicked.connect(self.handle_tabbar_clicked)
         self.label_change()
+
+        shortcut = QKeySequence(Qt.Key_F1)
+        self.shortcut = QShortcut(shortcut, self)
+        self.shortcut.activated.connect(self.Key_F1_function)
+
+        shortcut = QKeySequence(Qt.Key_F2)
+        self.shortcut = QShortcut(shortcut, self)
+        self.shortcut.activated.connect(self.accept_buy)
+        self.Key_F1_function()
     
+    def Key_F1_function(self):
+        self.lineEdit_2.setFocus()
+
     def label_change(self):
         try:
             text = self.label_3.text()
@@ -86,6 +98,7 @@ class window(QMainWindow, Ui_MainWindow):
         try: self.tableWidget.clicked.disconnect(self.clicked_cancel)
         except: pass
         self.tableWidget.clicked.connect(self.clicked_cancel)
+        self.Key_F1_function()
 
         # Timer for the delay
         self.timer = QTimer(self)
@@ -130,12 +143,14 @@ class window(QMainWindow, Ui_MainWindow):
                 self.tableWidget.setItem(row_index, 6, QTableWidgetItem(str(narxi*count)))
 
         self.lineEdit.setText(self.spacecomma(total_amount)+" so'm")
+        self.Key_F1_function()
 
     def cancel_buy(self):
         self.tableWidget_2.setRowCount(0)
         self.tableWidget.setRowCount(0)
         self.lineEdit_2.clear()
         self.lineEdit.setText("0 so'm")
+        self.Key_F1_function()
 
     def accept_buy(self):
         try:
@@ -162,6 +177,7 @@ class window(QMainWindow, Ui_MainWindow):
                     conn.commit()
         except: pass
         self.cancel_buy()
+        self.Key_F1_function()
     
     def on_line_edit_changed(self):
         # Start the timer when the text in the line edit changes
@@ -173,18 +189,32 @@ class window(QMainWindow, Ui_MainWindow):
         # Clear the table before populating it with new data
         # self.tableWidget_2.setRowCount(0)
         if user_input:
-            # Execute your query to search the 'Kitob' table
-            query = "SELECT id, nomi, narxi, qoldiq, barcode FROM Kitob WHERE (nomi LIKE ? OR id LIKE ? OR barcode LIKE ?) AND qoldiq > 0"
-            cur.execute(query, (f'%{user_input}%', f'%{user_input}%', f'%{user_input}%'))
-            result = cur.fetchall()
-            self.display_data_in_table(result, self.tableWidget_2)
+            if len(user_input)>7 and user_input.isdigit():
+                query = "SELECT id, nomi, narxi, qoldiq, barcode FROM Kitob WHERE (barcode = ?) AND qoldiq > 0"
+                cur.execute(query, (user_input,))
+                result = cur.fetchall()
+                if len(result)==1:
+                    self.display_data_in_table(result, self.tableWidget_2)
+                    self.tableWidget_2.selectRow(0)
+                    self.add_selected_item_to_table()
+                elif len(result)>1:
+                    self.tableWidget_2.selectRow(0)
+                    self.display_data_in_table(result, self.tableWidget_2)
+            else:
+                query = "SELECT id, nomi, narxi, qoldiq, barcode FROM Kitob WHERE (nomi LIKE ? OR id LIKE ?) AND qoldiq > 0"
+                cur.execute(query, (f'%{user_input}%', f'%{user_input}%'))
+                result = cur.fetchall()
+                if len(result):
+                    self.tableWidget_2.selectRow(0)
+                    self.display_data_in_table(result, self.tableWidget_2)
 
     def add_selected_item_to_table(self):
         selected_item = self.tableWidget_2.currentRow()
         self.lineEdit_2.clear()
         if selected_item>-1:
             id = int(float(self.tableWidget_2.item(selected_item, 0).text()))
-            if not self.check_tablewidget_add(id): 
+            check = self.check_tablewidget_add(id)
+            if check==-1: 
                 row_position = self.tableWidget.rowCount()
                 self.tableWidget.insertRow(row_position)
                 cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
@@ -209,19 +239,30 @@ class window(QMainWindow, Ui_MainWindow):
                     item = self.tableWidget.item(row_position, 3)
                     item.setBackground(QColor(60, 179, 113))
                     item.setForeground(QColor(255, 255, 255))
-                    # item = self.tableWidget.item(row_position, 6)
-                    # item.setBackground(QColor(60, 179, 113))
-                    # item.setForeground(QColor(255, 255, 255))
 
                 else:
                     current_row_count = self.tableWidget.rowCount()
                     if current_row_count > 0:
                         self.tableWidget.removeRow(current_row_count - 1)
+            else:
+                cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
+                data = cur.fetchone()
+                qoldiq = int(data[4])
+                prev = int(self.tableWidget.item(check, 2).text())
+                if prev<qoldiq:
+                    self.tableWidget.setItem(check, 2, QTableWidgetItem(str(prev+1)))
+                    item = self.tableWidget.item(check, 2)
+                    item.setBackground(QColor(0, 0, 255))
+                    item.setForeground(QColor(255, 255, 255))
         # self.tableWidget_2.setRowCount(0)
+        self.Key_F1_function()
 
     def check_tablewidget_add(self, id):
-        is_present = any(self.tableWidget.item(row_index, 0).text() == str(id)
-                 for row_index in range(self.tableWidget.rowCount()))
+        is_present = -1
+        for row_index in range(self.tableWidget.rowCount()):
+            if self.tableWidget.item(row_index, 0).text() == str(id):
+                is_present=row_index
+                break
         return is_present
     
     def tab2_clicked(self):
@@ -329,10 +370,10 @@ class window(QMainWindow, Ui_MainWindow):
     def populate_tableWidget_4(self, filter=''):
         self.tableWidget_4.setRowCount(0)
         if filter:
-            query = "SELECT id, nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq, kelgan_sana FROM Kitob WHERE nomi LIKE ? OR id LIKE ? OR barcode LIKE ? ORDER BY qoldiq DESC"
+            query = "SELECT id, nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq, kelgan_sana FROM Kitob WHERE nomi LIKE ? OR id LIKE ? OR barcode LIKE ? ORDER BY CAST(qoldiq AS SIGNED) DESC"
             cur.execute(query, (f'%{filter}%', f'%{filter}%', f'%{filter}%'))
         else:
-            query = "SELECT id, nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq, kelgan_sana FROM Kitob ORDER BY qoldiq DESC"
+            query = "SELECT id, nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq, kelgan_sana FROM Kitob ORDER BY CAST(qoldiq AS SIGNED) DESC"
             cur.execute(query)
 
         data = cur.fetchall()

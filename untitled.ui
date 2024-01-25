@@ -305,7 +305,7 @@
                      </font>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Kitob qidirish&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Mahsulot qidirish&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -769,7 +769,7 @@
            <normaloff>:/image/books.png</normaloff>:/image/books.png</iconset>
          </attribute>
          <attribute name="title">
-          <string>Kitoblar</string>
+          <string>Mahsulotlar</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_11">
           <item row="0" column="0">
@@ -931,7 +931,7 @@
                  <string notr="true">background-color: rgb(31, 118, 28); color: white;</string>
                 </property>
                 <property name="text">
-                 <string> Kitoblarni yuklab olish</string>
+                 <string> Mahsulotlarni yuklab olish</string>
                 </property>
                 <property name="icon">
                  <iconset resource="icons/images.qrc">
@@ -979,7 +979,7 @@
                  <string notr="true">background-color: rgb(31, 118, 28); color: white;</string>
                 </property>
                 <property name="text">
-                 <string>  Yangi kitoblar  </string>
+                 <string>  Yangi mahsulotlar  </string>
                 </property>
                 <property name="icon">
                  <iconset resource="icons/images.qrc">

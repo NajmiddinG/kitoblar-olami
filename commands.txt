@@ -1,0 +1,2 @@
+pyinstaller --noconsole --upx-dir= --onefile main.py
+pyuic5 -x untitled.ui -o main_ui.py

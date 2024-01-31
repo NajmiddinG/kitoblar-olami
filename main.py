@@ -41,18 +41,22 @@ class window(QMainWindow, Ui_MainWindow):
         self.tabWidget.tabBarClicked.connect(self.handle_tabbar_clicked)
         self.label_change()
 
-        shortcut = QKeySequence(Qt.Key_F1)
+        shortcut = QKeySequence(Qt.Key_F3)
         self.shortcut = QShortcut(shortcut, self)
-        self.shortcut.activated.connect(self.Key_F1_function)
+        self.shortcut.activated.connect(self.Key_F3_function)
 
-        shortcut = QKeySequence(Qt.Key_F2)
+        shortcut = QKeySequence(Qt.Key_F4)
         self.shortcut = QShortcut(shortcut, self)
         self.shortcut.activated.connect(self.accept_buy)
-        self.Key_F1_function()
+        self.Key_F3_function()
     
-    def Key_F1_function(self):
+    def Key_F3_function(self):
         self.lineEdit_2.setFocus()
 
+    
+    def Key_F3_2_function(self):
+        self.lineEdit_3.setFocus()
+    
     def label_change(self):
         try:
             text = self.label_3.text()
@@ -98,7 +102,7 @@ class window(QMainWindow, Ui_MainWindow):
         try: self.tableWidget.clicked.disconnect(self.clicked_cancel)
         except: pass
         self.tableWidget.clicked.connect(self.clicked_cancel)
-        self.Key_F1_function()
+        self.Key_F3_function()
 
         # Timer for the delay
         self.timer = QTimer(self)
@@ -143,14 +147,14 @@ class window(QMainWindow, Ui_MainWindow):
                 self.tableWidget.setItem(row_index, 6, QTableWidgetItem(str(narxi*count)))
 
         self.lineEdit.setText(self.spacecomma(total_amount)+" so'm")
-        self.Key_F1_function()
+        self.Key_F3_function()
 
     def cancel_buy(self):
         self.tableWidget_2.setRowCount(0)
         self.tableWidget.setRowCount(0)
         self.lineEdit_2.clear()
         self.lineEdit.setText("0 so'm")
-        self.Key_F1_function()
+        self.Key_F3_function()
 
     def accept_buy(self):
         try:
@@ -177,7 +181,7 @@ class window(QMainWindow, Ui_MainWindow):
                     conn.commit()
         except: pass
         self.cancel_buy()
-        self.Key_F1_function()
+        self.Key_F3_function()
     
     def on_line_edit_changed(self):
         # Start the timer when the text in the line edit changes
@@ -255,7 +259,7 @@ class window(QMainWindow, Ui_MainWindow):
                     item.setBackground(QColor(0, 0, 255))
                     item.setForeground(QColor(255, 255, 255))
         # self.tableWidget_2.setRowCount(0)
-        self.Key_F1_function()
+        self.Key_F3_function()
 
     def check_tablewidget_add(self, id):
         is_present = -1
@@ -286,6 +290,7 @@ class window(QMainWindow, Ui_MainWindow):
         self.timer = QTimer(self)
         self.timer.setSingleShot(True)
         self.timer.timeout.connect(self.search_database_2)
+        self.Key_F3_2_function()
     
     def search_database_2(self):
         user_input = self.lineEdit_3.text()
@@ -293,6 +298,7 @@ class window(QMainWindow, Ui_MainWindow):
             self.tableWidget_4.setRowCount(0)
             self.populate_tableWidget_4(filter=user_input)
         else: self.populate_tableWidget_4()
+        self.Key_F3_2_function()
 
     def clicked_export_book(self):
         try:
@@ -320,6 +326,7 @@ class window(QMainWindow, Ui_MainWindow):
                 # Save the workbook to the specified file path
                 workbook.save(file_path)
         except: pass
+        self.Key_F3_2_function()
 
     def clicked_new_book(self):
         try:
@@ -359,6 +366,7 @@ class window(QMainWindow, Ui_MainWindow):
                 conn.commit()
                 self.populate_tableWidget_4()
         except: pass
+        self.Key_F3_2_function()
 
     def spacecomma(self, value):
         s_text = ''
@@ -394,6 +402,7 @@ class window(QMainWindow, Ui_MainWindow):
             for j in range(self.tableWidget_4.columnCount()):
                 item = QTableWidgetItem("")
                 self.tableWidget_4.setItem(i, j, item)
+        self.Key_F3_2_function()
 
     def save_tableWidget_data_to_database(self):
         # Iterate through rows in tableWidget_4
@@ -446,6 +455,7 @@ class window(QMainWindow, Ui_MainWindow):
                 cur.execute("DELETE FROM Kitob WHERE id=?", (id,))
                 conn.commit()
         self.populate_tableWidget_4()
+        self.Key_F3_2_function()
 
     def tab3_clicked(self):
         # Date

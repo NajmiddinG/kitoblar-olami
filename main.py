@@ -141,7 +141,8 @@ class window(QMainWindow, Ui_MainWindow):
             if 0 <= item.row() < self.tableWidget.rowCount():
                 self.tableWidget.removeRow(item.row())
             else:
-                print(f"Invalid row index: {item.row()}")
+                # print(f"Invalid row index: {item.row()}")
+                pass
             self.calculate()
 
     def handle_item_changed(self, item):

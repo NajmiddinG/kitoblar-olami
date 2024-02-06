@@ -6,17 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>996</width>
-    <height>829</height>
+    <width>892</width>
+    <height>831</height>
    </rect>
   </property>
   <property name="font">
    <font>
-    <pointsize>10</pointsize>
+    <family>Times New Roman</family>
    </font>
-  </property>
-  <property name="acceptDrops">
-   <bool>false</bool>
   </property>
   <property name="windowTitle">
    <string>Diamond books</string>
@@ -25,25 +22,13 @@
    <iconset resource="icons/images.qrc">
     <normaloff>:/image/logo.jpg</normaloff>:/image/logo.jpg</iconset>
   </property>
-  <property name="windowOpacity">
-   <double>1.000000000000000</double>
-  </property>
-  <property name="toolTipDuration">
-   <number>-1</number>
-  </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(25, 25, 50); color: white;</string>
   </property>
-  <property name="iconSize">
-   <size>
-    <width>30</width>
-    <height>30</height>
-   </size>
-  </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_10">
+   <layout class="QGridLayout" name="gridLayout_20">
     <item row="0" column="0">
-     <layout class="QGridLayout" name="gridLayout_1" columnstretch="0" columnminimumwidth="0">
+     <layout class="QGridLayout" name="gridLayout_6" columnstretch="0" columnminimumwidth="0">
       <item row="1" column="0">
        <widget class="QTabWidget" name="tabWidget">
         <property name="font">
@@ -71,89 +56,21 @@
           <height>24</height>
          </size>
         </property>
-        <widget class="QWidget" name="tab1">
+        <widget class="QWidget" name="tab1_2">
          <attribute name="icon">
           <iconset resource="icons/images.qrc">
            <normaloff>:/image/main..png</normaloff>:/image/main..png</iconset>
          </attribute>
          <attribute name="title">
-          <string>Asosiy oyna</string>
+          <string>Sotuv</string>
          </attribute>
-         <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
-           <layout class="QGridLayout" name="gridLayout_3" columnstretch="3,5">
+           <layout class="QGridLayout" name="gridLayout_7" columnstretch="3,5">
             <item row="0" column="0">
-             <layout class="QGridLayout" name="gridLayout">
+             <layout class="QGridLayout" name="gridLayout_10">
               <item row="0" column="0">
-               <layout class="QGridLayout" name="gridLayout_9">
-                <item row="2" column="0">
-                 <widget class="QLineEdit" name="lineEdit">
-                  <property name="font">
-                   <font>
-                    <family>Times New Roman</family>
-                    <pointsize>20</pointsize>
-                    <stylestrategy>PreferDefault</stylestrategy>
-                   </font>
-                  </property>
-                  <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="whatsThis">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;sd&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="layoutDirection">
-                   <enum>Qt::LeftToRight</enum>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string>0 so'm</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0">
-                 <spacer name="verticalSpacer_2">
-                  <property name="font">
-                   <font>
-                    <family>Times New Roman</family>
-                    <pointsize>14</pointsize>
-                    <stylestrategy>PreferDefault</stylestrategy>
-                   </font>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Expanding</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="5" column="0">
-                 <widget class="QLabel" name="label_9">
-                  <property name="font">
-                   <font>
-                    <pointsize>14</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>F3 qidirishni boshlash
-F4 sotish tugmasini bajarish</string>
-                  </property>
-                 </widget>
-                </item>
+               <layout class="QGridLayout" name="gridLayout_13">
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_2">
                   <property name="minimumSize">
@@ -180,117 +97,31 @@ F4 sotish tugmasini bajarish</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0">
-                 <layout class="QGridLayout" name="gridLayout_4">
-                  <item row="0" column="1">
-                   <widget class="QPushButton" name="pushButton_2">
-                    <property name="font">
-                     <font>
-                      <family>Times New Roman</family>
-                      <pointsize>14</pointsize>
-                      <weight>50</weight>
-                      <bold>false</bold>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(31, 118, 28); color: white;</string>
-                    </property>
-                    <property name="text">
-                     <string>Sotish</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="4">
-                   <spacer name="horizontalSpacer_5">
-                    <property name="font">
-                     <font>
-                      <family>Times New Roman</family>
-                      <pointsize>14</pointsize>
-                      <stylestrategy>PreferDefault</stylestrategy>
-                     </font>
-                    </property>
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                     <enum>QSizePolicy::Expanding</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="0" column="3">
-                   <widget class="QPushButton" name="pushButton">
-                    <property name="font">
-                     <font>
-                      <family>Times New Roman</family>
-                      <pointsize>14</pointsize>
-                      <underline>false</underline>
-                      <strikeout>false</strikeout>
-                     </font>
-                    </property>
-                    <property name="cursor">
-                     <cursorShape>ArrowCursor</cursorShape>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(160, 20, 20); color: white;</string>
-                    </property>
-                    <property name="text">
-                     <string>Bekor qilish</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="2">
-                   <spacer name="horizontalSpacer">
-                    <property name="font">
-                     <font>
-                      <family>Times New Roman</family>
-                      <pointsize>14</pointsize>
-                      <stylestrategy>PreferDefault</stylestrategy>
-                     </font>
-                    </property>
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="0" column="0">
-                   <spacer name="horizontalSpacer_4">
-                    <property name="font">
-                     <font>
-                      <family>Times New Roman</family>
-                      <pointsize>14</pointsize>
-                      <stylestrategy>PreferDefault</stylestrategy>
-                     </font>
-                    </property>
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                     <enum>QSizePolicy::Expanding</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
+                <item row="4" column="0">
+                 <spacer name="verticalSpacer_3">
+                  <property name="font">
+                   <font>
+                    <family>Times New Roman</family>
+                    <pointsize>14</pointsize>
+                    <stylestrategy>PreferDefault</stylestrategy>
+                   </font>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Expanding</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                 <item row="0" column="0">
-                 <layout class="QGridLayout" name="gridLayout_5">
+                 <layout class="QGridLayout" name="gridLayout_14">
                   <item row="2" column="0">
                    <widget class="QLineEdit" name="lineEdit_2">
                     <property name="font">
@@ -454,9 +285,9 @@ F4 sotish tugmasini bajarish</string>
                    </widget>
                   </item>
                   <item row="4" column="0">
-                   <layout class="QHBoxLayout" name="horizontalLayout_2">
+                   <layout class="QHBoxLayout" name="horizontalLayout_6">
                     <item>
-                     <spacer name="horizontalSpacer_7">
+                     <spacer name="horizontalSpacer_14">
                       <property name="font">
                        <font>
                         <family>Times New Roman</family>
@@ -487,6 +318,7 @@ F4 sotish tugmasini bajarish</string>
                        <font>
                         <family>Times New Roman</family>
                         <pointsize>14</pointsize>
+                        <stylestrategy>PreferDefault</stylestrategy>
                        </font>
                       </property>
                       <property name="styleSheet">
@@ -498,7 +330,7 @@ F4 sotish tugmasini bajarish</string>
                      </widget>
                     </item>
                     <item>
-                     <spacer name="horizontalSpacer_6">
+                     <spacer name="horizontalSpacer_16">
                       <property name="font">
                        <font>
                         <family>Times New Roman</family>
@@ -521,18 +353,164 @@ F4 sotish tugmasini bajarish</string>
                   </item>
                  </layout>
                 </item>
+                <item row="2" column="0">
+                 <widget class="QLineEdit" name="lineEdit">
+                  <property name="font">
+                   <font>
+                    <family>Times New Roman</family>
+                    <pointsize>20</pointsize>
+                    <stylestrategy>PreferDefault</stylestrategy>
+                   </font>
+                  </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::StrongFocus</enum>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;sd&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string>0 so'm</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <layout class="QGridLayout" name="gridLayout_15">
+                  <item row="0" column="1">
+                   <widget class="QPushButton" name="pushButton_2">
+                    <property name="font">
+                     <font>
+                      <family>Times New Roman</family>
+                      <pointsize>14</pointsize>
+                      <weight>50</weight>
+                      <bold>false</bold>
+                      <stylestrategy>PreferDefault</stylestrategy>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(31, 118, 28); color: white;</string>
+                    </property>
+                    <property name="text">
+                     <string>Sotish</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="4">
+                   <spacer name="horizontalSpacer_17">
+                    <property name="font">
+                     <font>
+                      <family>Times New Roman</family>
+                      <pointsize>14</pointsize>
+                      <stylestrategy>PreferDefault</stylestrategy>
+                     </font>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Expanding</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="0" column="3">
+                   <widget class="QPushButton" name="pushButton">
+                    <property name="font">
+                     <font>
+                      <family>Times New Roman</family>
+                      <pointsize>14</pointsize>
+                      <underline>false</underline>
+                      <strikeout>false</strikeout>
+                      <stylestrategy>PreferDefault</stylestrategy>
+                     </font>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>ArrowCursor</cursorShape>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(160, 20, 20); color: white;</string>
+                    </property>
+                    <property name="text">
+                     <string>Bekor qilish</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="2">
+                   <spacer name="horizontalSpacer_18">
+                    <property name="font">
+                     <font>
+                      <family>Times New Roman</family>
+                      <pointsize>14</pointsize>
+                      <stylestrategy>PreferDefault</stylestrategy>
+                     </font>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Minimum</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="0" column="0">
+                   <spacer name="horizontalSpacer_19">
+                    <property name="font">
+                     <font>
+                      <family>Times New Roman</family>
+                      <pointsize>14</pointsize>
+                      <stylestrategy>PreferDefault</stylestrategy>
+                     </font>
+                    </property>
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Expanding</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
                </layout>
               </item>
              </layout>
             </item>
             <item row="0" column="1">
-             <layout class="QGridLayout" name="gridLayout_2">
+             <layout class="QGridLayout" name="gridLayout_16">
               <item row="1" column="0">
-               <layout class="QVBoxLayout" name="verticalLayout">
+               <layout class="QVBoxLayout" name="verticalLayout_2">
                 <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <layout class="QHBoxLayout" name="horizontalLayout_9">
                   <item>
-                   <spacer name="horizontalSpacer_11">
+                   <spacer name="horizontalSpacer_20">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -565,6 +543,7 @@ F4 sotish tugmasini bajarish</string>
                      <font>
                       <family>Times New Roman</family>
                       <pointsize>25</pointsize>
+                      <stylestrategy>PreferDefault</stylestrategy>
                      </font>
                     </property>
                     <property name="tabletTracking">
@@ -594,7 +573,111 @@ F4 sotish tugmasini bajarish</string>
                    </widget>
                   </item>
                   <item>
-                   <spacer name="horizontalSpacer_12">
+                   <spacer name="horizontalSpacer_21">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout">
+                  <item>
+                   <widget class="QComboBox" name="comboBox_2">
+                    <property name="minimumSize">
+                     <size>
+                      <width>200</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>200</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Times New Roman</family>
+                      <pointsize>16</pointsize>
+                      <weight>50</weight>
+                      <bold>false</bold>
+                      <stylestrategy>PreferDefault</stylestrategy>
+                     </font>
+                    </property>
+                    <property name="contextMenuPolicy">
+                     <enum>Qt::NoContextMenu</enum>
+                    </property>
+                    <property name="acceptDrops">
+                     <bool>false</bool>
+                    </property>
+                    <property name="editable">
+                     <bool>false</bool>
+                    </property>
+                    <property name="insertPolicy">
+                     <enum>QComboBox::InsertBeforeCurrent</enum>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>Sotuv 1</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_10">
+                    <property name="maximumSize">
+                     <size>
+                      <width>30</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Times New Roman</family>
+                      <pointsize>14</pointsize>
+                      <stylestrategy>PreferDefault</stylestrategy>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color:rgb(31, 118, 28); color: white;</string>
+                    </property>
+                    <property name="text">
+                     <string>+</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="pushButton_8">
+                    <property name="maximumSize">
+                     <size>
+                      <width>30</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Times New Roman</family>
+                      <pointsize>14</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">background-color:red; color: white;</string>
+                    </property>
+                    <property name="text">
+                     <string>-</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
                     </property>
@@ -776,7 +859,7 @@ F4 sotish tugmasini bajarish</string>
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab2">
+        <widget class="QWidget" name="tab2_2">
          <attribute name="icon">
           <iconset resource="icons/images.qrc">
            <normaloff>:/image/books.png</normaloff>:/image/books.png</iconset>
@@ -784,9 +867,9 @@ F4 sotish tugmasini bajarish</string>
          <attribute name="title">
           <string>Mahsulotlar</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_11">
+         <layout class="QGridLayout" name="gridLayout_17">
           <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout_8">
+           <layout class="QGridLayout" name="gridLayout_18">
             <item row="2" column="1">
              <widget class="QTableWidget" name="tableWidget_4">
               <property name="font">
@@ -927,7 +1010,7 @@ F4 sotish tugmasini bajarish</string>
              </widget>
             </item>
             <item row="1" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <layout class="QHBoxLayout" name="horizontalLayout_10">
               <item>
                <widget class="QPushButton" name="pushButton_6">
                 <property name="font">
@@ -959,7 +1042,7 @@ F4 sotish tugmasini bajarish</string>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_8">
+               <spacer name="horizontalSpacer_22">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1007,7 +1090,7 @@ F4 sotish tugmasini bajarish</string>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_3">
+               <spacer name="horizontalSpacer_23">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1030,6 +1113,7 @@ F4 sotish tugmasini bajarish</string>
                   <pointsize>14</pointsize>
                   <weight>50</weight>
                   <bold>false</bold>
+                  <stylestrategy>PreferDefault</stylestrategy>
                  </font>
                 </property>
                 <property name="styleSheet">
@@ -1041,7 +1125,7 @@ F4 sotish tugmasini bajarish</string>
                </widget>
               </item>
               <item>
-               <spacer name="horizontalSpacer_9">
+               <spacer name="horizontalSpacer_24">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1054,7 +1138,7 @@ F4 sotish tugmasini bajarish</string>
                </spacer>
               </item>
               <item>
-               <spacer name="horizontalSpacer_10">
+               <spacer name="horizontalSpacer_25">
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
@@ -1078,6 +1162,7 @@ F4 sotish tugmasini bajarish</string>
                  <font>
                   <family>Times New Roman</family>
                   <pointsize>14</pointsize>
+                  <stylestrategy>PreferDefault</stylestrategy>
                  </font>
                 </property>
                 <property name="alignment">
@@ -1098,6 +1183,7 @@ F4 sotish tugmasini bajarish</string>
              <font>
               <family>Times New Roman</family>
               <pointsize>14</pointsize>
+              <stylestrategy>PreferDefault</stylestrategy>
              </font>
             </property>
             <property name="text">
@@ -1107,7 +1193,7 @@ F4 sotish tugmasini bajarish</string>
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="tab3">
+        <widget class="QWidget" name="tab3_2">
          <attribute name="icon">
           <iconset resource="icons/images.qrc">
            <normaloff>:/image/history.png</normaloff>:/image/history.png</iconset>
@@ -1115,9 +1201,9 @@ F4 sotish tugmasini bajarish</string>
          <attribute name="title">
           <string>Tarix</string>
          </attribute>
-         <layout class="QGridLayout" name="gridLayout_12">
+         <layout class="QGridLayout" name="gridLayout_19">
           <item row="5" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout" stretch="7,10">
+           <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="7,10">
             <item>
              <widget class="QTableWidget" name="tableWidget_5">
               <property name="font">
@@ -1258,13 +1344,14 @@ F4 sotish tugmasini bajarish</string>
            </layout>
           </item>
           <item row="1" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <layout class="QHBoxLayout" name="horizontalLayout_12">
             <item>
              <widget class="QLabel" name="label_6">
               <property name="font">
                <font>
                 <family>Times New Roman</family>
                 <pointsize>14</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
                </font>
               </property>
               <property name="text">
@@ -1278,6 +1365,7 @@ F4 sotish tugmasini bajarish</string>
                <font>
                 <family>Times New Roman</family>
                 <pointsize>14</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
                </font>
               </property>
              </widget>
@@ -1288,6 +1376,7 @@ F4 sotish tugmasini bajarish</string>
                <font>
                 <family>Times New Roman</family>
                 <pointsize>14</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
                </font>
               </property>
               <property name="text">
@@ -1301,6 +1390,7 @@ F4 sotish tugmasini bajarish</string>
                <font>
                 <family>Times New Roman</family>
                 <pointsize>14</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
                </font>
               </property>
              </widget>
@@ -1311,6 +1401,7 @@ F4 sotish tugmasini bajarish</string>
                <font>
                 <family>Times New Roman</family>
                 <pointsize>14</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
                </font>
               </property>
               <property name="text">
@@ -1324,6 +1415,7 @@ F4 sotish tugmasini bajarish</string>
                <font>
                 <family>Times New Roman</family>
                 <pointsize>14</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
                </font>
               </property>
               <property name="styleSheet">
@@ -1335,10 +1427,12 @@ F4 sotish tugmasini bajarish</string>
              </widget>
             </item>
             <item>
-             <spacer name="horizontalSpacer_2">
+             <spacer name="horizontalSpacer_26">
               <property name="font">
                <font>
                 <family>Times New Roman</family>
+                <pointsize>16</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
                </font>
               </property>
               <property name="orientation">
@@ -1360,6 +1454,7 @@ F4 sotish tugmasini bajarish</string>
              <font>
               <family>Times New Roman</family>
               <pointsize>14</pointsize>
+              <stylestrategy>PreferDefault</stylestrategy>
              </font>
             </property>
             <property name="text">
@@ -1397,7 +1492,73 @@ F4 sotish tugmasini bajarish</string>
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>892</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuasassas">
+    <property name="title">
+     <string>Funksiyalar</string>
+    </property>
+    <addaction name="actionasdasasdasd"/>
+    <addaction name="actionasdasdas"/>
+    <addaction name="separator"/>
+    <addaction name="actionKattalashtirish_2"/>
+    <addaction name="actionKichiklashtirish_2"/>
+   </widget>
+   <addaction name="menuasassas"/>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionasdasasdasd">
+   <property name="text">
+    <string>Qidirish                  F3</string>
+   </property>
+  </action>
+  <action name="actionasdasdas">
+   <property name="text">
+    <string>Sotish                     F4</string>
+   </property>
+  </action>
+  <action name="actiondasda">
+   <property name="text">
+    <string>Kichiklashtirish</string>
+   </property>
+  </action>
+  <action name="actionsdas">
+   <property name="text">
+    <string>sdas</string>
+   </property>
+  </action>
+  <action name="actionKattalashtirish">
+   <property name="text">
+    <string>Kattalashtirish </string>
+   </property>
+  </action>
+  <action name="actionKichiklashtirish">
+   <property name="text">
+    <string>Kichiklashtirish</string>
+   </property>
+  </action>
+  <action name="actionKattalashtirish_2">
+   <property name="text">
+    <string>Kattalashtirish            F5</string>
+   </property>
+  </action>
+  <action name="actionKichiklashtirish_2">
+   <property name="text">
+    <string>Kichiklashtirish           F6</string>
+   </property>
+  </action>
+  <action name="actionsssss">
+   <property name="text">
+    <string>sssss</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="icons/images.qrc"/>

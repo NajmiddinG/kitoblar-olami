@@ -34,12 +34,27 @@ class window(QMainWindow, Ui_MainWindow):
         tableResizeMode(self.tableWidget_3)
         tableResizeMode(self.tableWidget_4)
         tableResizeMode(self.tableWidget_5)
+        self.sotuv = {} # Dictionary tartib name: (List(book id, number))
+        self.curr_sotuv = "Sotuv 1"
         self.setCentralWidget(self.tabWidget)
         self.handle_tabbar_clicked(0)
         try: self.tabWidget.tabBarClicked.disconnect(self.handle_tabbar_clicked)
         except: pass
         self.tabWidget.tabBarClicked.connect(self.handle_tabbar_clicked)
         self.label_change()
+        qmenu = self.menuBar()
+        qmenu.setStyleSheet("""
+            QMenuBar::item:selected {
+            background-color: blue;
+            color: white;
+        }
+            QMenuBar::item {
+            border: 1px solid blue;
+            padding: 5px;
+        }
+        """)
+        # qmenu.action
+
 
         shortcut = QKeySequence(Qt.Key_F3)
         self.shortcut = QShortcut(shortcut, self)
@@ -90,6 +105,9 @@ class window(QMainWindow, Ui_MainWindow):
         try: self.pushButton_5.clicked.disconnect(self.add_selected_item_to_table)
         except: pass
         self.pushButton_5.clicked.connect(self.add_selected_item_to_table)
+        try: self.pushButton_10.clicked.disconnect(self.add_selected_item_to_new_table)
+        except: pass
+        self.pushButton_10.clicked.connect(self.add_selected_item_to_new_table)
         try: self.pushButton_2.clicked.disconnect(self.accept_buy)
         except: pass
         self.pushButton_2.clicked.connect(self.accept_buy)
@@ -102,6 +120,12 @@ class window(QMainWindow, Ui_MainWindow):
         try: self.tableWidget.clicked.disconnect(self.clicked_cancel)
         except: pass
         self.tableWidget.clicked.connect(self.clicked_cancel)
+        try: self.comboBox_2.currentIndexChanged.disconnect(self.sell_combo_control)
+        except: pass
+        self.comboBox_2.currentIndexChanged.connect(self.sell_combo_control)
+        try: self.pushButton_8.clicked.disconnect(self.sotuv_table_remove)
+        except: pass
+        self.pushButton_8.clicked.connect(self.sotuv_table_remove)
         self.Key_F3_function()
 
         # Timer for the delay
@@ -211,6 +235,154 @@ class window(QMainWindow, Ui_MainWindow):
                 if len(result):
                     self.tableWidget_2.selectRow(0)
                     self.display_data_in_table(result, self.tableWidget_2)
+
+    def sotuv_table_remove(self):
+        try: self.pushButton_8.clicked.disconnect(self.sotuv_table_remove)
+        except: pass
+        try:
+            curr_combo = self.comboBox_2.currentIndex()
+            curr_combo_text = self.comboBox_2.currentText()
+            
+            if self.comboBox_2.count()!=1:
+
+                try: del self.sotuv[curr_combo_text]
+                except: pass
+                a = -1
+                self.comboBox_2.clear()
+                for key in self.sotuv.keys():
+                    if self.sotuv[key]:
+                        self.comboBox_2.addItem(key)
+                        a+=1
+                if a==-1:
+                    self.comboBox_2.addItem('Sotuv 1')
+                    self.curr_sotuv = 'Sotuv 1'
+                else:
+                    self.comboBox_2.setCurrentIndex(a)
+                    self.curr_sotuv = self.comboBox_2.currentText()
+        except: pass
+        self.tableWidget.setRowCount(0)
+        try:
+            curr_sell = self.sotuv[self.comboBox_2.currentText()]
+        except: return
+        for id, number in curr_sell:
+            check = self.check_tablewidget_add(id)
+            if check==-1: 
+                row_position = self.tableWidget.rowCount()
+                self.tableWidget.insertRow(row_position)
+                cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
+                data = cur.fetchone()
+                if int(float(data[4])):
+                    for col_num, col_data in enumerate(data):
+                        item = QTableWidgetItem(str(col_data))
+                        if col_num>1: col_num+=1
+                        self.tableWidget.setItem(row_position, col_num, item)
+                    self.tableWidget.setItem(row_position, 2, QTableWidgetItem(str(number)))
+                    column_position = 7
+                    item = QTableWidgetItem('Bekor qilish')
+                    background_color = QColor(160, 20, 20)
+                    color = QColor(255, 255, 255)
+                    item.setBackground(background_color)
+                    item.setForeground(color)
+                    item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+                    self.tableWidget.setItem(row_position, column_position, item)
+                    item = self.tableWidget.item(row_position, 2)
+                    item.setBackground(QColor(0, 0, 255))
+                    item.setForeground(QColor(255, 255, 255))
+                    item = self.tableWidget.item(row_position, 3)
+                    item.setBackground(QColor(60, 179, 113))
+                    item.setForeground(QColor(255, 255, 255))
+
+                else:
+                    current_row_count = self.tableWidget.rowCount()
+                    if current_row_count > 0:
+                        self.tableWidget.removeRow(current_row_count - 1)
+            else:
+                cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
+                data = cur.fetchone()
+                qoldiq = int(data[4])
+                prev = int(self.tableWidget.item(check, 2).text())
+                if prev<qoldiq:
+                    self.tableWidget.setItem(check, 2, QTableWidgetItem(str(prev+1)))
+                    item = self.tableWidget.item(check, 2)
+                    item.setBackground(QColor(0, 0, 255))
+                    item.setForeground(QColor(255, 255, 255))
+        # self.tableWidget_2.setRowCount(0)
+        self.Key_F3_function()
+        self.curr_sotuv = self.comboBox_2.currentText()
+        self.pushButton_8.clicked.connect(self.sotuv_table_remove)
+    def sell_combo_control(self):
+        self.sotuv[self.curr_sotuv] = []
+        for index in range(self.tableWidget.rowCount()):
+            self.sotuv[self.curr_sotuv].append([int(self.tableWidget.item(index, 0).text()), int(self.tableWidget.item(index, 2).text())])
+        count = self.comboBox_2.count()
+        self.tableWidget.setRowCount(0)
+        try:
+            curr_sell = self.sotuv[self.comboBox_2.currentText()]
+        except: return
+        for id, number in curr_sell:
+            check = self.check_tablewidget_add(id)
+            if check==-1: 
+                row_position = self.tableWidget.rowCount()
+                self.tableWidget.insertRow(row_position)
+                cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
+                data = cur.fetchone()
+                if int(float(data[4])):
+                    for col_num, col_data in enumerate(data):
+                        item = QTableWidgetItem(str(col_data))
+                        if col_num>1: col_num+=1
+                        self.tableWidget.setItem(row_position, col_num, item)
+                    self.tableWidget.setItem(row_position, 2, QTableWidgetItem(str(number)))
+                    column_position = 7
+                    item = QTableWidgetItem('Bekor qilish')
+                    background_color = QColor(160, 20, 20)
+                    color = QColor(255, 255, 255)
+                    item.setBackground(background_color)
+                    item.setForeground(color)
+                    item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+                    self.tableWidget.setItem(row_position, column_position, item)
+                    item = self.tableWidget.item(row_position, 2)
+                    item.setBackground(QColor(0, 0, 255))
+                    item.setForeground(QColor(255, 255, 255))
+                    item = self.tableWidget.item(row_position, 3)
+                    item.setBackground(QColor(60, 179, 113))
+                    item.setForeground(QColor(255, 255, 255))
+
+                else:
+                    current_row_count = self.tableWidget.rowCount()
+                    if current_row_count > 0:
+                        self.tableWidget.removeRow(current_row_count - 1)
+            else:
+                cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
+                data = cur.fetchone()
+                qoldiq = int(data[4])
+                prev = int(self.tableWidget.item(check, 2).text())
+                if prev<qoldiq:
+                    self.tableWidget.setItem(check, 2, QTableWidgetItem(str(prev+1)))
+                    item = self.tableWidget.item(check, 2)
+                    item.setBackground(QColor(0, 0, 255))
+                    item.setForeground(QColor(255, 255, 255))
+        # self.tableWidget_2.setRowCount(0)
+        self.Key_F3_function()
+        self.curr_sotuv = self.comboBox_2.currentText()
+
+    def add_selected_item_to_new_table(self):
+        current_tartib = self.comboBox_2.currentText()
+        self.sotuv[current_tartib] = []
+        for index in range(self.tableWidget.rowCount()):
+            self.sotuv[current_tartib].append([int(self.tableWidget.item(index, 0).text()), int(self.tableWidget.item(index, 2).text())])
+        count = self.comboBox_2.count()
+        curr_combo_text = self.comboBox_2.itemText(count - 1).split()[1]
+        new_item_text = f'Sotuv {int(curr_combo_text) + 1}'
+        self.comboBox_2.addItem(new_item_text)
+
+        # Find the index of the newly added item
+        new_item_index = self.comboBox_2.findText(new_item_text)
+
+        self.comboBox_2.setCurrentIndex(new_item_index)
+        
+        self.curr_sotuv = f'Sotuv {int(curr_combo_text)+1}'
+        self.tableWidget.setRowCount(0)
+        self.add_selected_item_to_table()
 
     def add_selected_item_to_table(self):
         selected_item = self.tableWidget_2.currentRow()
@@ -389,7 +561,6 @@ class window(QMainWindow, Ui_MainWindow):
         dasmoya = 0
         self.tableWidget_4.setRowCount(num_rows_to_add)
         for row_index, row_data in enumerate(data):
-            # print(row_data)
             dasmoya += int(row_data[2])*int(row_data[6])
             for col_index, col_data in enumerate(row_data):
                 item = QTableWidgetItem(str(col_data))

@@ -33,6 +33,15 @@ cur.execute("""CREATE TABLE IF NOT EXISTS TarixItem (
             )""")
 conn.commit()
 
+# cur.execute("""CREATE TABLE IF NOT EXISTS Tartib (
+#             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             nomi TEXT NOT NULL,
+#             soni INTEGER NOT NULL,
+#             Kitob TEXT NOT NULL,
+#             FOREIGN KEY (Kitob) REFERENCES Kitob(id) ON DELETE SET NULL
+#             )""")
+# conn.commit()
+
 # cur.execute("""create table if not exists Ombor (
 #             id integer primary key autoincrement,
 #             Mahsulot integer not null,

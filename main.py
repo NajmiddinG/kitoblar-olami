@@ -1,5 +1,6 @@
 from main_ui import Ui_MainWindow
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QFileDialog, QLabel, QShortcut, QAction
+from main_ui2 import Ui_Form
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QFileDialog, QLabel, QShortcut, QAction, QDesktopWidget, QMessageBox
 from PyQt5.QtCore import QTimer, pyqtSlot
 from PyQt5 import QtWidgets
 from openpyxl import Workbook
@@ -22,7 +23,7 @@ def tableResizeMode(table):
     for i in range(header.count()):
         header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
         header.setStyleSheet("color: black;")
-
+    
 
 class window(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -34,6 +35,12 @@ class window(QMainWindow, Ui_MainWindow):
         tableResizeMode(self.tableWidget_3)
         tableResizeMode(self.tableWidget_4)
         tableResizeMode(self.tableWidget_5)
+        tableResizeMode(self.tableWidget_6)
+        tableResizeMode(self.tableWidget_7)
+        tableResizeMode(self.tableWidget_8)
+        tableResizeMode(self.tableWidget_9)
+        self.addproductwidget = None
+        self.tableWidget_2.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers)
         self.sotuv = {} # Dictionary tartib name: (List(book id, number))
         self.curr_sotuv = "Sotuv 1"
         self.setCentralWidget(self.tabWidget)
@@ -53,7 +60,29 @@ class window(QMainWindow, Ui_MainWindow):
             padding: 5px;
         }
         """)
-        # qmenu.action
+       
+        # menus
+        menubar = self.menuBar()
+        file_menu = menubar.addMenu('Funksiyalar')
+
+        # Creating QAction for each item
+        qidirish = QAction('Qidirish                  F3', self)
+        sotish = QAction('Sotish                     F4', self)
+        # big = QAction('Kattalashtirish            F5', self)
+        # small = QAction('Kichiklashtirish           F6', self)
+
+        # Connecting triggered signal of each QAction to a function
+        qidirish.triggered.connect(self.Key_F3_function)
+        sotish.triggered.connect(self.accept_buy)
+        # big.triggered.connect(self.make_big)
+        # small.triggered.connect(self.make_small)
+
+        # Adding actions to the menu
+        file_menu.addAction(qidirish)
+        file_menu.addAction(sotish)
+        # file_menu.addAction(big)
+        # file_menu.addAction(small)
+
 
 
         shortcut = QKeySequence(Qt.Key_F3)
@@ -87,21 +116,27 @@ class window(QMainWindow, Ui_MainWindow):
             pass
 
     def handle_tabbar_clicked(self, index):
-        if index==0: self.tab1_clicked()
-        elif index==1: self.tab2_clicked()
-        elif index==2: self.tab3_clicked()
+        if index==0: self.sotuv_tab()
+        if index==1: self.tovar_tab()
+        elif index==2: self.mahsulot_tab()
+        elif index==3: self.sotuv_tarix_tab()
+        elif index==4: self.tovar_tarix_tab()
         style_sheet = f"QTabBar::tab:selected {{ background-color: rgb(80, 80, 80); }}"
         self.tabWidget.setStyleSheet(style_sheet)
         self.tabWidget.setCurrentIndex(index)
     
 
-    def tab1_clicked(self):
+    def sotuv_tab(self):
         try: self.lineEdit_2.textChanged.disconnect(self.on_line_edit_changed)
         except: pass
         self.lineEdit_2.textChanged.connect(self.on_line_edit_changed)
         try: self.lineEdit_2.returnPressed.disconnect(self.scanner_returned)
         except: pass
         self.lineEdit_2.returnPressed.connect(self.scanner_returned)
+
+        try:self.tableWidget_2.cellDoubleClicked.disconnect(self.add_selected_item_to_table)
+        except: pass
+        self.tableWidget_2.cellDoubleClicked.connect(self.add_selected_item_to_table)
         try: self.pushButton_5.clicked.disconnect(self.add_selected_item_to_table)
         except: pass
         self.pushButton_5.clicked.connect(self.add_selected_item_to_table)
@@ -383,7 +418,7 @@ class window(QMainWindow, Ui_MainWindow):
         
         self.curr_sotuv = f'Sotuv {int(curr_combo_text)+1}'
         self.tableWidget.setRowCount(0)
-        self.add_selected_item_to_table()
+        # self.add_selected_item_to_table()
 
     def add_selected_item_to_table(self):
         selected_item = self.tableWidget_2.currentRow()
@@ -442,7 +477,7 @@ class window(QMainWindow, Ui_MainWindow):
                 break
         return is_present
     
-    def tab2_clicked(self):
+    def mahsulot_tab(self):
         self.populate_tableWidget_4()
         try:
             self.pushButton_3.clicked.disconnect(self.save_tableWidget_data_to_database)
@@ -629,12 +664,14 @@ class window(QMainWindow, Ui_MainWindow):
         self.populate_tableWidget_4()
         self.Key_F3_2_function()
 
-    def tab3_clicked(self):
+    def sotuv_tarix_tab(self):
         # Date
-        today = QDate.currentDate()
-        self.dateEdit.setDate(today)
         tomorrow = QDate.currentDate().addDays(1)
         self.dateEdit_2.setDate(tomorrow)
+
+        # Calculate the date 7 days back from tomorrow
+        seven_days_ago = tomorrow.addDays(-7)
+        self.dateEdit.setDate(seven_days_ago)
 
         self.show_tarix()
         try: self.tableWidget_5.itemSelectionChanged.disconnect(self.handle_tableWidget_5_selected)
@@ -644,6 +681,7 @@ class window(QMainWindow, Ui_MainWindow):
             self.pushButton_7.clicked.disconnect(self.filter_history)
         except: pass
         self.pushButton_7.clicked.connect(self.filter_history)
+        self.filter_history()
     
     def filter_history(self):
         self.tableWidget_3.setRowCount(0)
@@ -702,6 +740,344 @@ class window(QMainWindow, Ui_MainWindow):
                     table_widget.setItem(row_index, col_index, item)
         except:
             pass
+
+    def tovar_tab(self):
+        try: self.lineEdit_4.textChanged.disconnect(self.on_line_edit_changed2)
+        except: pass
+        self.lineEdit_4.textChanged.connect(self.on_line_edit_changed2)
+        try: self.lineEdit_4.returnPressed.disconnect(self.scanner_returned2)
+        except: pass
+        self.lineEdit_4.returnPressed.connect(self.scanner_returned2)
+
+        try:self.tableWidget_6.cellDoubleClicked.disconnect(self.add_selected_item_to_table2)
+        except: pass
+        self.tableWidget_6.cellDoubleClicked.connect(self.add_selected_item_to_table2)
+        try: self.pushButton_12.clicked.disconnect(self.add_selected_item_to_table2)
+        except: pass
+        self.pushButton_12.clicked.connect(self.add_selected_item_to_table2)
+        # try: self.pushButton_10.clicked.disconnect(self.add_selected_item_to_new_table)
+        # except: pass
+        # self.pushButton_10.clicked.connect(self.add_selected_item_to_new_table)
+        try: self.pushButton_11.clicked.disconnect(self.accept_buy2)
+        except: pass
+        self.pushButton_11.clicked.connect(self.accept_buy2)
+        try: self.pushButton_9.clicked.disconnect(self.cancel_buy2)
+        except: pass
+        self.pushButton_9.clicked.connect(self.cancel_buy2)
+        try: self.tableWidget_7.itemChanged.disconnect(self.handle_item_changed2)
+        except: pass
+        self.tableWidget_7.itemChanged.connect(self.handle_item_changed2)
+        try: self.tableWidget_7.clicked.disconnect(self.clicked_cancel2)
+        except: pass
+        self.tableWidget_7.clicked.connect(self.clicked_cancel2)
+        try:
+            self.pushButton_13.clicked.disconnect(self.add_new_product)
+        except: pass
+        self.pushButton_13.clicked.connect(self.add_new_product)
+        # try: self.comboBox_2.currentIndexChanged.disconnect(self.sell_combo_control)
+        # except: pass
+        # self.comboBox_2.currentIndexChanged.connect(self.sell_combo_control)
+        # try: self.pushButton_8.clicked.disconnect(self.sotuv_table_remove)
+        # except: pass
+        # self.pushButton_8.clicked.connect(self.sotuv_table_remove)
+        self.Key_F3_function2()
+
+        # Timer for the delay
+        self.timer = QTimer(self)
+        self.timer.setSingleShot(True)
+        self.timer.timeout.connect(self.search_database2)
+
+    def add_new_product(self):
+        print(23233)
+        self.addproductwidget = AddNewProduct()
+        self.addproductwidget.show()
+    
+    def store_new_product(self, product_data):
+        # Store the new product data in the database
+        cur.execute("INSERT INTO Kitob (nomi, narxi, barcode, qoldiq, kelgan_sana, tan_narx, pachka_narx) VALUES (?, ?, ?, ?, ?, ?, ?)", product_data)
+        conn.commit()
+
+
+    def Key_F3_function2(self):
+        self.lineEdit_4.setFocus()
+
+    def scanner_returned2(self):
+        scanned_text = self.lineEdit_4.text()
+
+    def clicked_cancel2(self, item):
+        if item.column() == 7:
+            if 0 <= item.row() < self.tableWidget_7.rowCount():
+                self.tableWidget_7.removeRow(item.row())
+            else:
+                # print(f"Invalid row index: {item.row()}")
+                pass
+            self.calculate2()
+
+    def handle_item_changed2(self, item):
+        # Check if the item is in column 2
+        if item.column() in [2, 3]:
+            try: self.calculate2()
+            except: self.cancel_buy2()
+
+    def calculate2(self):
+        column_index = 2
+        total_amount = 0
+
+        for row_index in range(self.tableWidget_7.rowCount()):
+            item = self.tableWidget_7.item(row_index, column_index)
+            item2 = self.tableWidget_7.item(row_index, 3)
+
+            if item is not None and item2 is not None:
+                count = int(float(item.text()))
+                narxi = int(float(item2.text()))
+                id = int(float(self.tableWidget_7.item(row_index, 0).text()))
+                cur.execute("UPDATE Kitob SET narxi = ? WHERE id = ?", (narxi, id))
+                conn.commit()
+                total_amount += narxi * count
+                self.tableWidget_7.setItem(row_index, 6, QTableWidgetItem(str(narxi*count)))
+
+        self.lineEdit_5.setText(self.spacecomma(total_amount)+" so'm")
+        self.Key_F3_function2()
+
+    def cancel_buy2(self):
+        self.tableWidget_6.setRowCount(0)
+        self.tableWidget_7.setRowCount(0)
+        self.lineEdit_5.clear()
+        self.lineEdit_5.setText("0 so'm")
+        self.Key_F3_function2()
+
+    def accept_buy2(self):
+        try:
+            rows = self.tableWidget_7.rowCount()
+            if rows:
+                current_datetime = datetime.now()
+                formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
+                tex  = self.lineEdit_5.text()
+                umumiy_hisob = ''
+                for i in tex:
+                    if i.isdigit():
+                        umumiy_hisob+=i
+                cur.execute("INSERT INTO Tovar (sana, hisob) VALUES (?, ?)", (formatted_datetime, umumiy_hisob))
+                conn.commit()
+                tarix_id = cur.lastrowid
+                for row_index in range(rows):
+                    kitob_id = int(float(self.tableWidget_7.item(row_index, 0).text()))
+                    soni = int(float(self.tableWidget_7.item(row_index, 2).text()))
+                    qoldiq = int(float(self.tableWidget_7.item(row_index, 5).text()))
+                    hisob = int(float(self.tableWidget_7.item(row_index, 6).text()))
+                    cur.execute("UPDATE Kitob SET qoldiq = ? WHERE id = ?", (qoldiq+soni, kitob_id))
+                    conn.commit()
+                    cur.execute("INSERT INTO TovarItem (Tovar, Kitob, soni, hisob) VALUES (?, ?, ?, ?)", (tarix_id, kitob_id, soni, hisob))
+                    conn.commit()
+        except: pass
+        self.cancel_buy2()
+        self.Key_F3_function2()
+    
+    def on_line_edit_changed2(self):
+        # Start the timer when the text in the line edit changes
+        self.timer.start(1000)  # 1000 milliseconds = 1 second
+
+    def search_database2(self):
+        # Perform the database query based on user input
+        user_input = self.lineEdit_4.text()
+        # Clear the table before populating it with new data
+        # self.tableWidget_6.setRowCount(0)
+        if user_input:
+            if len(user_input)>7 and user_input.isdigit():
+                query = "SELECT id, nomi, narxi, qoldiq, barcode FROM Kitob WHERE (barcode = ?)"
+                cur.execute(query, (user_input,))
+                result = cur.fetchall()
+                if len(result)==1:
+                    self.display_data_in_table2(result, self.tableWidget_6)
+                    self.tableWidget_6.selectRow(0)
+                    self.add_selected_item_to_table2()
+                elif len(result)>1:
+                    self.tableWidget_6.selectRow(0)
+                    self.display_data_in_table2(result, self.tableWidget_6)
+            else:
+                query = "SELECT id, nomi, narxi, qoldiq, barcode FROM Kitob WHERE (nomi LIKE ? OR id LIKE ?)"
+                cur.execute(query, (f'%{user_input}%', f'%{user_input}%'))
+                result = cur.fetchall()
+                if len(result):
+                    self.tableWidget_6.selectRow(0)
+                    self.display_data_in_table2(result, self.tableWidget_6)
+
+    def add_selected_item_to_table2(self):
+        selected_item = self.tableWidget_6.currentRow()
+        self.lineEdit_4.clear()
+        if selected_item>-1:
+            id = int(float(self.tableWidget_6.item(selected_item, 0).text()))
+            check = self.check_tablewidget_add2(id)
+            if check==-1:
+                row_position = self.tableWidget_7.rowCount()
+                self.tableWidget_7.insertRow(row_position)
+                cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
+                data = cur.fetchone()
+                # if int(float(data[4])):
+                for col_num, col_data in enumerate(data):
+                    item = QTableWidgetItem(str(col_data))
+                    if col_num>1: col_num+=1
+                    self.tableWidget_7.setItem(row_position, col_num, item)
+
+                self.tableWidget_7.setItem(row_position, 2, QTableWidgetItem('1'))
+                column_position = 7
+                item = QTableWidgetItem('Bekor qilish')
+                background_color = QColor(160, 20, 20)
+                color = QColor(255, 255, 255)
+                item.setBackground(background_color)
+                item.setForeground(color)
+                item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+                self.tableWidget_7.setItem(row_position, column_position, item)
+                item = self.tableWidget_7.item(row_position, 2)
+                item.setBackground(QColor(0, 0, 255))
+                item.setForeground(QColor(255, 255, 255))
+                item = self.tableWidget_7.item(row_position, 3)
+                item.setBackground(QColor(60, 179, 113))
+                item.setForeground(QColor(255, 255, 255))
+            else:
+                prev = int(self.tableWidget_7.item(check, 2).text())
+                self.tableWidget_7.setItem(check, 2, QTableWidgetItem(str(prev+1)))
+                item = self.tableWidget_7.item(check, 2)
+                item.setBackground(QColor(0, 0, 255))
+                item.setForeground(QColor(255, 255, 255))
+        # self.tableWidget_6.setRowCount(0)
+        self.Key_F3_function2()
+
+    def check_tablewidget_add2(self, id):
+        is_present = -1
+        for row_index in range(self.tableWidget_7.rowCount()):
+            if self.tableWidget_7.item(row_index, 0).text() == str(id):
+                is_present=row_index
+                break
+        return is_present
+
+    def tovar_tarix_tab(self):
+        print("Tovar tarixi tab")
+        tomorrow = QDate.currentDate().addDays(1)
+        self.dateEdit_4.setDate(tomorrow)
+
+        # Calculate the date 7 days back from tomorrow
+        seven_days_ago = tomorrow.addDays(-7)
+        self.dateEdit_3.setDate(seven_days_ago)
+
+        self.show_tarix2()
+        try: self.tableWidget_8.itemSelectionChanged.disconnect(self.handle_tableWidget_8_selected)
+        except: pass
+        self.tableWidget_8.itemSelectionChanged.connect(self.handle_tableWidget_8_selected)
+        try:
+            self.pushButton_15.clicked.disconnect(self.filter_history2)
+        except: pass
+        self.pushButton_15.clicked.connect(self.filter_history2)
+        self.filter_history2()
+    
+    def filter_history2(self):
+        self.tableWidget_9.setRowCount(0)
+        start_date = self.dateEdit_3.date().toString("yyyy-MM-dd")
+        end_date = self.dateEdit_4.date().toString("yyyy-MM-dd")
+
+        query = "SELECT * FROM Tovar WHERE sana >= ? AND sana <= ? ORDER BY sana DESC"
+        cur.execute(query, (start_date, end_date))
+        
+        tarix_data = cur.fetchall()
+        self.display_data_in_table2(tarix_data, self.tableWidget_8)
+        query_sum = "SELECT SUM(hisob) AS total_hisob FROM Tovar WHERE sana >= ? AND sana <= ?"
+        cur.execute(query_sum, (start_date, end_date))  # Replace start_date and end_date with your actual date values
+        total_hisob = cur.fetchone()[0]
+        if total_hisob is None: total_hisob=0
+        self.label_15.setText(f"Jami sotilganlar qiymati filiter bo'yicha: {self.spacecomma(total_hisob)} so'm")
+
+    def handle_tableWidget_8_selected(self):
+        self.tableWidget_9.setRowCount(0)
+        selected_items = self.tableWidget_8.selectedItems()
+        row = 0
+        for item in selected_items: row = int(float(item.row()))
+        if selected_items: self.show_table_widget_3(row)
+    
+    def show_table_widget_3(self, row):
+        try:
+            tarix_id = int(float(self.tableWidget_8.item(row, 0).text()))
+            cur.execute("""
+                SELECT TovarItem.id, Kitob.nomi, TovarItem.soni, TovarItem.hisob
+                FROM TovarItem
+                JOIN Kitob ON TovarItem.Kitob = Kitob.id
+                WHERE TovarItem.Tovar = ?
+            """, (tarix_id,))
+            data = cur.fetchall()
+            self.display_data_in_table2(data, self.tableWidget_9)
+        except:
+            pass
+
+    def show_tarix2(self):
+        cur.execute("SELECT * FROM Tovar ORDER BY sana DESC")
+        tarix_data = cur.fetchall()
+        self.display_data_in_table2(tarix_data, self.tableWidget_8)
+        cur.execute("SELECT SUM(hisob) FROM Tovar ORDER BY sana DESC")
+        total_hisob = cur.fetchone()[0]
+        if total_hisob is None: total_hisob=0
+        self.label_15.setText(f"Jami sotilganlar qiymati filiter bo'yicha: {self.spacecomma(total_hisob)} so'm")
+    
+    def display_data_in_table2(self, data, table_widget):
+        try:
+            table_widget.setRowCount(len(data))
+            table_widget.setColumnCount(len(data[0]))
+
+            for row_index, row_data in enumerate(data):
+                for col_index, col_data in enumerate(row_data):
+                    item = QTableWidgetItem(str(col_data))
+                    table_widget.setItem(row_index, col_index, item)
+        except:
+            pass
+    
+
+class AddNewProduct(QWidget, Ui_Form):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        self.center()
+        self.pushButton_11.clicked.connect(self.store_product)
+        self.pushButton_9.clicked.connect(self.close)
+        self.window = window
+
+    def center(self):
+        # Get the geometry of the screen
+        screen = QDesktopWidget().screenGeometry()
+
+        # Calculate the center point
+        x = (screen.width() - self.width()) / 2
+        y = (screen.height() - self.height()) / 2
+
+        # Move the widget to the center
+        self.move(x, y)
+    
+    def store_product(self):
+        # Get product data from UI elements
+        cur.execute("SELECT nomi FROM Kitob WHERE nomi = ?", (self.lineEdit.text(),))
+        result = cur.fetchone()
+        if result:
+            QMessageBox.information(self, "Nomdagi xatolik", "Bu nomli mahsulot mavjud.")
+        elif not self.lineEdit_3.text().isdigit():
+            QMessageBox.information(self, "Narxdagi xatolik", "Narx faqat raqamlardan iborat bo'lishi kerak.")
+        elif not self.lineEdit_4.text().isdigit():
+            QMessageBox.information(self, "Barcodedagi xatolik", "Barcode faqat raqamlardan iborat bo'lishi kerak.")
+        elif not self.lineEdit_6.text().isdigit():
+            QMessageBox.information(self, "Qoldiqdagi xatolik", "Qoldiq faqat raqamlardan iborat bo'lishi kerak.")
+        else:
+            product_data = (
+                self.lineEdit.text(),
+                self.lineEdit_3.text(),
+                self.lineEdit_4.text(),
+                self.lineEdit_6.text(),
+                date.today(),
+                self.lineEdit_3.text(),
+                self.lineEdit_3.text(),
+            )
+            self.store_new_product(product_data)
+            self.close()
+    
+    def store_new_product(self, product_data):
+        # Store the new product data in the database
+        cur.execute("INSERT INTO Kitob (nomi, narxi, barcode, qoldiq, kelgan_sana, tan_narx, pachka_narx) VALUES (?, ?, ?, ?, ?, ?, ?)", product_data)
+        conn.commit()
 
 if __name__ == "__main__":
     App = QApplication(sys.argv)

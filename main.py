@@ -176,7 +176,6 @@ class window(QMainWindow, Ui_MainWindow):
             if 0 <= item.row() < self.tableWidget.rowCount():
                 self.tableWidget.removeRow(item.row())
             else:
-                # print(f"Invalid row index: {item.row()}")
                 pass
             self.calculate()
 
@@ -788,7 +787,6 @@ class window(QMainWindow, Ui_MainWindow):
         self.timer.timeout.connect(self.search_database2)
 
     def add_new_product(self):
-        print(23233)
         self.addproductwidget = AddNewProduct()
         self.addproductwidget.show()
     
@@ -809,7 +807,6 @@ class window(QMainWindow, Ui_MainWindow):
             if 0 <= item.row() < self.tableWidget_7.rowCount():
                 self.tableWidget_7.removeRow(item.row())
             else:
-                # print(f"Invalid row index: {item.row()}")
                 pass
             self.calculate2()
 
@@ -952,7 +949,6 @@ class window(QMainWindow, Ui_MainWindow):
         return is_present
 
     def tovar_tarix_tab(self):
-        print("Tovar tarixi tab")
         tomorrow = QDate.currentDate().addDays(1)
         self.dateEdit_4.setDate(tomorrow)
 
@@ -991,9 +987,9 @@ class window(QMainWindow, Ui_MainWindow):
         selected_items = self.tableWidget_8.selectedItems()
         row = 0
         for item in selected_items: row = int(float(item.row()))
-        if selected_items: self.show_table_widget_3(row)
+        if selected_items: self.show_table_widget_8_tovar(row)
     
-    def show_table_widget_3(self, row):
+    def show_table_widget_8_tovar(self, row):
         try:
             tarix_id = int(float(self.tableWidget_8.item(row, 0).text()))
             cur.execute("""

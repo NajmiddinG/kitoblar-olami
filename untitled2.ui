@@ -10,8 +10,17 @@
     <height>369</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Times New Roman</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Yangi mahsulot</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="icons/images.qrc">
+    <normaloff>:/image/plus.png</normaloff>:/image/plus.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(25, 25, 50); color: white;</string>
@@ -369,6 +378,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="icons/images.qrc"/>
+ </resources>
  <connections/>
 </ui>

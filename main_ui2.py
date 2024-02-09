@@ -15,6 +15,12 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(419, 369)
+        font = QtGui.QFont()
+        font.setFamily("Times New Roman")
+        Form.setFont(font)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/image/plus.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Form.setWindowIcon(icon)
         Form.setStyleSheet("background-color: rgb(25, 25, 50); color: white;")
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -190,6 +196,7 @@ class Ui_Form(object):
         self.lineEdit_6.setPlaceholderText(_translate("Form", "Qoldiq"))
         self.pushButton_9.setText(_translate("Form", "Bekor qilish"))
         self.pushButton_11.setText(_translate("Form", "Saqlash"))
+import images_rc
 
 
 if __name__ == "__main__":

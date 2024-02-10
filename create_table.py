@@ -42,10 +42,22 @@ try:
 
     cur.execute("""CREATE TABLE IF NOT EXISTS Tovar (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                kimdan TEXT,
                 sana DATETIME NOT NULL,
                 hisob INTEGER NOT NULL
                 )""")
     conn.commit()
+
+    cur.execute("PRAGMA table_info(Tovar)")
+    columns = cur.fetchall()
+    column_names = [col[1] for col in columns]
+
+    if 'kimdan' not in column_names:
+        cur.execute("ALTER TABLE Tovar ADD COLUMN kimdan TEXT")
+        conn.commit()
+        print('\033[92m' + "Added 'kimdan' column to Tovar table"+ '\033[0m')
+    else:
+        print('\033[92m' + "The 'kimdan' column already exists in Tovar table"+ '\033[0m')
 
     cur.execute("""CREATE TABLE IF NOT EXISTS TovarItem (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,

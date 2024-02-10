@@ -693,7 +693,7 @@
                    <number>0</number>
                   </property>
                   <attribute name="horizontalHeaderVisible">
-                   <bool>false</bool>
+                   <bool>true</bool>
                   </attribute>
                   <attribute name="horizontalHeaderCascadingSectionResizes">
                    <bool>false</bool>
@@ -717,17 +717,10 @@
                    <property name="font">
                     <font>
                      <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>14</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
-                   </property>
-                   <property name="background">
-                    <color>
-                     <red>255</red>
-                     <green>255</green>
-                     <blue>255</blue>
-                    </color>
                    </property>
                   </column>
                   <column>
@@ -737,7 +730,7 @@
                    <property name="font">
                     <font>
                      <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>14</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -750,7 +743,7 @@
                    <property name="font">
                     <font>
                      <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>14</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -763,7 +756,7 @@
                    <property name="font">
                     <font>
                      <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>14</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -776,7 +769,7 @@
                    <property name="font">
                     <font>
                      <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>14</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -789,7 +782,7 @@
                    <property name="font">
                     <font>
                      <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>14</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -802,7 +795,7 @@
                    <property name="font">
                     <font>
                      <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>14</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
@@ -815,17 +808,10 @@
                    <property name="font">
                     <font>
                      <family>Times New Roman</family>
-                     <pointsize>12</pointsize>
+                     <pointsize>14</pointsize>
                      <weight>75</weight>
                      <bold>true</bold>
                     </font>
-                   </property>
-                   <property name="background">
-                    <color>
-                     <red>255</red>
-                     <green>255</green>
-                     <blue>255</blue>
-                    </color>
                    </property>
                   </column>
                  </widget>
@@ -848,7 +834,7 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout">
           <item row="0" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,5">
+           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,2">
             <item>
              <layout class="QGridLayout" name="gridLayout_5">
               <item row="4" column="0">
@@ -1196,7 +1182,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_13">
+                 <widget class="QLineEdit" name="lineEdit_6">
                   <property name="maximumSize">
                    <size>
                     <width>300</width>
@@ -1207,14 +1193,13 @@
                    <font>
                     <family>Times New Roman</family>
                     <pointsize>14</pointsize>
-                    <stylestrategy>PreferDefault</stylestrategy>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color:rgb(31, 118, 28); color: white;</string>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
                   </property>
-                  <property name="text">
-                   <string>Yangi tovar</string>
+                  <property name="placeholderText">
+                   <string>Kimdan</string>
                   </property>
                  </widget>
                 </item>
@@ -1291,7 +1276,33 @@
                 </column>
                 <column>
                  <property name="text">
+                  <string>Kelish Narxi</string>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Times New Roman</family>
+                   <pointsize>14</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
                   <string>Narxi</string>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Times New Roman</family>
+                   <pointsize>14</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Pachka Narxi</string>
                  </property>
                  <property name="font">
                   <font>
@@ -1448,7 +1459,7 @@
            <normaloff>:/image/books.png</normaloff>:/image/books.png</iconset>
          </attribute>
          <attribute name="title">
-          <string>Mahsulot</string>
+          <string>Ombor</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_17">
           <item row="0" column="0">
@@ -2147,6 +2158,19 @@
                   </font>
                  </property>
                 </column>
+                <column>
+                 <property name="text">
+                  <string>Kimdan</string>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Times New Roman</family>
+                   <pointsize>14</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                </column>
                </widget>
               </item>
               <item>
@@ -2448,7 +2472,6 @@
  </widget>
  <resources>
   <include location="icons/images.qrc"/>
-  <include location="../../icons/images.qrc"/>
  </resources>
  <connections/>
 </ui>

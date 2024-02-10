@@ -1,5 +1,5 @@
 from main_ui import Ui_MainWindow
-from main_ui2 import Ui_Form
+# from main_ui2 import Ui_Form
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QFileDialog, QLabel, QShortcut, QAction, QDesktopWidget, QMessageBox
 from PyQt5.QtCore import QTimer, pyqtSlot
 from PyQt5 import QtWidgets
@@ -193,19 +193,19 @@ class window(QMainWindow, Ui_MainWindow):
             item = self.tableWidget.item(row_index, column_index)
 
             if item is not None:
-                count = int(float(item.text()))
+                count = float(item.text())
                 id = int(float(self.tableWidget.item(row_index, 0).text()))
                 cur.execute("SELECT narxi FROM Kitob WHERE id=?", (id,))
-                narxi = int(float(cur.fetchone()[0]))
+                narxi = float(cur.fetchone()[0])
                 cur.execute("SELECT qoldiq FROM Kitob WHERE id=?", (id,))
-                qoldiq = int(float(cur.fetchone()[0]))
+                qoldiq = float(cur.fetchone()[0])
                 if count>qoldiq:
                     self.tableWidget.setItem(row_index, 2, QTableWidgetItem(str(qoldiq)))
                     count = qoldiq
                 total_amount += narxi * count
                 self.tableWidget.setItem(row_index, 6, QTableWidgetItem(str(narxi*count)))
 
-        self.lineEdit.setText(self.spacecomma(total_amount)+" so'm")
+        self.lineEdit.setText(self.spacecomma(int(total_amount))+" so'm")
         self.Key_F3_function()
 
     def cancel_buy(self):
@@ -231,9 +231,9 @@ class window(QMainWindow, Ui_MainWindow):
                 tarix_id = cur.lastrowid
                 for row_index in range(rows):
                     kitob_id = int(float(self.tableWidget.item(row_index, 0).text()))
-                    soni = int(float(self.tableWidget.item(row_index, 2).text()))
-                    qoldiq = int(float(self.tableWidget.item(row_index, 5).text()))
-                    hisob = int(float(self.tableWidget.item(row_index, 6).text()))
+                    soni = float(self.tableWidget.item(row_index, 2).text())
+                    qoldiq = float(self.tableWidget.item(row_index, 5).text())
+                    hisob = float(self.tableWidget.item(row_index, 6).text())
                     cur.execute("UPDATE Kitob SET qoldiq = ? WHERE id = ?", (qoldiq-soni, kitob_id))
                     conn.commit()
                     cur.execute("INSERT INTO TarixItem (Tarix, Kitob, soni, hisob) VALUES (?, ?, ?, ?)", (tarix_id, kitob_id, soni, hisob))
@@ -306,7 +306,7 @@ class window(QMainWindow, Ui_MainWindow):
                 self.tableWidget.insertRow(row_position)
                 cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
                 data = cur.fetchone()
-                if int(float(data[4])):
+                if float(data[4]):
                     for col_num, col_data in enumerate(data):
                         item = QTableWidgetItem(str(col_data))
                         if col_num>1: col_num+=1
@@ -334,8 +334,8 @@ class window(QMainWindow, Ui_MainWindow):
             else:
                 cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
                 data = cur.fetchone()
-                qoldiq = int(data[4])
-                prev = int(self.tableWidget.item(check, 2).text())
+                qoldiq = float(data[4])
+                prev = float(self.tableWidget.item(check, 2).text())
                 if prev<qoldiq:
                     self.tableWidget.setItem(check, 2, QTableWidgetItem(str(prev+1)))
                     item = self.tableWidget.item(check, 2)
@@ -348,7 +348,7 @@ class window(QMainWindow, Ui_MainWindow):
     def sell_combo_control(self):
         self.sotuv[self.curr_sotuv] = []
         for index in range(self.tableWidget.rowCount()):
-            self.sotuv[self.curr_sotuv].append([int(self.tableWidget.item(index, 0).text()), int(self.tableWidget.item(index, 2).text())])
+            self.sotuv[self.curr_sotuv].append([int(self.tableWidget.item(index, 0).text()), float(self.tableWidget.item(index, 2).text())])
         count = self.comboBox_2.count()
         self.tableWidget.setRowCount(0)
         try:
@@ -361,7 +361,7 @@ class window(QMainWindow, Ui_MainWindow):
                 self.tableWidget.insertRow(row_position)
                 cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
                 data = cur.fetchone()
-                if int(float(data[4])):
+                if float(data[4]):
                     for col_num, col_data in enumerate(data):
                         item = QTableWidgetItem(str(col_data))
                         if col_num>1: col_num+=1
@@ -389,8 +389,8 @@ class window(QMainWindow, Ui_MainWindow):
             else:
                 cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
                 data = cur.fetchone()
-                qoldiq = int(data[4])
-                prev = int(self.tableWidget.item(check, 2).text())
+                qoldiq = float(data[4])
+                prev = float(self.tableWidget.item(check, 2).text())
                 if prev<qoldiq:
                     self.tableWidget.setItem(check, 2, QTableWidgetItem(str(prev+1)))
                     item = self.tableWidget.item(check, 2)
@@ -404,7 +404,7 @@ class window(QMainWindow, Ui_MainWindow):
         current_tartib = self.comboBox_2.currentText()
         self.sotuv[current_tartib] = []
         for index in range(self.tableWidget.rowCount()):
-            self.sotuv[current_tartib].append([int(self.tableWidget.item(index, 0).text()), int(self.tableWidget.item(index, 2).text())])
+            self.sotuv[current_tartib].append([int(self.tableWidget.item(index, 0).text()), float(self.tableWidget.item(index, 2).text())])
         count = self.comboBox_2.count()
         curr_combo_text = self.comboBox_2.itemText(count - 1).split()[1]
         new_item_text = f'Sotuv {int(curr_combo_text) + 1}'
@@ -430,7 +430,7 @@ class window(QMainWindow, Ui_MainWindow):
                 self.tableWidget.insertRow(row_position)
                 cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
                 data = cur.fetchone()
-                if int(float(data[4])):
+                if float(data[4]):
                     for col_num, col_data in enumerate(data):
                         item = QTableWidgetItem(str(col_data))
                         if col_num>1: col_num+=1
@@ -458,8 +458,8 @@ class window(QMainWindow, Ui_MainWindow):
             else:
                 cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
                 data = cur.fetchone()
-                qoldiq = int(data[4])
-                prev = int(self.tableWidget.item(check, 2).text())
+                qoldiq = float(data[4])
+                prev = float(self.tableWidget.item(check, 2).text())
                 if prev<qoldiq:
                     self.tableWidget.setItem(check, 2, QTableWidgetItem(str(prev+1)))
                     item = self.tableWidget.item(check, 2)
@@ -566,7 +566,7 @@ class window(QMainWindow, Ui_MainWindow):
                     else:
                         existing_qoldiq = existing_record[4]
                         existing_narxi = existing_record[2]
-                        new_qoldiq = int(float(existing_qoldiq)) + int(float(book_data[4]))
+                        new_qoldiq = float(existing_qoldiq) + float(book_data[4])
                         new_narxi = book_data[2]
                         cur.execute("UPDATE Kitob SET qoldiq=?, narxi=?, nomi=?, kelgan_sana=? WHERE id=?", (new_qoldiq, new_narxi, book_data[1], book_data[-1], book_data[0]))
 
@@ -596,7 +596,7 @@ class window(QMainWindow, Ui_MainWindow):
         dasmoya = 0
         self.tableWidget_4.setRowCount(num_rows_to_add)
         for row_index, row_data in enumerate(data):
-            dasmoya += int(row_data[2])*int(row_data[6])
+            dasmoya += float(row_data[2])*float(row_data[6])
             for col_index, col_data in enumerate(row_data):
                 item = QTableWidgetItem(str(col_data))
                 self.tableWidget_4.setItem(row_index, col_index, item)
@@ -627,7 +627,7 @@ class window(QMainWindow, Ui_MainWindow):
 
                 if existing_id:
 
-                    if int((cur.execute("SELECT qoldiq FROM Kitob WHERE id=?", (id,))).fetchone()[0])==int(qoldiq):
+                    if float((cur.execute("SELECT qoldiq FROM Kitob WHERE id=?", (id,))).fetchone()[0])==float(qoldiq):
                         # If the record exists, update it
                         cur.execute("""
                             UPDATE Kitob
@@ -669,7 +669,7 @@ class window(QMainWindow, Ui_MainWindow):
         self.dateEdit_2.setDate(tomorrow)
 
         # Calculate the date 7 days back from tomorrow
-        seven_days_ago = tomorrow.addDays(-7)
+        seven_days_ago = tomorrow.addDays(-1)
         self.dateEdit.setDate(seven_days_ago)
 
         self.show_tarix()
@@ -769,10 +769,6 @@ class window(QMainWindow, Ui_MainWindow):
         try: self.tableWidget_7.clicked.disconnect(self.clicked_cancel2)
         except: pass
         self.tableWidget_7.clicked.connect(self.clicked_cancel2)
-        try:
-            self.pushButton_13.clicked.disconnect(self.add_new_product)
-        except: pass
-        self.pushButton_13.clicked.connect(self.add_new_product)
         # try: self.comboBox_2.currentIndexChanged.disconnect(self.sell_combo_control)
         # except: pass
         # self.comboBox_2.currentIndexChanged.connect(self.sell_combo_control)
@@ -786,15 +782,19 @@ class window(QMainWindow, Ui_MainWindow):
         self.timer.setSingleShot(True)
         self.timer.timeout.connect(self.search_database2)
 
-    def add_new_product(self):
-        self.addproductwidget = AddNewProduct()
-        self.addproductwidget.show()
+    # def add_new_product(self):
+    #     self.addproductwidget = AddNewProduct()
+    #     self.addproductwidget.show()
     
-    def store_new_product(self, product_data):
-        # Store the new product data in the database
-        cur.execute("INSERT INTO Kitob (nomi, narxi, barcode, qoldiq, kelgan_sana, tan_narx, pachka_narx) VALUES (?, ?, ?, ?, ?, ?, ?)", product_data)
+    def store_new_product(self, p):
+        print(p)
+        cur.execute("INSERT INTO Kitob (nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq, kelgan_sana) VALUES (?, ?, ?, ?, ?, ?, ?)", 
+                    (p[0], p[1], p[2], p[3], p[4], p[5], p[6]))
         conn.commit()
-
+        
+        print(cur.lastrowid)
+        # Return the ID of the newly inserted row
+        return cur.lastrowid
 
     def Key_F3_function2(self):
         self.lineEdit_4.setFocus()
@@ -803,7 +803,7 @@ class window(QMainWindow, Ui_MainWindow):
         scanned_text = self.lineEdit_4.text()
 
     def clicked_cancel2(self, item):
-        if item.column() == 7:
+        if item.column() == 9:
             if 0 <= item.row() < self.tableWidget_7.rowCount():
                 self.tableWidget_7.removeRow(item.row())
             else:
@@ -825,21 +825,18 @@ class window(QMainWindow, Ui_MainWindow):
             item2 = self.tableWidget_7.item(row_index, 3)
 
             if item is not None and item2 is not None:
-                count = int(float(item.text()))
-                narxi = int(float(item2.text()))
-                id = int(float(self.tableWidget_7.item(row_index, 0).text()))
-                cur.execute("UPDATE Kitob SET narxi = ? WHERE id = ?", (narxi, id))
-                conn.commit()
-                total_amount += narxi * count
-                self.tableWidget_7.setItem(row_index, 6, QTableWidgetItem(str(narxi*count)))
+                add = float(item.text())*float(item2.text())
+                total_amount+=add
+                self.tableWidget_7.setItem(row_index, 8, QTableWidgetItem(str(add)))
 
-        self.lineEdit_5.setText(self.spacecomma(total_amount)+" so'm")
+        self.lineEdit_5.setText(self.spacecomma(int(total_amount))+" so'm")
         self.Key_F3_function2()
 
     def cancel_buy2(self):
         self.tableWidget_6.setRowCount(0)
         self.tableWidget_7.setRowCount(0)
         self.lineEdit_5.clear()
+        self.lineEdit_6.clear()
         self.lineEdit_5.setText("0 so'm")
         self.Key_F3_function2()
 
@@ -854,19 +851,51 @@ class window(QMainWindow, Ui_MainWindow):
                 for i in tex:
                     if i.isdigit():
                         umumiy_hisob+=i
-                cur.execute("INSERT INTO Tovar (sana, hisob) VALUES (?, ?)", (formatted_datetime, umumiy_hisob))
+                kimdan = self.lineEdit_6.text()
+                if not kimdan: kimdan = "Nomalum"
+                cur.execute("INSERT INTO Tovar (kimdan, sana, hisob) VALUES (?, ?, ?)", (kimdan, formatted_datetime, umumiy_hisob))
                 conn.commit()
                 tarix_id = cur.lastrowid
                 for row_index in range(rows):
-                    kitob_id = int(float(self.tableWidget_7.item(row_index, 0).text()))
-                    soni = int(float(self.tableWidget_7.item(row_index, 2).text()))
-                    qoldiq = int(float(self.tableWidget_7.item(row_index, 5).text()))
-                    hisob = int(float(self.tableWidget_7.item(row_index, 6).text()))
-                    cur.execute("UPDATE Kitob SET qoldiq = ? WHERE id = ?", (qoldiq+soni, kitob_id))
-                    conn.commit()
+                    try:
+                        kitob_id = int(float(self.tableWidget_7.item(row_index, 0).text()))
+                        nomi = str(self.tableWidget_7.item(row_index, 1).text())
+                        soni = float(self.tableWidget_7.item(row_index, 2).text())
+                        tan_narx = float(self.tableWidget_7.item(row_index, 3).text())
+                        narx = float(self.tableWidget_7.item(row_index, 4).text())
+                        pachka_narx = float(self.tableWidget_7.item(row_index, 5).text())
+                        barcode = self.tableWidget_7.item(row_index, 6).text()
+                        qoldiq = float(self.tableWidget_7.item(row_index, 7).text())
+                        hisob = float(self.tableWidget_7.item(row_index, 8).text())
+                        cur.execute("UPDATE Kitob SET nomi = ?, tan_narx = ?, narx = ?, pachka_narx = ?, barcode = ?, qoldiq = ?, hisob = ? WHERE id = ?", (nomi, tan_narx, narx, pachka_narx, barcode, qoldiq+soni, hisob, kitob_id))
+                        conn.commit()
+                    except:
+                        nomi = str(self.tableWidget_7.item(row_index, 1).text())
+                        soni = float(self.tableWidget_7.item(row_index, 2).text())
+                        tan_narx = float(self.tableWidget_7.item(row_index, 3).text())
+                        narx = float(self.tableWidget_7.item(row_index, 4).text())
+                        pachka_narx = float(self.tableWidget_7.item(row_index, 5).text())
+                        barcode = self.tableWidget_7.item(row_index, 6).text()
+                        qoldiq = float(self.tableWidget_7.item(row_index, 7).text())
+                        hisob = float(self.tableWidget_7.item(row_index, 8).text())
+                        product = (
+                            nomi,
+                            tan_narx,
+                            narx,
+                            pachka_narx,
+                            barcode,
+                            qoldiq+soni,
+                            date.today(),
+                        )
+                        print(12312312)
+                        kitob_id = self.store_new_product(product)
+                        print(231232312312312)
+                        
                     cur.execute("INSERT INTO TovarItem (Tovar, Kitob, soni, hisob) VALUES (?, ?, ?, ?)", (tarix_id, kitob_id, soni, hisob))
                     conn.commit()
-        except: pass
+        except Exception as e:
+            print(e)
+            pass
         self.cancel_buy2()
         self.Key_F3_function2()
     
@@ -877,27 +906,40 @@ class window(QMainWindow, Ui_MainWindow):
     def search_database2(self):
         # Perform the database query based on user input
         user_input = self.lineEdit_4.text()
-        # Clear the table before populating it with new data
-        # self.tableWidget_6.setRowCount(0)
-        if user_input:
-            if len(user_input)>7 and user_input.isdigit():
-                query = "SELECT id, nomi, narxi, qoldiq, barcode FROM Kitob WHERE (barcode = ?)"
-                cur.execute(query, (user_input,))
-                result = cur.fetchall()
-                if len(result)==1:
-                    self.display_data_in_table2(result, self.tableWidget_6)
-                    self.tableWidget_6.selectRow(0)
-                    self.add_selected_item_to_table2()
-                elif len(result)>1:
-                    self.tableWidget_6.selectRow(0)
-                    self.display_data_in_table2(result, self.tableWidget_6)
-            else:
-                query = "SELECT id, nomi, narxi, qoldiq, barcode FROM Kitob WHERE (nomi LIKE ? OR id LIKE ?)"
-                cur.execute(query, (f'%{user_input}%', f'%{user_input}%'))
-                result = cur.fetchall()
-                if len(result):
-                    self.tableWidget_6.selectRow(0)
-                    self.display_data_in_table2(result, self.tableWidget_6)
+        try:
+            if user_input:
+                if len(user_input)>7 and user_input.isdigit():
+                    query = "SELECT id, nomi, narxi, qoldiq, barcode FROM Kitob WHERE (barcode = ?)"
+                    cur.execute(query, (user_input,))
+                    result = cur.fetchall()
+                    if len(result)==1:
+                        self.display_data_in_table2(result, self.tableWidget_6)
+                        self.tableWidget_6.selectRow(0)
+                        self.add_selected_item_to_table2()
+                    elif len(result)>1:
+                        self.tableWidget_6.selectRow(0)
+                        self.display_data_in_table2(result, self.tableWidget_6)
+                    else:
+                        row_position = self.tableWidget_7.rowCount()
+                        self.tableWidget_7.insertRow(row_position)
+                        self.tableWidget_7.setItem(row_position, 6, QtWidgets.QTableWidgetItem(str(user_input)))
+                        column_position = 9
+                        item = QTableWidgetItem('Bekor qilish')
+                        background_color = QColor(160, 20, 20)
+                        color = QColor(255, 255, 255)
+                        item.setBackground(background_color)
+                        item.setForeground(color)
+                        item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+                        self.tableWidget_7.setItem(row_position, column_position, item)
+                else:
+                    query = "SELECT id, nomi, narxi, qoldiq, barcode FROM Kitob WHERE (nomi LIKE ? OR id LIKE ?)"
+                    cur.execute(query, (f'%{user_input}%', f'%{user_input}%'))
+                    result = cur.fetchall()
+                    if len(result):
+                        self.tableWidget_6.selectRow(0)
+                        self.display_data_in_table2(result, self.tableWidget_6)
+        except Exception as e:
+            print(e)
 
     def add_selected_item_to_table2(self):
         selected_item = self.tableWidget_6.currentRow()
@@ -908,7 +950,7 @@ class window(QMainWindow, Ui_MainWindow):
             if check==-1:
                 row_position = self.tableWidget_7.rowCount()
                 self.tableWidget_7.insertRow(row_position)
-                cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
+                cur.execute("SELECT id, nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq FROM Kitob WHERE id=?", (id,))
                 data = cur.fetchone()
                 # if int(float(data[4])):
                 for col_num, col_data in enumerate(data):
@@ -917,7 +959,7 @@ class window(QMainWindow, Ui_MainWindow):
                     self.tableWidget_7.setItem(row_position, col_num, item)
 
                 self.tableWidget_7.setItem(row_position, 2, QTableWidgetItem('1'))
-                column_position = 7
+                column_position = 9
                 item = QTableWidgetItem('Bekor qilish')
                 background_color = QColor(160, 20, 20)
                 color = QColor(255, 255, 255)
@@ -925,27 +967,30 @@ class window(QMainWindow, Ui_MainWindow):
                 item.setForeground(color)
                 item.setFlags(item.flags() & ~Qt.ItemIsEditable)
                 self.tableWidget_7.setItem(row_position, column_position, item)
-                item = self.tableWidget_7.item(row_position, 2)
-                item.setBackground(QColor(0, 0, 255))
-                item.setForeground(QColor(255, 255, 255))
-                item = self.tableWidget_7.item(row_position, 3)
-                item.setBackground(QColor(60, 179, 113))
-                item.setForeground(QColor(255, 255, 255))
+                # item = self.tableWidget_7.item(row_position, 2)
+                # item.setBackground(QColor(0, 0, 255))
+                # item.setForeground(QColor(255, 255, 255))
+                # item = self.tableWidget_7.item(row_position, 3)
+                # item.setBackground(QColor(60, 179, 113))
+                # item.setForeground(QColor(255, 255, 255))
             else:
-                prev = int(self.tableWidget_7.item(check, 2).text())
+                prev = float(self.tableWidget_7.item(check, 2).text())
                 self.tableWidget_7.setItem(check, 2, QTableWidgetItem(str(prev+1)))
-                item = self.tableWidget_7.item(check, 2)
-                item.setBackground(QColor(0, 0, 255))
-                item.setForeground(QColor(255, 255, 255))
+                # item = self.tableWidget_7.item(check, 2)
+                # item.setBackground(QColor(0, 0, 255))
+                # item.setForeground(QColor(255, 255, 255))
         # self.tableWidget_6.setRowCount(0)
         self.Key_F3_function2()
 
     def check_tablewidget_add2(self, id):
         is_present = -1
         for row_index in range(self.tableWidget_7.rowCount()):
-            if self.tableWidget_7.item(row_index, 0).text() == str(id):
-                is_present=row_index
-                break
+            try:
+                if self.tableWidget_7.item(row_index, 0).text() == str(id):
+                    is_present=row_index
+                    break
+            except:
+                pass
         return is_present
 
     def tovar_tarix_tab(self):
@@ -953,7 +998,7 @@ class window(QMainWindow, Ui_MainWindow):
         self.dateEdit_4.setDate(tomorrow)
 
         # Calculate the date 7 days back from tomorrow
-        seven_days_ago = tomorrow.addDays(-7)
+        seven_days_ago = tomorrow.addDays(-1)
         self.dateEdit_3.setDate(seven_days_ago)
 
         self.show_tarix2()
@@ -986,12 +1031,12 @@ class window(QMainWindow, Ui_MainWindow):
         self.tableWidget_9.setRowCount(0)
         selected_items = self.tableWidget_8.selectedItems()
         row = 0
-        for item in selected_items: row = int(float(item.row()))
+        for item in selected_items: row = float(item.row())
         if selected_items: self.show_table_widget_8_tovar(row)
     
     def show_table_widget_8_tovar(self, row):
         try:
-            tarix_id = int(float(self.tableWidget_8.item(row, 0).text()))
+            tarix_id = float(self.tableWidget_8.item(row, 0).text())
             cur.execute("""
                 SELECT TovarItem.id, Kitob.nomi, TovarItem.soni, TovarItem.hisob
                 FROM TovarItem
@@ -1025,55 +1070,55 @@ class window(QMainWindow, Ui_MainWindow):
             pass
     
 
-class AddNewProduct(QWidget, Ui_Form):
-    def __init__(self):
-        super().__init__()
-        self.setupUi(self)
-        self.center()
-        self.pushButton_11.clicked.connect(self.store_product)
-        self.pushButton_9.clicked.connect(self.close)
-        self.window = window
+# class AddNewProduct(QWidget, Ui_Form):
+#     def __init__(self):
+#         super().__init__()
+#         self.setupUi(self)
+#         self.center()
+#         self.pushButton_11.clicked.connect(self.store_product)
+#         self.pushButton_9.clicked.connect(self.close)
+#         self.window = window
 
-    def center(self):
-        # Get the geometry of the screen
-        screen = QDesktopWidget().screenGeometry()
+#     def center(self):
+#         # Get the geometry of the screen
+#         screen = QDesktopWidget().screenGeometry()
 
-        # Calculate the center point
-        x = (screen.width() - self.width()) / 2
-        y = (screen.height() - self.height()) / 2
+#         # Calculate the center point
+#         x = (screen.width() - self.width()) / 2
+#         y = (screen.height() - self.height()) / 2
 
-        # Move the widget to the center
-        self.move(x, y)
+#         # Move the widget to the center
+#         self.move(x, y)
     
-    def store_product(self):
-        # Get product data from UI elements
-        cur.execute("SELECT nomi FROM Kitob WHERE nomi = ?", (self.lineEdit.text(),))
-        result = cur.fetchone()
-        if result:
-            QMessageBox.information(self, "Nomdagi xatolik", "Bu nomli mahsulot mavjud.")
-        elif not self.lineEdit_3.text().isdigit():
-            QMessageBox.information(self, "Narxdagi xatolik", "Narx faqat raqamlardan iborat bo'lishi kerak.")
-        elif not self.lineEdit_4.text().isdigit():
-            QMessageBox.information(self, "Barcodedagi xatolik", "Barcode faqat raqamlardan iborat bo'lishi kerak.")
-        elif not self.lineEdit_6.text().isdigit():
-            QMessageBox.information(self, "Qoldiqdagi xatolik", "Qoldiq faqat raqamlardan iborat bo'lishi kerak.")
-        else:
-            product_data = (
-                self.lineEdit.text(),
-                self.lineEdit_3.text(),
-                self.lineEdit_4.text(),
-                self.lineEdit_6.text(),
-                date.today(),
-                self.lineEdit_3.text(),
-                self.lineEdit_3.text(),
-            )
-            self.store_new_product(product_data)
-            self.close()
+#     def store_product(self):
+#         # Get product data from UI elements
+#         cur.execute("SELECT nomi FROM Kitob WHERE nomi = ?", (self.lineEdit.text(),))
+#         result = cur.fetchone()
+#         if result:
+#             QMessageBox.information(self, "Nomdagi xatolik", "Bu nomli mahsulot mavjud.")
+#         elif not self.lineEdit_3.text().isdigit():
+#             QMessageBox.information(self, "Narxdagi xatolik", "Narx faqat raqamlardan iborat bo'lishi kerak.")
+#         elif not self.lineEdit_4.text().isdigit():
+#             QMessageBox.information(self, "Barcodedagi xatolik", "Barcode faqat raqamlardan iborat bo'lishi kerak.")
+#         elif not self.lineEdit_6.text().isdigit():
+#             QMessageBox.information(self, "Qoldiqdagi xatolik", "Qoldiq faqat raqamlardan iborat bo'lishi kerak.")
+#         else:
+#             product_data = (
+#                 self.lineEdit.text(),
+#                 self.lineEdit_3.text(),
+#                 self.lineEdit_4.text(),
+#                 self.lineEdit_6.text(),
+#                 date.today(),
+#                 self.lineEdit_3.text(),
+#                 self.lineEdit_3.text(),
+#             )
+#             self.store_new_product(product_data)
+#             self.close()
     
-    def store_new_product(self, product_data):
-        # Store the new product data in the database
-        cur.execute("INSERT INTO Kitob (nomi, narxi, barcode, qoldiq, kelgan_sana, tan_narx, pachka_narx) VALUES (?, ?, ?, ?, ?, ?, ?)", product_data)
-        conn.commit()
+#     def store_new_product(self, product_data):
+#         # Store the new product data in the database
+#         cur.execute("INSERT INTO Kitob (nomi, narxi, barcode, qoldiq, kelgan_sana, tan_narx, pachka_narx) VALUES (?, ?, ?, ?, ?, ?, ?)", product_data)
+#         conn.commit()
 
 if __name__ == "__main__":
     App = QApplication(sys.argv)

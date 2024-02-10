@@ -583,6 +583,7 @@ class window(QMainWindow, Ui_MainWindow):
         return s_text.strip()[::-1]
     
     def populate_tableWidget_4(self, filter=''):
+        if not filter: filter = self.lineEdit_3.text()
         self.tableWidget_4.setRowCount(0)
         if filter:
             query = "SELECT id, nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq, kelgan_sana FROM Kitob WHERE nomi LIKE ? OR id LIKE ? OR barcode LIKE ? ORDER BY CAST(qoldiq AS SIGNED) DESC"
@@ -867,9 +868,10 @@ class window(QMainWindow, Ui_MainWindow):
                         barcode = self.tableWidget_7.item(row_index, 6).text()
                         qoldiq = float(self.tableWidget_7.item(row_index, 7).text())
                         hisob = float(self.tableWidget_7.item(row_index, 8).text())
-                        cur.execute("UPDATE Kitob SET nomi = ?, tan_narx = ?, narx = ?, pachka_narx = ?, barcode = ?, qoldiq = ?, hisob = ? WHERE id = ?", (nomi, tan_narx, narx, pachka_narx, barcode, qoldiq+soni, hisob, kitob_id))
+                        cur.execute("UPDATE Kitob SET nomi = ?, tan_narx = ?, narxi = ?, pachka_narx = ?, barcode = ?, qoldiq = ? WHERE id = ?", (nomi, tan_narx, narx, pachka_narx, barcode, qoldiq+soni, kitob_id))
                         conn.commit()
-                    except:
+                    except Exception as e:
+                        print(e)
                         nomi = str(self.tableWidget_7.item(row_index, 1).text())
                         soni = float(self.tableWidget_7.item(row_index, 2).text())
                         tan_narx = float(self.tableWidget_7.item(row_index, 3).text())

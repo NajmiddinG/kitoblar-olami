@@ -72,7 +72,7 @@
          </attribute>
          <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
-           <layout class="QGridLayout" name="gridLayout_7" columnstretch="3,5">
+           <layout class="QGridLayout" name="gridLayout_7" columnstretch="3,6">
             <item row="0" column="0">
              <layout class="QGridLayout" name="gridLayout_10">
               <item row="0" column="0">
@@ -834,7 +834,7 @@
          </attribute>
          <layout class="QGridLayout" name="gridLayout">
           <item row="0" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,2">
+           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,8">
             <item>
              <layout class="QGridLayout" name="gridLayout_5">
               <item row="4" column="0">
@@ -1610,6 +1610,32 @@
                 </font>
                </property>
               </column>
+              <column>
+               <property name="text">
+                <string>Buyurtma</string>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>14</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Kimdan</string>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>14</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </column>
              </widget>
             </item>
             <item row="1" column="1">
@@ -1630,7 +1656,7 @@
                  <string notr="true">background-color: rgb(31, 118, 28); color: white;</string>
                 </property>
                 <property name="text">
-                 <string> Mahsulotlarni yuklab olish</string>
+                 <string> Yuklab olish</string>
                 </property>
                 <property name="icon">
                  <iconset resource="icons/images.qrc">
@@ -1678,7 +1704,7 @@
                  <string notr="true">background-color: rgb(31, 118, 28); color: white;</string>
                 </property>
                 <property name="text">
-                 <string>  Yangi mahsulotlar  </string>
+                 <string>  Yangi qo'shish  </string>
                 </property>
                 <property name="icon">
                  <iconset resource="icons/images.qrc">
@@ -1732,6 +1758,9 @@
                 <property name="orientation">
                  <enum>Qt::Horizontal</enum>
                 </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Minimum</enum>
+                </property>
                 <property name="sizeHint" stdset="0">
                  <size>
                   <width>40</width>
@@ -1739,6 +1768,32 @@
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_13">
+                <property name="font">
+                 <font>
+                  <family>Times New Roman</family>
+                  <pointsize>14</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(31, 118, 28); color: white;</string>
+                </property>
+                <property name="text">
+                 <string> Buyurtma</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="icons/images.qrc">
+                  <normaloff>:/image/excel.png</normaloff>:/image/excel.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+               </widget>
               </item>
               <item>
                <spacer name="horizontalSpacer_25">
@@ -1805,6 +1860,125 @@
           <string>Sotuv tarixi</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_19">
+          <item row="1" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_12">
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="font">
+               <font>
+                <family>Times New Roman</family>
+                <pointsize>14</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
+               </font>
+              </property>
+              <property name="text">
+               <string>[oy / kun / yil]</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QDateEdit" name="dateEdit">
+              <property name="font">
+               <font>
+                <family>Times New Roman</family>
+                <pointsize>14</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
+               </font>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="font">
+               <font>
+                <family>Times New Roman</family>
+                <pointsize>14</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
+               </font>
+              </property>
+              <property name="text">
+               <string>dan</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QDateEdit" name="dateEdit_2">
+              <property name="font">
+               <font>
+                <family>Times New Roman</family>
+                <pointsize>14</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
+               </font>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="font">
+               <font>
+                <family>Times New Roman</family>
+                <pointsize>14</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
+               </font>
+              </property>
+              <property name="text">
+               <string>gacha</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_7">
+              <property name="font">
+               <font>
+                <family>Times New Roman</family>
+                <pointsize>14</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background-color: rgb(31, 118, 28); color: white;</string>
+              </property>
+              <property name="text">
+               <string>Filterlash</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_26">
+              <property name="font">
+               <font>
+                <family>Times New Roman</family>
+                <pointsize>16</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
+               </font>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="font">
+             <font>
+              <family>Times New Roman</family>
+              <pointsize>14</pointsize>
+              <stylestrategy>PreferDefault</stylestrategy>
+             </font>
+            </property>
+            <property name="text">
+             <string>Jami sotilganlar qiymati filiter bo'yicha: 0 so'm</string>
+            </property>
+           </widget>
+          </item>
           <item row="5" column="0">
            <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="7,10">
             <item>
@@ -1960,125 +2134,6 @@
              </widget>
             </item>
            </layout>
-          </item>
-          <item row="1" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_12">
-            <item>
-             <widget class="QLabel" name="label_6">
-              <property name="font">
-               <font>
-                <family>Times New Roman</family>
-                <pointsize>14</pointsize>
-                <stylestrategy>PreferDefault</stylestrategy>
-               </font>
-              </property>
-              <property name="text">
-               <string>[oy / kun / yil]</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QDateEdit" name="dateEdit">
-              <property name="font">
-               <font>
-                <family>Times New Roman</family>
-                <pointsize>14</pointsize>
-                <stylestrategy>PreferDefault</stylestrategy>
-               </font>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_4">
-              <property name="font">
-               <font>
-                <family>Times New Roman</family>
-                <pointsize>14</pointsize>
-                <stylestrategy>PreferDefault</stylestrategy>
-               </font>
-              </property>
-              <property name="text">
-               <string>dan</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QDateEdit" name="dateEdit_2">
-              <property name="font">
-               <font>
-                <family>Times New Roman</family>
-                <pointsize>14</pointsize>
-                <stylestrategy>PreferDefault</stylestrategy>
-               </font>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_5">
-              <property name="font">
-               <font>
-                <family>Times New Roman</family>
-                <pointsize>14</pointsize>
-                <stylestrategy>PreferDefault</stylestrategy>
-               </font>
-              </property>
-              <property name="text">
-               <string>gacha</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_7">
-              <property name="font">
-               <font>
-                <family>Times New Roman</family>
-                <pointsize>14</pointsize>
-                <stylestrategy>PreferDefault</stylestrategy>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(31, 118, 28); color: white;</string>
-              </property>
-              <property name="text">
-               <string>Filterlash</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer_26">
-              <property name="font">
-               <font>
-                <family>Times New Roman</family>
-                <pointsize>16</pointsize>
-                <stylestrategy>PreferDefault</stylestrategy>
-               </font>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-           </layout>
-          </item>
-          <item row="6" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="font">
-             <font>
-              <family>Times New Roman</family>
-              <pointsize>14</pointsize>
-              <stylestrategy>PreferDefault</stylestrategy>
-             </font>
-            </property>
-            <property name="text">
-             <string>Jami sotilganlar qiymati filiter bo'yicha: 0 so'm</string>
-            </property>
-           </widget>
           </item>
          </layout>
         </widget>
@@ -2248,6 +2303,19 @@
                 <column>
                  <property name="text">
                   <string>Umumiy hisob</string>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Times New Roman</family>
+                   <pointsize>14</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Kelish narx</string>
                  </property>
                  <property name="font">
                   <font>

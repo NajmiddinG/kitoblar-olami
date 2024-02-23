@@ -18,7 +18,9 @@ try:
                 qoldiq TEXT NOT NULL,
                 kelgan_sana DATE NOT NULL,
                 tan_narx TEXT NOT NULL,
-                pachka_narx TEXT NOT NULL
+                pachka_narx TEXT NOT NULL,
+                buyurtma TEXT NOT NULL,
+                kimdan TEXT NOT NULL
                 )""")
     conn.commit()
 
@@ -65,10 +67,43 @@ try:
                 Kitob TEXT NOT NULL,
                 soni INTEGER NOT NULL,
                 hisob INTEGER NOT NULL,
+                tan_narx TEXT NOT NULL,
                 FOREIGN KEY (Kitob) REFERENCES Kitob(id) ON DELETE SET NULL,
                 FOREIGN KEY (Tovar) REFERENCES Tovar(id) ON DELETE SET NULL
                 )""")
     conn.commit()
+    cur.execute("PRAGMA table_info(TovarItem)")
+    columns = cur.fetchall()
+    column_names = [col[1] for col in columns]
+
+    if 'tan_narx' not in column_names:
+        cur.execute("ALTER TABLE TovarItem ADD COLUMN tan_narx TEXT")
+        conn.commit()
+        print('\033[92m' + "Added 'tan_narx' column to TovarItem table"+ '\033[0m')
+    else:
+        print('\033[92m' + "The 'tan_narx' column already exists in TovarItem table"+ '\033[0m')
+    
+    cur.execute("PRAGMA table_info(Kitob)")
+    columns = cur.fetchall()
+    column_names = [col[1] for col in columns]
+
+    if 'buyurtma' not in column_names:
+        cur.execute("ALTER TABLE Kitob ADD COLUMN buyurtma TEXT DEFAULT '-1'")
+        conn.commit()
+        print('\033[92m' + "Added 'buyurtma' column to Kitob table"+ '\033[0m')
+    else:
+        cur.execute("UPDATE Kitob SET buyurtma = '-1' WHERE buyurtma IS NULL")
+        conn.commit()
+        print('\033[92m' + "The 'buyurtma' column already exists in Kitob table"+ '\033[0m')
+
+    if 'kimdan' not in column_names:
+        cur.execute("ALTER TABLE Kitob ADD COLUMN kimdan TEXT DEFAULT 'Nomalum'")
+        conn.commit()
+        print('\033[92m' + "Added 'kimdan' column to Kitob table"+ '\033[0m')
+    else:
+        cur.execute("UPDATE Kitob SET kimdan = 'Nomalum' WHERE kimdan IS NULL")
+        conn.commit()
+        print('\033[92m' + "The 'kimdan' column already exists in Kitob table"+ '\033[0m')
     
     print('\033[92m' + 'Database tables are ready' + '\033[0m')
 except Exception as e:

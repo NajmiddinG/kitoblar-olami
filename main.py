@@ -680,6 +680,7 @@ class window(QMainWindow, Ui_MainWindow):
                 sana = self.tableWidget_4.item(row, 7).text()
                 buyurtma = self.tableWidget_4.item(row, 8).text()
                 kimdan = self.tableWidget_4.item(row, 9).text()
+                if len(kimdan)==0: kimdan = 'Nomalum'
                 if nomi and narxi and barcode and qoldiq:
                     cur.execute("SELECT id FROM Kitob WHERE id=?", (id,))
                     existing_id = cur.fetchone()

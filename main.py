@@ -291,6 +291,12 @@ class window(QMainWindow, Ui_MainWindow):
                 elif len(result)>1:
                     self.display_data_in_table(result, self.tableWidget_2)
                     self.tableWidget_2.selectRow(0)
+                else:
+                    self.lineEdit_2.clear()
+                    QTimer.singleShot(1000, self.close_message_box)
+                    self.message_info = "Topilmadi"
+                    self.message_type = 0
+                    QTimer.singleShot(50, self.show_message)
             else:
                 query = "SELECT id, nomi, narxi, qoldiq, barcode FROM Kitob WHERE (nomi LIKE ? OR id LIKE ?) AND qoldiq > 0"
                 cur.execute(query, (f'%{user_input}%', f'%{user_input}%'))

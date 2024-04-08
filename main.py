@@ -289,15 +289,15 @@ class window(QMainWindow, Ui_MainWindow):
                     self.tableWidget_2.selectRow(0)
                     self.add_selected_item_to_table()
                 elif len(result)>1:
-                    self.tableWidget_2.selectRow(0)
                     self.display_data_in_table(result, self.tableWidget_2)
+                    self.tableWidget_2.selectRow(0)
             else:
                 query = "SELECT id, nomi, narxi, qoldiq, barcode FROM Kitob WHERE (nomi LIKE ? OR id LIKE ?) AND qoldiq > 0"
                 cur.execute(query, (f'%{user_input}%', f'%{user_input}%'))
                 result = cur.fetchall()
                 if len(result):
-                    self.tableWidget_2.selectRow(0)
                     self.display_data_in_table(result, self.tableWidget_2)
+                    self.tableWidget_2.selectRow(0)
         self.Key_F3_function()
 
     def sotuv_table_remove(self):
@@ -412,7 +412,6 @@ class window(QMainWindow, Ui_MainWindow):
                     item = self.tableWidget.item(row_position, 3)
                     item.setBackground(QColor(60, 179, 113))
                     item.setForeground(QColor(255, 255, 255))
-
                 else:
                     current_row_count = self.tableWidget.rowCount()
                     if current_row_count > 0:
@@ -425,7 +424,7 @@ class window(QMainWindow, Ui_MainWindow):
                 if prev<qoldiq:
                     self.tableWidget.setItem(check, 2, QTableWidgetItem(str(prev+1)))
                     item = self.tableWidget.item(check, 2)
-                    item.setBackground(QColor(0, 0, 255))1
+                    item.setBackground(QColor(0, 0, 255), 1)
                     item.setForeground(QColor(255, 255, 255))
         # self.tableWidget_2.setRowCount(0)
         self.curr_sotuv = self.comboBox_2.currentText()
@@ -482,7 +481,13 @@ class window(QMainWindow, Ui_MainWindow):
                     item = self.tableWidget.item(row_position, 3)
                     item.setBackground(QColor(60, 179, 113))
                     item.setForeground(QColor(255, 255, 255))
-
+                    for row in range(self.tableWidget.rowCount()-1, 0, -1):
+                        for col in range(self.tableWidget.columnCount()):
+                            new_item = self.tableWidget.item(row, col)
+                            prev = self.tableWidget.item(row-1, col)
+                            a1, a2 = new_item.text(), prev.text()
+                            new_item.setText(a2)
+                            prev.setText(a1)
                 else:
                     current_row_count = self.tableWidget.rowCount()
                     if current_row_count > 0:

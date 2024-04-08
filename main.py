@@ -1,18 +1,14 @@
 from main_ui import Ui_MainWindow
 # from main_ui2 import Ui_Form
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLineEdit, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget, QFileDialog, QLabel, QShortcut, QAction, QDesktopWidget, QMessageBox
-from PyQt5.QtCore import QTimer, pyqtSlot
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QFileDialog, QShortcut, QAction, QMessageBox
+from PyQt5.QtCore import QTimer
 from PyQt5 import QtWidgets
 from openpyxl import Workbook
 from openpyxl.styles import Font
 import pandas as pd
-import openpyxl
-import sqlite3
 import sys, create_table as db
 from datetime import datetime, date
-from PyQt5 import QtGui
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtGui import QIcon, QColor, QKeySequence
+from PyQt5.QtGui import QColor, QKeySequence
 from PyQt5.QtCore import Qt, QDate
 
 conn = db.conn
@@ -22,10 +18,10 @@ def tableResizeMode(table):
     header = table.horizontalHeader()
     for i in range(header.count()):
         header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
-        header.setStyleSheet("color: black;")
-    
+        header.setStyleSheet("color: black;")  
 
 class window(QMainWindow, Ui_MainWindow):
+
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -94,29 +90,31 @@ class window(QMainWindow, Ui_MainWindow):
         self.shortcut = QShortcut(shortcut, self)
         self.shortcut.activated.connect(self.F4_func_control)
         self.Key_F3_function()
-    
+
     def Key_F3_function(self):
         index = self.tabWidget.currentIndex()
         if index==0:
             self.lineEdit_2.setFocus()
-        elif index==1:
+        elif index==4:
             self.lineEdit_4.setFocus()
-        elif index==2:
+        elif index==1:
             self.lineEdit_3.setFocus()
-    
+
     def F4_func_control(self):
         index = self.tabWidget.currentIndex()
         if index==0:
             self.accept_buy()
+        elif index==4:
+            pass
+            # self.accept_buy2()
         elif index==1:
-            self.accept_buy2()
-        elif index==2:
-            self.save_tableWidget_data_to_database()
-        
-    
+            pass
+            # self.save_tableWidget_data_to_database()
+        self.Key_F3_function()
+
     def Key_F3_2_function(self):
         self.lineEdit_3.setFocus()
-    
+
     def label_change(self):
         try:
             text = self.label_3.text()
@@ -130,17 +128,18 @@ class window(QMainWindow, Ui_MainWindow):
             self.label_2.setText(text)
         except:
             pass
+        self.Key_F3_function()
 
     def handle_tabbar_clicked(self, index):
         if index==0: self.sotuv_tab()
-        if index==1: self.tovar_tab()
-        elif index==2: self.mahsulot_tab()
-        elif index==3: self.sotuv_tarix_tab()
-        elif index==4: self.tovar_tarix_tab()
-        style_sheet = f"QTabBar::tab:selected {{ background-color: rgb(80, 80, 80); }}"
+        if index==4: self.tovar_tab()
+        elif index==1: self.mahsulot_tab()
+        elif index==2: self.sotuv_tarix_tab()
+        elif index==3: self.tovar_tarix_tab()
+        style_sheet = f"QTabBar::tab:selected {{ background-color: green; }}"
         self.tabWidget.setStyleSheet(style_sheet)
         self.tabWidget.setCurrentIndex(index)
-    
+        self.Key_F3_function()
 
     def sotuv_tab(self):
         try: self.lineEdit_2.textChanged.disconnect(self.on_line_edit_changed)
@@ -183,9 +182,11 @@ class window(QMainWindow, Ui_MainWindow):
         self.timer = QTimer(self)
         self.timer.setSingleShot(True)
         self.timer.timeout.connect(self.search_database)
+        self.Key_F3_function()
 
     def scanner_returned(self):
         scanned_text = self.lineEdit_2.text()
+        self.Key_F3_function()
 
     def clicked_cancel(self, item):
         if item.column() == 7:
@@ -194,12 +195,14 @@ class window(QMainWindow, Ui_MainWindow):
             else:
                 pass
             self.calculate()
+        self.Key_F3_function()
 
     def handle_item_changed(self, item):
         # Check if the item is in column 2
         if item.column() == 2:
             try: self.calculate()
             except: self.cancel_buy()
+        self.Key_F3_function()
 
     def calculate(self):
         column_index = 2
@@ -265,10 +268,11 @@ class window(QMainWindow, Ui_MainWindow):
             QTimer.singleShot(50, self.show_message)
         self.cancel_buy()
         self.Key_F3_function()
-    
+
     def on_line_edit_changed(self):
         # Start the timer when the text in the line edit changes
         self.timer.start(1000)  # 1000 milliseconds = 1 second
+        self.Key_F3_function()
 
     def search_database(self):
         # Perform the database query based on user input
@@ -294,6 +298,7 @@ class window(QMainWindow, Ui_MainWindow):
                 if len(result):
                     self.tableWidget_2.selectRow(0)
                     self.display_data_in_table(result, self.tableWidget_2)
+        self.Key_F3_function()
 
     def sotuv_table_remove(self):
         try: self.pushButton_8.clicked.disconnect(self.sotuv_table_remove)
@@ -366,9 +371,10 @@ class window(QMainWindow, Ui_MainWindow):
                     item.setBackground(QColor(0, 0, 255))
                     item.setForeground(QColor(255, 255, 255))
         # self.tableWidget_2.setRowCount(0)
-        self.Key_F3_function()
         self.curr_sotuv = self.comboBox_2.currentText()
         self.pushButton_8.clicked.connect(self.sotuv_table_remove)
+        self.Key_F3_function()
+
     def sell_combo_control(self):
         self.sotuv[self.curr_sotuv] = []
         for index in range(self.tableWidget.rowCount()):
@@ -419,11 +425,11 @@ class window(QMainWindow, Ui_MainWindow):
                 if prev<qoldiq:
                     self.tableWidget.setItem(check, 2, QTableWidgetItem(str(prev+1)))
                     item = self.tableWidget.item(check, 2)
-                    item.setBackground(QColor(0, 0, 255))
+                    item.setBackground(QColor(0, 0, 255))1
                     item.setForeground(QColor(255, 255, 255))
         # self.tableWidget_2.setRowCount(0)
-        self.Key_F3_function()
         self.curr_sotuv = self.comboBox_2.currentText()
+        self.Key_F3_function()
 
     def add_selected_item_to_new_table(self):
         current_tartib = self.comboBox_2.currentText()
@@ -443,6 +449,7 @@ class window(QMainWindow, Ui_MainWindow):
         self.curr_sotuv = f'Sotuv {int(curr_combo_text)+1}'
         self.tableWidget.setRowCount(0)
         # self.add_selected_item_to_table()
+        self.Key_F3_function()
 
     def add_selected_item_to_table(self):
         selected_item = self.tableWidget_2.currentRow()
@@ -500,6 +507,7 @@ class window(QMainWindow, Ui_MainWindow):
                 is_present=row_index
                 break
         return is_present
+        self.Key_F3_function()
     
     def mahsulot_tab(self):
         self.populate_tableWidget_4()
@@ -527,6 +535,7 @@ class window(QMainWindow, Ui_MainWindow):
         self.timer.setSingleShot(True)
         self.timer.timeout.connect(self.search_database_2)
         self.Key_F3_2_function()
+        self.Key_F3_function()
     
     def search_database_2(self):
         user_input = self.lineEdit_3.text()
@@ -535,6 +544,7 @@ class window(QMainWindow, Ui_MainWindow):
             self.populate_tableWidget_4(filter=user_input)
         else: self.populate_tableWidget_4()
         self.Key_F3_2_function()
+        self.Key_F3_function()
 
     def create_order(self):
         try:
@@ -562,6 +572,7 @@ class window(QMainWindow, Ui_MainWindow):
                 workbook.save(file_path)
         except: pass
         self.Key_F3_2_function()
+        self.Key_F3_function()
 
     def clicked_export_book(self):
         try:
@@ -590,6 +601,7 @@ class window(QMainWindow, Ui_MainWindow):
                 workbook.save(file_path)
         except: pass
         self.Key_F3_2_function()
+        self.Key_F3_function()
 
     def clicked_new_book(self):
         try:
@@ -630,6 +642,7 @@ class window(QMainWindow, Ui_MainWindow):
                 self.populate_tableWidget_4()
         except: pass
         self.Key_F3_2_function()
+        self.Key_F3_function()
 
     def spacecomma(self, value):
         s_text = ''
@@ -637,6 +650,7 @@ class window(QMainWindow, Ui_MainWindow):
         for i in range(len(money)//3+1):
             s_text+=money[3*i:3*i+3]+' '
         return s_text.strip()[::-1]
+        self.Key_F3_function()
     
     def populate_tableWidget_4(self, filter=''):
         if not filter: filter = self.lineEdit_3.text()
@@ -666,6 +680,7 @@ class window(QMainWindow, Ui_MainWindow):
                 item = QTableWidgetItem("")
                 self.tableWidget_4.setItem(i, j, item)
         self.Key_F3_2_function()
+        self.Key_F3_function()
 
     def save_tableWidget_data_to_database(self):
         try:
@@ -719,18 +734,19 @@ class window(QMainWindow, Ui_MainWindow):
                 elif id and not nomi and not narxi and not barcode and not qoldiq:
                     cur.execute("DELETE FROM Kitob WHERE id=?", (id,))
                     conn.commit()
-            self.populate_tableWidget_4()
-            self.Key_F3_2_function()
-            QTimer.singleShot(5000, self.close_message_box)
+            QTimer.singleShot(1000, self.close_message_box)
             self.message_info = "Mahsulotlar muaffaqiyatli saqlandi"
             self.message_type = 1
             QTimer.singleShot(50, self.show_message)
+            self.populate_tableWidget_4()
+            self.Key_F3_2_function()
         except Exception as e:
             print(e)
-            QTimer.singleShot(5000, self.close_message_box)
+            QTimer.singleShot(1000, self.close_message_box)
             self.message_info = "Xatolik"
             self.message_type = 0
             QTimer.singleShot(50, self.show_message)
+        self.Key_F3_function()
 
     def show_message(self):
         self.msg_box = QMessageBox()
@@ -744,9 +760,11 @@ class window(QMainWindow, Ui_MainWindow):
         else:
             self.msg_box.setStyleSheet("QMessageBox {background-color: lightgray; color: red; font-size: 16px;} QPushButton { color: red; } QLabel {color: red;} QWindowTitle {color: red;}")
         self.msg_box.exec_()
+        self.Key_F3_function()
 
     def close_message_box(self):
         self.msg_box.done(0)
+        self.Key_F3_function()
 
     def sotuv_tarix_tab(self):
         # Date
@@ -766,6 +784,7 @@ class window(QMainWindow, Ui_MainWindow):
         except: pass
         self.pushButton_7.clicked.connect(self.filter_history)
         self.filter_history()
+        self.Key_F3_function()
     
     def filter_history(self):
         self.tableWidget_3.setRowCount(0)
@@ -782,6 +801,7 @@ class window(QMainWindow, Ui_MainWindow):
         total_hisob = cur.fetchone()[0]
         if total_hisob is None: total_hisob=0
         self.label_8.setText(f"Jami sotilganlar qiymati filiter bo'yicha: {self.spacecomma(total_hisob)} so'm")
+        self.Key_F3_function()
 
     def handle_tableWidget_5_selected(self):
         self.tableWidget_3.setRowCount(0)
@@ -789,6 +809,7 @@ class window(QMainWindow, Ui_MainWindow):
         row = 0
         for item in selected_items: row = int(float(item.row()))
         if selected_items: self.show_table_widget_3(row)
+        self.Key_F3_function()
     
     def show_table_widget_3(self, row):
         try:
@@ -803,6 +824,7 @@ class window(QMainWindow, Ui_MainWindow):
             self.display_data_in_table(data, self.tableWidget_3)
         except:
             pass
+        self.Key_F3_function()
 
     def show_tarix(self):
         cur.execute("SELECT * FROM Tarix ORDER BY sana DESC")
@@ -812,6 +834,7 @@ class window(QMainWindow, Ui_MainWindow):
         total_hisob = cur.fetchone()[0]
         if total_hisob is None: total_hisob=0
         self.label_8.setText(f"Jami sotilganlar qiymati filiter bo'yicha: {self.spacecomma(total_hisob)} so'm")
+        self.Key_F3_function()
     
     def display_data_in_table(self, data, table_widget):
         try:
@@ -824,6 +847,7 @@ class window(QMainWindow, Ui_MainWindow):
                     table_widget.setItem(row_index, col_index, item)
         except:
             pass
+        self.Key_F3_function()
 
     def tovar_tab(self):
         try: self.lineEdit_4.textChanged.disconnect(self.on_line_edit_changed2)
@@ -859,6 +883,7 @@ class window(QMainWindow, Ui_MainWindow):
         self.timer = QTimer(self)
         self.timer.setSingleShot(True)
         self.timer.timeout.connect(self.search_database2)
+        self.Key_F3_function()
 
     def store_new_product(self, p):
         cur.execute("INSERT INTO Kitob (nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq, kelgan_sana) VALUES (?, ?, ?, ?, ?, ?, ?)", 
@@ -871,6 +896,7 @@ class window(QMainWindow, Ui_MainWindow):
 
     def scanner_returned2(self):
         scanned_text = self.lineEdit_4.text()
+        self.Key_F3_function()
 
     def clicked_cancel2(self, item):
         if item.column() == 9:
@@ -879,12 +905,14 @@ class window(QMainWindow, Ui_MainWindow):
             else:
                 pass
             self.calculate2()
+        self.Key_F3_function()
 
     def handle_item_changed2(self, item):
         # Check if the item is in column 2
         if item.column() in [2, 3]:
             try: self.calculate2()
             except: self.cancel_buy2()
+        self.Key_F3_function()
 
     def calculate2(self):
         column_index = 2
@@ -901,6 +929,7 @@ class window(QMainWindow, Ui_MainWindow):
 
         self.lineEdit_5.setText(self.spacecomma(int(total_amount))+" so'm")
         self.Key_F3_function2()
+        self.Key_F3_function()
 
     def cancel_buy2(self):
         self.tableWidget_6.setRowCount(0)
@@ -909,6 +938,7 @@ class window(QMainWindow, Ui_MainWindow):
         self.lineEdit_6.clear()
         self.lineEdit_5.setText("0 so'm")
         self.Key_F3_function2()
+        self.Key_F3_function()
 
     def accept_buy2(self):
         try:
@@ -927,56 +957,43 @@ class window(QMainWindow, Ui_MainWindow):
                 conn.commit()
                 tarix_id = cur.lastrowid
                 for row_index in range(rows):
+                    nomi = str(self.tableWidget_7.item(row_index, 1).text())
+                    soni = int(float(self.tableWidget_7.item(row_index, 2).text()))
+                    tan_narx = int(float(self.tableWidget_7.item(row_index, 3).text()))
+                    narx = int(float(self.tableWidget_7.item(row_index, 4).text()))
+                    pachka_narx = int(float(self.tableWidget_7.item(row_index, 5).text()))
+                    barcode = self.tableWidget_7.item(row_index, 6).text()
+                    qoldiq = int(float(self.tableWidget_7.item(row_index, 7).text()))
+                    hisob = int(float(self.tableWidget_7.item(row_index, 8).text()))
                     try:
                         kitob_id = int(float(self.tableWidget_7.item(row_index, 0).text()))
-                        nomi = str(self.tableWidget_7.item(row_index, 1).text())
-                        soni = int(float(self.tableWidget_7.item(row_index, 2).text()))
-                        tan_narx = int(float(self.tableWidget_7.item(row_index, 3).text()))
-                        narx = int(float(self.tableWidget_7.item(row_index, 4).text()))
-                        pachka_narx = int(float(self.tableWidget_7.item(row_index, 5).text()))
-                        barcode = self.tableWidget_7.item(row_index, 6).text()
-                        qoldiq = int(float(self.tableWidget_7.item(row_index, 7).text()))
-                        hisob = int(float(self.tableWidget_7.item(row_index, 8).text()))
                         cur.execute("UPDATE Kitob SET nomi = ?, tan_narx = ?, narxi = ?, pachka_narx = ?, barcode = ?, qoldiq = ?, kelgan_sana=?, kimdan=? WHERE id = ?", (nomi, tan_narx, narx, pachka_narx, barcode, qoldiq+soni, date.today(), kimdan, kitob_id))
                         conn.commit()
                     except Exception as e:
-                        nomi = str(self.tableWidget_7.item(row_index, 1).text())
-                        soni = int(float(self.tableWidget_7.item(row_index, 2).text()))
-                        tan_narx = int(float(self.tableWidget_7.item(row_index, 3).text()))
-                        narx = int(float(self.tableWidget_7.item(row_index, 4).text()))
-                        pachka_narx = int(float(self.tableWidget_7.item(row_index, 5).text()))
-                        barcode = self.tableWidget_7.item(row_index, 6).text()
-                        qoldiq = int(float(self.tableWidget_7.item(row_index, 7).text()))
-                        hisob = int(float(self.tableWidget_7.item(row_index, 8).text()))
-                        product = (
-                            nomi,
-                            tan_narx,
-                            narx,
-                            pachka_narx,
-                            barcode,
-                            qoldiq+soni,
-                            date.today(),
-                        )
+                        product = (nomi, tan_narx, narx, pachka_narx, barcode, qoldiq+soni, date.today())
                         kitob_id = self.store_new_product(product)
                         
-                    cur.execute("INSERT INTO TovarItem (Tovar, Kitob, soni, hisob, tan_narx) VALUES (?, ?, ?, ?, ?)", (tarix_id, kitob_id, soni, hisob, tan_narx))
+                    cur.execute("INSERT INTO TovarItem (Tovar, Kitob, soni, hisob, tan_narx, sotuv_narx) VALUES (?, ?, ?, ?, ?, ?)", (tarix_id, kitob_id, soni, hisob, tan_narx, narx))
                     conn.commit()
 
-            QTimer.singleShot(5000, self.close_message_box)
+            QTimer.singleShot(1000, self.close_message_box)
             self.message_info = "Saqlandi"
             self.message_type = 1
             QTimer.singleShot(50, self.show_message)
-        except:
-            QTimer.singleShot(5000, self.close_message_box)
+        except Exception as e:
+            print(e)
+            QTimer.singleShot(1000, self.close_message_box)
             self.message_info = "Xatolik"
             self.message_type = 0
             QTimer.singleShot(50, self.show_message)
         self.cancel_buy2()
         self.Key_F3_function2()
+        self.Key_F3_function()
     
     def on_line_edit_changed2(self):
         # Start the timer when the text in the line edit changes
         self.timer.start(1000)  # 1000 milliseconds = 1 second
+        self.Key_F3_function()
 
     def search_database2(self):
         # Perform the database query based on user input
@@ -1021,6 +1038,7 @@ class window(QMainWindow, Ui_MainWindow):
                         self.display_data_in_table2(result, self.tableWidget_6)
         except Exception as e:
             print(e)
+        self.Key_F3_function()
 
     def add_selected_item_to_table2(self):
         selected_item = self.tableWidget_6.currentRow()
@@ -1062,6 +1080,7 @@ class window(QMainWindow, Ui_MainWindow):
                 # item.setForeground(QColor(255, 255, 255))
         # self.tableWidget_6.setRowCount(0)
         self.Key_F3_function2()
+        self.Key_F3_function()
 
     def check_tablewidget_add2(self, id):
         is_present = -1
@@ -1091,6 +1110,7 @@ class window(QMainWindow, Ui_MainWindow):
         except: pass
         self.pushButton_15.clicked.connect(self.filter_history2)
         self.filter_history2()
+        self.Key_F3_function()
     
     def filter_history2(self):
         self.tableWidget_9.setRowCount(0)
@@ -1107,6 +1127,7 @@ class window(QMainWindow, Ui_MainWindow):
         total_hisob = cur.fetchone()[0]
         if total_hisob is None: total_hisob=0
         self.label_15.setText(f"Jami sotilganlar qiymati filiter bo'yicha: {self.spacecomma(total_hisob)} so'm")
+        self.Key_F3_function()
 
     def handle_tableWidget_8_selected(self):
         self.tableWidget_9.setRowCount(0)
@@ -1114,12 +1135,13 @@ class window(QMainWindow, Ui_MainWindow):
         row = 0
         for item in selected_items: row = int(float(item.row()))
         if selected_items: self.show_table_widget_8_tovar(row)
+        self.Key_F3_function()
     
     def show_table_widget_8_tovar(self, row):
         try:
             tarix_id = int(float(self.tableWidget_8.item(row, 0).text()))
             cur.execute("""
-                SELECT TovarItem.id, Kitob.nomi, TovarItem.soni, TovarItem.hisob, TovarItem.tan_narx
+                SELECT TovarItem.id, Kitob.nomi, TovarItem.soni, TovarItem.hisob, TovarItem.tan_narx, TovarItem.sotuv_narx
                 FROM TovarItem
                 JOIN Kitob ON TovarItem.Kitob = Kitob.id
                 WHERE TovarItem.Tovar = ?
@@ -1128,6 +1150,7 @@ class window(QMainWindow, Ui_MainWindow):
             self.display_data_in_table2(data, self.tableWidget_9)
         except:
             pass
+        self.Key_F3_function()
 
     def show_tarix2(self):
         cur.execute("SELECT * FROM Tovar ORDER BY sana DESC")
@@ -1137,6 +1160,7 @@ class window(QMainWindow, Ui_MainWindow):
         total_hisob = cur.fetchone()[0]
         if total_hisob is None: total_hisob=0
         self.label_15.setText(f"Jami sotilganlar qiymati filiter bo'yicha: {self.spacecomma(total_hisob)} so'm")
+        self.Key_F3_function()
     
     def display_data_in_table2(self, data, table_widget):
         try:
@@ -1149,6 +1173,7 @@ class window(QMainWindow, Ui_MainWindow):
                     table_widget.setItem(row_index, col_index, item)
         except:
             pass
+        self.Key_F3_function()
 
 if __name__ == "__main__":
     App = QApplication(sys.argv)

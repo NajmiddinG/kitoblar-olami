@@ -68,6 +68,7 @@ try:
                 soni INTEGER NOT NULL,
                 hisob INTEGER NOT NULL,
                 tan_narx TEXT NOT NULL,
+                sotuv_narx TEXT NOT NULL,
                 FOREIGN KEY (Kitob) REFERENCES Kitob(id) ON DELETE SET NULL,
                 FOREIGN KEY (Tovar) REFERENCES Tovar(id) ON DELETE SET NULL
                 )""")
@@ -82,6 +83,13 @@ try:
         print('\033[92m' + "Added 'tan_narx' column to TovarItem table"+ '\033[0m')
     else:
         print('\033[92m' + "The 'tan_narx' column already exists in TovarItem table"+ '\033[0m')
+    
+    if 'sotuv_narx' not in column_names:
+        cur.execute("ALTER TABLE TovarItem ADD COLUMN sotuv_narx TEXT")
+        conn.commit()
+        print('\033[92m' + "Added 'sotuv_narx' column to TovarItem table"+ '\033[0m')
+    else:
+        print('\033[92m' + "The 'sotuv_narx' column already exists in TovarItem table"+ '\033[0m')
     
     cur.execute("PRAGMA table_info(Kitob)")
     columns = cur.fetchall()

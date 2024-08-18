@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="image">
+    <file>plus.png</file>
+    <file>excel.png</file>
+    <file>logo.png</file>
+    <file>logo.jpg</file>
+    <file>statistic.png</file>
+    <file>books.png</file>
+    <file>history.png</file>
+    <file>delete.png</file>
+    <file>book.png</file>
+    <file>main..png</file>
+    <file>shoes.jpeg</file>
+    <file>images.qrc</file>
+  </qresource>
+</RCC>

@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1042, 828)
+        MainWindow.resize(868, 609)
         MainWindow.setMinimumSize(QSize(0, 600))
         font = QFont()
         font.setFamilies([u"Times New Roman"])
@@ -35,7 +35,9 @@ class Ui_MainWindow(object):
         icon = QIcon()
         icon.addFile(u":/image/logo.jpg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet(u"background-color: rgb(25, 25, 50); color: white;")
+        MainWindow.setStyleSheet(u"background-color: #212121;\n"
+"color: white;\n"
+"border-color: white;")
         self.actionasdasasdasd = QAction(MainWindow)
         self.actionasdasasdasd.setObjectName(u"actionasdasasdasd")
         self.actionasdasdas = QAction(MainWindow)
@@ -54,6 +56,10 @@ class Ui_MainWindow(object):
         self.actionKichiklashtirish_2.setObjectName(u"actionKichiklashtirish_2")
         self.actionsssss = QAction(MainWindow)
         self.actionsssss.setObjectName(u"actionsssss")
+        self.actionQidirish_F3 = QAction(MainWindow)
+        self.actionQidirish_F3.setObjectName(u"actionQidirish_F3")
+        self.actionSotish_F4 = QAction(MainWindow)
+        self.actionSotish_F4.setObjectName(u"actionSotish_F4")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout_20 = QGridLayout(self.centralwidget)
@@ -68,8 +74,8 @@ class Ui_MainWindow(object):
         font1.setStyleStrategy(QFont.PreferDefault)
         self.tabWidget.setFont(font1)
         self.tabWidget.setStyleSheet(u"")
-        self.tabWidget.setTabPosition(QTabWidget.North)
-        self.tabWidget.setTabShape(QTabWidget.Triangular)
+        self.tabWidget.setTabPosition(QTabWidget.TabPosition.North)
+        self.tabWidget.setTabShape(QTabWidget.TabShape.Triangular)
         self.tabWidget.setIconSize(QSize(30, 25))
         self.tab1_2 = QWidget()
         self.tab1_2.setObjectName(u"tab1_2")
@@ -98,14 +104,14 @@ class Ui_MainWindow(object):
         self.lineEdit_2 = QLineEdit(self.tab1_2)
         self.lineEdit_2.setObjectName(u"lineEdit_2")
         self.lineEdit_2.setFont(font2)
-        self.lineEdit_2.setAlignment(Qt.AlignCenter)
+        self.lineEdit_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout_14.addWidget(self.lineEdit_2, 2, 0, 1, 1)
 
         self.label_3 = QLabel(self.tab1_2)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setFont(font2)
-        self.label_3.setAlignment(Qt.AlignCenter)
+        self.label_3.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout_14.addWidget(self.label_3, 1, 0, 1, 1)
 
@@ -118,7 +124,6 @@ class Ui_MainWindow(object):
         font3.setBold(True)
         __qtablewidgetitem = QTableWidgetItem()
         __qtablewidgetitem.setFont(font3);
-        __qtablewidgetitem.setBackground(QColor(255, 255, 255));
         self.tableWidget_2.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
         __qtablewidgetitem1.setFont(font3);
@@ -141,13 +146,13 @@ class Ui_MainWindow(object):
         self.tableWidget_2.setFont(font4)
         self.tableWidget_2.setStyleSheet(u"")
         self.tableWidget_2.setLineWidth(1)
-        self.tableWidget_2.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        self.tableWidget_2.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.tableWidget_2.setDefaultDropAction(Qt.IgnoreAction)
-        self.tableWidget_2.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.tableWidget_2.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.tableWidget_2.setTextElideMode(Qt.ElideRight)
-        self.tableWidget_2.setHorizontalScrollMode(QAbstractItemView.ScrollPerItem)
+        self.tableWidget_2.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        self.tableWidget_2.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.tableWidget_2.setDefaultDropAction(Qt.DropAction.IgnoreAction)
+        self.tableWidget_2.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
+        self.tableWidget_2.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.tableWidget_2.setTextElideMode(Qt.TextElideMode.ElideRight)
+        self.tableWidget_2.setHorizontalScrollMode(QAbstractItemView.ScrollMode.ScrollPerItem)
         self.tableWidget_2.setSortingEnabled(True)
         self.tableWidget_2.setRowCount(0)
         self.tableWidget_2.horizontalHeader().setCascadingSectionResizes(False)
@@ -162,20 +167,6 @@ class Ui_MainWindow(object):
 
 
         self.gridLayout_13.addLayout(self.gridLayout_14, 0, 0, 1, 1)
-
-        self.lineEdit = QLineEdit(self.tab1_2)
-        self.lineEdit.setObjectName(u"lineEdit")
-        font5 = QFont()
-        font5.setFamilies([u"Times New Roman"])
-        font5.setPointSize(20)
-        font5.setStyleStrategy(QFont.PreferDefault)
-        self.lineEdit.setFont(font5)
-        self.lineEdit.setFocusPolicy(Qt.StrongFocus)
-        self.lineEdit.setLayoutDirection(Qt.LeftToRight)
-        self.lineEdit.setStyleSheet(u"")
-        self.lineEdit.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_13.addWidget(self.lineEdit, 2, 0, 1, 1)
 
         self.gridLayout_15 = QGridLayout()
         self.gridLayout_15.setObjectName(u"gridLayout_15")
@@ -193,13 +184,13 @@ class Ui_MainWindow(object):
 
         self.pushButton = QPushButton(self.tab1_2)
         self.pushButton.setObjectName(u"pushButton")
-        font6 = QFont()
-        font6.setFamilies([u"Times New Roman"])
-        font6.setPointSize(14)
-        font6.setUnderline(False)
-        font6.setStrikeOut(False)
-        font6.setStyleStrategy(QFont.PreferDefault)
-        self.pushButton.setFont(font6)
+        font5 = QFont()
+        font5.setFamilies([u"Times New Roman"])
+        font5.setPointSize(14)
+        font5.setUnderline(False)
+        font5.setStrikeOut(False)
+        font5.setStyleStrategy(QFont.PreferDefault)
+        self.pushButton.setFont(font5)
         self.pushButton.setCursor(QCursor(Qt.CursorShape.ArrowCursor))
         self.pushButton.setStyleSheet(u"background-color: rgb(160, 20, 20); color: white;")
 
@@ -207,12 +198,12 @@ class Ui_MainWindow(object):
 
         self.pushButton_2 = QPushButton(self.tab1_2)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        font7 = QFont()
-        font7.setFamilies([u"Times New Roman"])
-        font7.setPointSize(14)
-        font7.setBold(False)
-        font7.setStyleStrategy(QFont.PreferDefault)
-        self.pushButton_2.setFont(font7)
+        font6 = QFont()
+        font6.setFamilies([u"Times New Roman"])
+        font6.setPointSize(14)
+        font6.setBold(False)
+        font6.setStyleStrategy(QFont.PreferDefault)
+        self.pushButton_2.setFont(font6)
         self.pushButton_2.setStyleSheet(u"background-color: rgb(31, 118, 28); color: white;")
 
         self.gridLayout_15.addWidget(self.pushButton_2, 0, 1, 1, 1)
@@ -222,7 +213,38 @@ class Ui_MainWindow(object):
         self.gridLayout_15.addItem(self.verticalSpacer_2, 1, 2, 1, 1)
 
 
-        self.gridLayout_13.addLayout(self.gridLayout_15, 3, 0, 1, 1)
+        self.gridLayout_13.addLayout(self.gridLayout_15, 4, 0, 1, 1)
+
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.lineEdit = QLineEdit(self.tab1_2)
+        self.lineEdit.setObjectName(u"lineEdit")
+        font7 = QFont()
+        font7.setFamilies([u"Times New Roman"])
+        font7.setPointSize(15)
+        font7.setStyleStrategy(QFont.PreferDefault)
+        self.lineEdit.setFont(font7)
+        self.lineEdit.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+        self.lineEdit.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.lineEdit.setStyleSheet(u"")
+        self.lineEdit.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.horizontalLayout_4.addWidget(self.lineEdit)
+
+        self.comboBox = QComboBox(self.tab1_2)
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.setObjectName(u"comboBox")
+        self.comboBox.setMinimumSize(QSize(100, 0))
+        self.comboBox.setMaximumSize(QSize(100, 16777215))
+        self.comboBox.setFont(font7)
+        self.comboBox.setStyleSheet(u"padding-left: 5px;")
+
+        self.horizontalLayout_4.addWidget(self.comboBox)
+
+
+        self.gridLayout_13.addLayout(self.horizontalLayout_4, 2, 0, 1, 1)
 
 
         self.gridLayout_10.addLayout(self.gridLayout_13, 0, 0, 1, 1)
@@ -251,11 +273,11 @@ class Ui_MainWindow(object):
         font8.setStyleStrategy(QFont.PreferDefault)
         self.label.setFont(font8)
         self.label.setTabletTracking(False)
-        self.label.setLayoutDirection(Qt.LeftToRight)
+        self.label.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.label.setStyleSheet(u"")
         self.label.setPixmap(QPixmap(u":/image/logo.png"))
         self.label.setScaledContents(True)
-        self.label.setAlignment(Qt.AlignCenter)
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.label.setWordWrap(False)
 
         self.horizontalLayout_9.addWidget(self.label)
@@ -288,10 +310,10 @@ class Ui_MainWindow(object):
         font9.setBold(False)
         font9.setStyleStrategy(QFont.PreferDefault)
         self.comboBox_2.setFont(font9)
-        self.comboBox_2.setContextMenuPolicy(Qt.NoContextMenu)
+        self.comboBox_2.setContextMenuPolicy(Qt.ContextMenuPolicy.NoContextMenu)
         self.comboBox_2.setAcceptDrops(False)
         self.comboBox_2.setEditable(False)
-        self.comboBox_2.setInsertPolicy(QComboBox.InsertBeforeCurrent)
+        self.comboBox_2.setInsertPolicy(QComboBox.InsertPolicy.InsertBeforeCurrent)
 
         self.horizontalLayout.addWidget(self.comboBox_2)
 
@@ -306,11 +328,8 @@ class Ui_MainWindow(object):
         self.pushButton_8 = QPushButton(self.tab1_2)
         self.pushButton_8.setObjectName(u"pushButton_8")
         self.pushButton_8.setMaximumSize(QSize(30, 16777215))
-        font10 = QFont()
-        font10.setFamilies([u"Times New Roman"])
-        font10.setPointSize(14)
-        self.pushButton_8.setFont(font10)
-        self.pushButton_8.setStyleSheet(u"background-color:red; color: white;")
+        self.pushButton_8.setFont(font2)
+        self.pushButton_8.setStyleSheet(u"background-color: rgb(160, 20, 20); color: white;")
 
         self.horizontalLayout.addWidget(self.pushButton_8)
 
@@ -324,46 +343,46 @@ class Ui_MainWindow(object):
         self.tableWidget = QTableWidget(self.tab1_2)
         if (self.tableWidget.columnCount() < 8):
             self.tableWidget.setColumnCount(8)
-        font11 = QFont()
-        font11.setFamilies([u"Times New Roman"])
-        font11.setPointSize(14)
-        font11.setBold(True)
+        font10 = QFont()
+        font10.setFamilies([u"Times New Roman"])
+        font10.setPointSize(14)
+        font10.setBold(True)
         __qtablewidgetitem5 = QTableWidgetItem()
-        __qtablewidgetitem5.setFont(font11);
+        __qtablewidgetitem5.setFont(font10);
         self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem5)
         __qtablewidgetitem6 = QTableWidgetItem()
-        __qtablewidgetitem6.setFont(font11);
+        __qtablewidgetitem6.setFont(font10);
         self.tableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem6)
         __qtablewidgetitem7 = QTableWidgetItem()
-        __qtablewidgetitem7.setFont(font11);
+        __qtablewidgetitem7.setFont(font10);
         self.tableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem7)
         __qtablewidgetitem8 = QTableWidgetItem()
-        __qtablewidgetitem8.setFont(font11);
+        __qtablewidgetitem8.setFont(font10);
         self.tableWidget.setHorizontalHeaderItem(3, __qtablewidgetitem8)
         __qtablewidgetitem9 = QTableWidgetItem()
-        __qtablewidgetitem9.setFont(font11);
+        __qtablewidgetitem9.setFont(font10);
         self.tableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem9)
         __qtablewidgetitem10 = QTableWidgetItem()
-        __qtablewidgetitem10.setFont(font11);
+        __qtablewidgetitem10.setFont(font10);
         self.tableWidget.setHorizontalHeaderItem(5, __qtablewidgetitem10)
         __qtablewidgetitem11 = QTableWidgetItem()
-        __qtablewidgetitem11.setFont(font11);
+        __qtablewidgetitem11.setFont(font10);
         self.tableWidget.setHorizontalHeaderItem(6, __qtablewidgetitem11)
         __qtablewidgetitem12 = QTableWidgetItem()
-        __qtablewidgetitem12.setFont(font11);
+        __qtablewidgetitem12.setFont(font10);
         self.tableWidget.setHorizontalHeaderItem(7, __qtablewidgetitem12)
         self.tableWidget.setObjectName(u"tableWidget")
-        font12 = QFont()
-        font12.setFamilies([u"Times New Roman"])
-        font12.setPointSize(16)
-        font12.setStrikeOut(False)
-        font12.setStyleStrategy(QFont.PreferDefault)
-        self.tableWidget.setFont(font12)
-        self.tableWidget.setDragDropMode(QAbstractItemView.NoDragDrop)
-        self.tableWidget.setSelectionMode(QAbstractItemView.ExtendedSelection)
-        self.tableWidget.setSelectionBehavior(QAbstractItemView.SelectItems)
-        self.tableWidget.setTextElideMode(Qt.ElideRight)
-        self.tableWidget.setGridStyle(Qt.SolidLine)
+        font11 = QFont()
+        font11.setFamilies([u"Times New Roman"])
+        font11.setPointSize(16)
+        font11.setStrikeOut(False)
+        font11.setStyleStrategy(QFont.PreferDefault)
+        self.tableWidget.setFont(font11)
+        self.tableWidget.setDragDropMode(QAbstractItemView.DragDropMode.NoDragDrop)
+        self.tableWidget.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
+        self.tableWidget.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectItems)
+        self.tableWidget.setTextElideMode(Qt.TextElideMode.ElideRight)
+        self.tableWidget.setGridStyle(Qt.PenStyle.SolidLine)
         self.tableWidget.setSortingEnabled(True)
         self.tableWidget.setRowCount(0)
         self.tableWidget.horizontalHeader().setVisible(True)
@@ -399,42 +418,42 @@ class Ui_MainWindow(object):
         if (self.tableWidget_4.columnCount() < 10):
             self.tableWidget_4.setColumnCount(10)
         __qtablewidgetitem13 = QTableWidgetItem()
-        __qtablewidgetitem13.setFont(font11);
+        __qtablewidgetitem13.setFont(font10);
         self.tableWidget_4.setHorizontalHeaderItem(0, __qtablewidgetitem13)
         __qtablewidgetitem14 = QTableWidgetItem()
-        __qtablewidgetitem14.setFont(font11);
+        __qtablewidgetitem14.setFont(font10);
         self.tableWidget_4.setHorizontalHeaderItem(1, __qtablewidgetitem14)
         __qtablewidgetitem15 = QTableWidgetItem()
-        __qtablewidgetitem15.setFont(font11);
+        __qtablewidgetitem15.setFont(font10);
         self.tableWidget_4.setHorizontalHeaderItem(2, __qtablewidgetitem15)
         __qtablewidgetitem16 = QTableWidgetItem()
-        __qtablewidgetitem16.setFont(font11);
+        __qtablewidgetitem16.setFont(font10);
         self.tableWidget_4.setHorizontalHeaderItem(3, __qtablewidgetitem16)
         __qtablewidgetitem17 = QTableWidgetItem()
-        __qtablewidgetitem17.setFont(font11);
+        __qtablewidgetitem17.setFont(font10);
         self.tableWidget_4.setHorizontalHeaderItem(4, __qtablewidgetitem17)
         __qtablewidgetitem18 = QTableWidgetItem()
-        __qtablewidgetitem18.setFont(font11);
+        __qtablewidgetitem18.setFont(font10);
         self.tableWidget_4.setHorizontalHeaderItem(5, __qtablewidgetitem18)
         __qtablewidgetitem19 = QTableWidgetItem()
-        __qtablewidgetitem19.setFont(font11);
+        __qtablewidgetitem19.setFont(font10);
         self.tableWidget_4.setHorizontalHeaderItem(6, __qtablewidgetitem19)
         __qtablewidgetitem20 = QTableWidgetItem()
-        __qtablewidgetitem20.setFont(font11);
+        __qtablewidgetitem20.setFont(font10);
         self.tableWidget_4.setHorizontalHeaderItem(7, __qtablewidgetitem20)
         __qtablewidgetitem21 = QTableWidgetItem()
-        __qtablewidgetitem21.setFont(font11);
+        __qtablewidgetitem21.setFont(font10);
         self.tableWidget_4.setHorizontalHeaderItem(8, __qtablewidgetitem21)
         __qtablewidgetitem22 = QTableWidgetItem()
-        __qtablewidgetitem22.setFont(font11);
+        __qtablewidgetitem22.setFont(font10);
         self.tableWidget_4.setHorizontalHeaderItem(9, __qtablewidgetitem22)
         if (self.tableWidget_4.rowCount() < 10):
             self.tableWidget_4.setRowCount(10)
         self.tableWidget_4.setObjectName(u"tableWidget_4")
-        self.tableWidget_4.setFont(font7)
+        self.tableWidget_4.setFont(font6)
         self.tableWidget_4.setAutoFillBackground(False)
-        self.tableWidget_4.setSelectionMode(QAbstractItemView.ExtendedSelection)
-        self.tableWidget_4.setSelectionBehavior(QAbstractItemView.SelectItems)
+        self.tableWidget_4.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
+        self.tableWidget_4.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectItems)
         self.tableWidget_4.setSortingEnabled(True)
         self.tableWidget_4.setRowCount(10)
         self.tableWidget_4.horizontalHeader().setDefaultSectionSize(200)
@@ -462,7 +481,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_4 = QPushButton(self.tab2_2)
         self.pushButton_4.setObjectName(u"pushButton_4")
-        self.pushButton_4.setFont(font7)
+        self.pushButton_4.setFont(font6)
         self.pushButton_4.setStyleSheet(u"background-color: rgb(31, 118, 28); color: white;")
         self.pushButton_4.setIcon(icon2)
         self.pushButton_4.setIconSize(QSize(24, 24))
@@ -475,7 +494,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_3 = QPushButton(self.tab2_2)
         self.pushButton_3.setObjectName(u"pushButton_3")
-        self.pushButton_3.setFont(font7)
+        self.pushButton_3.setFont(font6)
         self.pushButton_3.setStyleSheet(u"background-color: rgb(31, 118, 28); color: white;")
 
         self.horizontalLayout_10.addWidget(self.pushButton_3)
@@ -486,7 +505,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_13 = QPushButton(self.tab2_2)
         self.pushButton_13.setObjectName(u"pushButton_13")
-        self.pushButton_13.setFont(font10)
+        self.pushButton_13.setFont(font2)
         self.pushButton_13.setStyleSheet(u"background-color: rgb(31, 118, 28); color: white;")
         self.pushButton_13.setIcon(icon2)
         self.pushButton_13.setIconSize(QSize(24, 24))
@@ -501,7 +520,7 @@ class Ui_MainWindow(object):
         self.lineEdit_3.setObjectName(u"lineEdit_3")
         self.lineEdit_3.setMaximumSize(QSize(200, 16777215))
         self.lineEdit_3.setFont(font2)
-        self.lineEdit_3.setAlignment(Qt.AlignCenter)
+        self.lineEdit_3.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_10.addWidget(self.lineEdit_3)
 
@@ -534,6 +553,7 @@ class Ui_MainWindow(object):
 
         self.dateEdit = QDateEdit(self.tab3_2)
         self.dateEdit.setObjectName(u"dateEdit")
+        self.dateEdit.setMinimumSize(QSize(150, 0))
         self.dateEdit.setFont(font2)
 
         self.horizontalLayout_12.addWidget(self.dateEdit)
@@ -546,6 +566,7 @@ class Ui_MainWindow(object):
 
         self.dateEdit_2 = QDateEdit(self.tab3_2)
         self.dateEdit_2.setObjectName(u"dateEdit_2")
+        self.dateEdit_2.setMinimumSize(QSize(150, 0))
         self.dateEdit_2.setFont(font2)
 
         self.horizontalLayout_12.addWidget(self.dateEdit_2)
@@ -579,21 +600,24 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11 = QHBoxLayout()
         self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
         self.tableWidget_5 = QTableWidget(self.tab3_2)
-        if (self.tableWidget_5.columnCount() < 3):
-            self.tableWidget_5.setColumnCount(3)
+        if (self.tableWidget_5.columnCount() < 4):
+            self.tableWidget_5.setColumnCount(4)
         __qtablewidgetitem23 = QTableWidgetItem()
-        __qtablewidgetitem23.setFont(font11);
+        __qtablewidgetitem23.setFont(font10);
         self.tableWidget_5.setHorizontalHeaderItem(0, __qtablewidgetitem23)
         __qtablewidgetitem24 = QTableWidgetItem()
-        __qtablewidgetitem24.setFont(font11);
+        __qtablewidgetitem24.setFont(font10);
         self.tableWidget_5.setHorizontalHeaderItem(1, __qtablewidgetitem24)
         __qtablewidgetitem25 = QTableWidgetItem()
-        __qtablewidgetitem25.setFont(font11);
+        __qtablewidgetitem25.setFont(font10);
         self.tableWidget_5.setHorizontalHeaderItem(2, __qtablewidgetitem25)
+        __qtablewidgetitem26 = QTableWidgetItem()
+        __qtablewidgetitem26.setFont(font10);
+        self.tableWidget_5.setHorizontalHeaderItem(3, __qtablewidgetitem26)
         self.tableWidget_5.setObjectName(u"tableWidget_5")
         self.tableWidget_5.setFont(font2)
-        self.tableWidget_5.setSelectionMode(QAbstractItemView.ExtendedSelection)
-        self.tableWidget_5.setSelectionBehavior(QAbstractItemView.SelectItems)
+        self.tableWidget_5.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
+        self.tableWidget_5.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectItems)
         self.tableWidget_5.setSortingEnabled(True)
         self.tableWidget_5.horizontalHeader().setDefaultSectionSize(200)
         self.tableWidget_5.verticalHeader().setVisible(False)
@@ -601,21 +625,24 @@ class Ui_MainWindow(object):
         self.horizontalLayout_11.addWidget(self.tableWidget_5)
 
         self.tableWidget_3 = QTableWidget(self.tab3_2)
-        if (self.tableWidget_3.columnCount() < 4):
-            self.tableWidget_3.setColumnCount(4)
-        __qtablewidgetitem26 = QTableWidgetItem()
-        __qtablewidgetitem26.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
-        __qtablewidgetitem26.setFont(font11);
-        self.tableWidget_3.setHorizontalHeaderItem(0, __qtablewidgetitem26)
+        if (self.tableWidget_3.columnCount() < 5):
+            self.tableWidget_3.setColumnCount(5)
         __qtablewidgetitem27 = QTableWidgetItem()
-        __qtablewidgetitem27.setFont(font11);
-        self.tableWidget_3.setHorizontalHeaderItem(1, __qtablewidgetitem27)
+        __qtablewidgetitem27.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        __qtablewidgetitem27.setFont(font10);
+        self.tableWidget_3.setHorizontalHeaderItem(0, __qtablewidgetitem27)
         __qtablewidgetitem28 = QTableWidgetItem()
-        __qtablewidgetitem28.setFont(font11);
-        self.tableWidget_3.setHorizontalHeaderItem(2, __qtablewidgetitem28)
+        __qtablewidgetitem28.setFont(font10);
+        self.tableWidget_3.setHorizontalHeaderItem(1, __qtablewidgetitem28)
         __qtablewidgetitem29 = QTableWidgetItem()
-        __qtablewidgetitem29.setFont(font11);
-        self.tableWidget_3.setHorizontalHeaderItem(3, __qtablewidgetitem29)
+        __qtablewidgetitem29.setFont(font10);
+        self.tableWidget_3.setHorizontalHeaderItem(2, __qtablewidgetitem29)
+        __qtablewidgetitem30 = QTableWidgetItem()
+        __qtablewidgetitem30.setFont(font10);
+        self.tableWidget_3.setHorizontalHeaderItem(3, __qtablewidgetitem30)
+        __qtablewidgetitem31 = QTableWidgetItem()
+        __qtablewidgetitem31.setFont(font10);
+        self.tableWidget_3.setHorizontalHeaderItem(4, __qtablewidgetitem31)
         self.tableWidget_3.setObjectName(u"tableWidget_3")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -623,7 +650,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.tableWidget_3.sizePolicy().hasHeightForWidth())
         self.tableWidget_3.setSizePolicy(sizePolicy)
         self.tableWidget_3.setFont(font2)
-        self.tableWidget_3.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.tableWidget_3.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
         self.tableWidget_3.setSortingEnabled(True)
         self.tableWidget_3.setRowCount(0)
         self.tableWidget_3.horizontalHeader().setDefaultSectionSize(200)
@@ -650,22 +677,22 @@ class Ui_MainWindow(object):
         self.tableWidget_8 = QTableWidget(self.tab_2)
         if (self.tableWidget_8.columnCount() < 4):
             self.tableWidget_8.setColumnCount(4)
-        __qtablewidgetitem30 = QTableWidgetItem()
-        __qtablewidgetitem30.setFont(font11);
-        self.tableWidget_8.setHorizontalHeaderItem(0, __qtablewidgetitem30)
-        __qtablewidgetitem31 = QTableWidgetItem()
-        __qtablewidgetitem31.setFont(font11);
-        self.tableWidget_8.setHorizontalHeaderItem(1, __qtablewidgetitem31)
         __qtablewidgetitem32 = QTableWidgetItem()
-        __qtablewidgetitem32.setFont(font11);
-        self.tableWidget_8.setHorizontalHeaderItem(2, __qtablewidgetitem32)
+        __qtablewidgetitem32.setFont(font10);
+        self.tableWidget_8.setHorizontalHeaderItem(0, __qtablewidgetitem32)
         __qtablewidgetitem33 = QTableWidgetItem()
-        __qtablewidgetitem33.setFont(font11);
-        self.tableWidget_8.setHorizontalHeaderItem(3, __qtablewidgetitem33)
+        __qtablewidgetitem33.setFont(font10);
+        self.tableWidget_8.setHorizontalHeaderItem(1, __qtablewidgetitem33)
+        __qtablewidgetitem34 = QTableWidgetItem()
+        __qtablewidgetitem34.setFont(font10);
+        self.tableWidget_8.setHorizontalHeaderItem(2, __qtablewidgetitem34)
+        __qtablewidgetitem35 = QTableWidgetItem()
+        __qtablewidgetitem35.setFont(font10);
+        self.tableWidget_8.setHorizontalHeaderItem(3, __qtablewidgetitem35)
         self.tableWidget_8.setObjectName(u"tableWidget_8")
         self.tableWidget_8.setFont(font2)
-        self.tableWidget_8.setSelectionMode(QAbstractItemView.ExtendedSelection)
-        self.tableWidget_8.setSelectionBehavior(QAbstractItemView.SelectItems)
+        self.tableWidget_8.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
+        self.tableWidget_8.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectItems)
         self.tableWidget_8.setSortingEnabled(True)
         self.tableWidget_8.horizontalHeader().setDefaultSectionSize(200)
         self.tableWidget_8.verticalHeader().setVisible(False)
@@ -675,30 +702,30 @@ class Ui_MainWindow(object):
         self.tableWidget_9 = QTableWidget(self.tab_2)
         if (self.tableWidget_9.columnCount() < 6):
             self.tableWidget_9.setColumnCount(6)
-        __qtablewidgetitem34 = QTableWidgetItem()
-        __qtablewidgetitem34.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
-        __qtablewidgetitem34.setFont(font11);
-        self.tableWidget_9.setHorizontalHeaderItem(0, __qtablewidgetitem34)
-        __qtablewidgetitem35 = QTableWidgetItem()
-        __qtablewidgetitem35.setFont(font11);
-        self.tableWidget_9.setHorizontalHeaderItem(1, __qtablewidgetitem35)
         __qtablewidgetitem36 = QTableWidgetItem()
-        __qtablewidgetitem36.setFont(font11);
-        self.tableWidget_9.setHorizontalHeaderItem(2, __qtablewidgetitem36)
+        __qtablewidgetitem36.setTextAlignment(Qt.AlignLeading|Qt.AlignVCenter);
+        __qtablewidgetitem36.setFont(font10);
+        self.tableWidget_9.setHorizontalHeaderItem(0, __qtablewidgetitem36)
         __qtablewidgetitem37 = QTableWidgetItem()
-        __qtablewidgetitem37.setFont(font11);
-        self.tableWidget_9.setHorizontalHeaderItem(3, __qtablewidgetitem37)
+        __qtablewidgetitem37.setFont(font10);
+        self.tableWidget_9.setHorizontalHeaderItem(1, __qtablewidgetitem37)
         __qtablewidgetitem38 = QTableWidgetItem()
-        __qtablewidgetitem38.setFont(font11);
-        self.tableWidget_9.setHorizontalHeaderItem(4, __qtablewidgetitem38)
+        __qtablewidgetitem38.setFont(font10);
+        self.tableWidget_9.setHorizontalHeaderItem(2, __qtablewidgetitem38)
         __qtablewidgetitem39 = QTableWidgetItem()
-        __qtablewidgetitem39.setFont(font11);
-        self.tableWidget_9.setHorizontalHeaderItem(5, __qtablewidgetitem39)
+        __qtablewidgetitem39.setFont(font10);
+        self.tableWidget_9.setHorizontalHeaderItem(3, __qtablewidgetitem39)
+        __qtablewidgetitem40 = QTableWidgetItem()
+        __qtablewidgetitem40.setFont(font10);
+        self.tableWidget_9.setHorizontalHeaderItem(4, __qtablewidgetitem40)
+        __qtablewidgetitem41 = QTableWidgetItem()
+        __qtablewidgetitem41.setFont(font10);
+        self.tableWidget_9.setHorizontalHeaderItem(5, __qtablewidgetitem41)
         self.tableWidget_9.setObjectName(u"tableWidget_9")
         sizePolicy.setHeightForWidth(self.tableWidget_9.sizePolicy().hasHeightForWidth())
         self.tableWidget_9.setSizePolicy(sizePolicy)
         self.tableWidget_9.setFont(font2)
-        self.tableWidget_9.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.tableWidget_9.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
         self.tableWidget_9.setSortingEnabled(True)
         self.tableWidget_9.setRowCount(0)
         self.tableWidget_9.horizontalHeader().setDefaultSectionSize(200)
@@ -721,6 +748,7 @@ class Ui_MainWindow(object):
 
         self.dateEdit_3 = QDateEdit(self.tab_2)
         self.dateEdit_3.setObjectName(u"dateEdit_3")
+        self.dateEdit_3.setMinimumSize(QSize(150, 0))
         self.dateEdit_3.setFont(font2)
 
         self.horizontalLayout_14.addWidget(self.dateEdit_3)
@@ -733,6 +761,7 @@ class Ui_MainWindow(object):
 
         self.dateEdit_4 = QDateEdit(self.tab_2)
         self.dateEdit_4.setObjectName(u"dateEdit_4")
+        self.dateEdit_4.setMinimumSize(QSize(150, 0))
         self.dateEdit_4.setFont(font2)
 
         self.horizontalLayout_14.addWidget(self.dateEdit_4)
@@ -775,54 +804,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.gridLayout_5 = QGridLayout()
         self.gridLayout_5.setObjectName(u"gridLayout_5")
-        self.lineEdit_5 = QLineEdit(self.tab)
-        self.lineEdit_5.setObjectName(u"lineEdit_5")
-        self.lineEdit_5.setFont(font5)
-        self.lineEdit_5.setFocusPolicy(Qt.StrongFocus)
-        self.lineEdit_5.setLayoutDirection(Qt.LeftToRight)
-        self.lineEdit_5.setStyleSheet(u"")
-        self.lineEdit_5.setAlignment(Qt.AlignCenter)
-
-        self.gridLayout_5.addWidget(self.lineEdit_5, 4, 0, 1, 1)
-
         self.label_10 = QLabel(self.tab)
         self.label_10.setObjectName(u"label_10")
         self.label_10.setFont(font2)
-        self.label_10.setAlignment(Qt.AlignCenter)
+        self.label_10.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout_5.addWidget(self.label_10, 0, 0, 1, 1)
-
-        self.tableWidget_6 = QTableWidget(self.tab)
-        if (self.tableWidget_6.columnCount() < 5):
-            self.tableWidget_6.setColumnCount(5)
-        __qtablewidgetitem40 = QTableWidgetItem()
-        __qtablewidgetitem40.setFont(font3);
-        self.tableWidget_6.setHorizontalHeaderItem(0, __qtablewidgetitem40)
-        __qtablewidgetitem41 = QTableWidgetItem()
-        __qtablewidgetitem41.setFont(font3);
-        self.tableWidget_6.setHorizontalHeaderItem(1, __qtablewidgetitem41)
-        __qtablewidgetitem42 = QTableWidgetItem()
-        __qtablewidgetitem42.setFont(font3);
-        self.tableWidget_6.setHorizontalHeaderItem(2, __qtablewidgetitem42)
-        __qtablewidgetitem43 = QTableWidgetItem()
-        __qtablewidgetitem43.setFont(font3);
-        self.tableWidget_6.setHorizontalHeaderItem(3, __qtablewidgetitem43)
-        __qtablewidgetitem44 = QTableWidgetItem()
-        __qtablewidgetitem44.setFont(font3);
-        self.tableWidget_6.setHorizontalHeaderItem(4, __qtablewidgetitem44)
-        self.tableWidget_6.setObjectName(u"tableWidget_6")
-        font13 = QFont()
-        font13.setFamilies([u"Times New Roman"])
-        font13.setPointSize(10)
-        self.tableWidget_6.setFont(font13)
-        self.tableWidget_6.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.tableWidget_6.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.tableWidget_6.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.tableWidget_6.setSortingEnabled(True)
-        self.tableWidget_6.verticalHeader().setVisible(False)
-        self.tableWidget_6.verticalHeader().setCascadingSectionResizes(True)
-
-        self.gridLayout_5.addWidget(self.tableWidget_6, 2, 0, 1, 1)
 
         self.label_9 = QLabel(self.tab)
         self.label_9.setObjectName(u"label_9")
@@ -835,9 +822,57 @@ class Ui_MainWindow(object):
         self.lineEdit_4 = QLineEdit(self.tab)
         self.lineEdit_4.setObjectName(u"lineEdit_4")
         self.lineEdit_4.setFont(font2)
-        self.lineEdit_4.setAlignment(Qt.AlignCenter)
+        self.lineEdit_4.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout_5.addWidget(self.lineEdit_4, 1, 0, 1, 1)
+
+        self.horizontalLayout_5 = QHBoxLayout()
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.lineEdit_5 = QLineEdit(self.tab)
+        self.lineEdit_5.setObjectName(u"lineEdit_5")
+        self.lineEdit_5.setFont(font7)
+        self.lineEdit_5.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+        self.lineEdit_5.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
+        self.lineEdit_5.setStyleSheet(u"")
+        self.lineEdit_5.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.horizontalLayout_5.addWidget(self.lineEdit_5)
+
+
+        self.gridLayout_5.addLayout(self.horizontalLayout_5, 4, 0, 1, 1)
+
+        self.tableWidget_6 = QTableWidget(self.tab)
+        if (self.tableWidget_6.columnCount() < 5):
+            self.tableWidget_6.setColumnCount(5)
+        __qtablewidgetitem42 = QTableWidgetItem()
+        __qtablewidgetitem42.setFont(font3);
+        self.tableWidget_6.setHorizontalHeaderItem(0, __qtablewidgetitem42)
+        __qtablewidgetitem43 = QTableWidgetItem()
+        __qtablewidgetitem43.setFont(font3);
+        self.tableWidget_6.setHorizontalHeaderItem(1, __qtablewidgetitem43)
+        __qtablewidgetitem44 = QTableWidgetItem()
+        __qtablewidgetitem44.setFont(font3);
+        self.tableWidget_6.setHorizontalHeaderItem(2, __qtablewidgetitem44)
+        __qtablewidgetitem45 = QTableWidgetItem()
+        __qtablewidgetitem45.setFont(font3);
+        self.tableWidget_6.setHorizontalHeaderItem(3, __qtablewidgetitem45)
+        __qtablewidgetitem46 = QTableWidgetItem()
+        __qtablewidgetitem46.setFont(font3);
+        self.tableWidget_6.setHorizontalHeaderItem(4, __qtablewidgetitem46)
+        self.tableWidget_6.setObjectName(u"tableWidget_6")
+        font12 = QFont()
+        font12.setFamilies([u"Times New Roman"])
+        font12.setPointSize(10)
+        font12.setStyleStrategy(QFont.PreferDefault)
+        self.tableWidget_6.setFont(font12)
+        self.tableWidget_6.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.tableWidget_6.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
+        self.tableWidget_6.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.tableWidget_6.setSortingEnabled(True)
+        self.tableWidget_6.verticalHeader().setVisible(False)
+        self.tableWidget_6.verticalHeader().setCascadingSectionResizes(True)
+
+        self.gridLayout_5.addWidget(self.tableWidget_6, 2, 0, 1, 1)
 
         self.gridLayout_23 = QGridLayout()
         self.gridLayout_23.setObjectName(u"gridLayout_23")
@@ -855,7 +890,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_9 = QPushButton(self.tab)
         self.pushButton_9.setObjectName(u"pushButton_9")
-        self.pushButton_9.setFont(font6)
+        self.pushButton_9.setFont(font5)
         self.pushButton_9.setCursor(QCursor(Qt.CursorShape.ArrowCursor))
         self.pushButton_9.setStyleSheet(u"background-color: rgb(160, 20, 20); color: white;")
 
@@ -863,7 +898,7 @@ class Ui_MainWindow(object):
 
         self.pushButton_11 = QPushButton(self.tab)
         self.pushButton_11.setObjectName(u"pushButton_11")
-        self.pushButton_11.setFont(font7)
+        self.pushButton_11.setFont(font6)
         self.pushButton_11.setStyleSheet(u"background-color: rgb(31, 118, 28); color: white;")
 
         self.gridLayout_23.addWidget(self.pushButton_11, 0, 1, 1, 1)
@@ -893,8 +928,8 @@ class Ui_MainWindow(object):
         self.lineEdit_6 = QLineEdit(self.tab)
         self.lineEdit_6.setObjectName(u"lineEdit_6")
         self.lineEdit_6.setMaximumSize(QSize(300, 16777215))
-        self.lineEdit_6.setFont(font10)
-        self.lineEdit_6.setAlignment(Qt.AlignCenter)
+        self.lineEdit_6.setFont(font2)
+        self.lineEdit_6.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_3.addWidget(self.lineEdit_6)
 
@@ -908,41 +943,38 @@ class Ui_MainWindow(object):
         self.tableWidget_7 = QTableWidget(self.tab)
         if (self.tableWidget_7.columnCount() < 10):
             self.tableWidget_7.setColumnCount(10)
-        __qtablewidgetitem45 = QTableWidgetItem()
-        __qtablewidgetitem45.setFont(font11);
-        self.tableWidget_7.setHorizontalHeaderItem(0, __qtablewidgetitem45)
-        __qtablewidgetitem46 = QTableWidgetItem()
-        __qtablewidgetitem46.setFont(font11);
-        self.tableWidget_7.setHorizontalHeaderItem(1, __qtablewidgetitem46)
         __qtablewidgetitem47 = QTableWidgetItem()
-        __qtablewidgetitem47.setFont(font11);
-        self.tableWidget_7.setHorizontalHeaderItem(2, __qtablewidgetitem47)
+        __qtablewidgetitem47.setFont(font10);
+        self.tableWidget_7.setHorizontalHeaderItem(0, __qtablewidgetitem47)
         __qtablewidgetitem48 = QTableWidgetItem()
-        __qtablewidgetitem48.setFont(font11);
-        self.tableWidget_7.setHorizontalHeaderItem(3, __qtablewidgetitem48)
+        __qtablewidgetitem48.setFont(font10);
+        self.tableWidget_7.setHorizontalHeaderItem(1, __qtablewidgetitem48)
         __qtablewidgetitem49 = QTableWidgetItem()
-        __qtablewidgetitem49.setFont(font11);
-        self.tableWidget_7.setHorizontalHeaderItem(4, __qtablewidgetitem49)
+        __qtablewidgetitem49.setFont(font10);
+        self.tableWidget_7.setHorizontalHeaderItem(2, __qtablewidgetitem49)
         __qtablewidgetitem50 = QTableWidgetItem()
-        __qtablewidgetitem50.setFont(font11);
-        self.tableWidget_7.setHorizontalHeaderItem(5, __qtablewidgetitem50)
+        __qtablewidgetitem50.setFont(font10);
+        self.tableWidget_7.setHorizontalHeaderItem(3, __qtablewidgetitem50)
         __qtablewidgetitem51 = QTableWidgetItem()
-        __qtablewidgetitem51.setFont(font11);
-        self.tableWidget_7.setHorizontalHeaderItem(6, __qtablewidgetitem51)
+        __qtablewidgetitem51.setFont(font10);
+        self.tableWidget_7.setHorizontalHeaderItem(4, __qtablewidgetitem51)
         __qtablewidgetitem52 = QTableWidgetItem()
-        __qtablewidgetitem52.setFont(font11);
-        self.tableWidget_7.setHorizontalHeaderItem(7, __qtablewidgetitem52)
+        __qtablewidgetitem52.setFont(font10);
+        self.tableWidget_7.setHorizontalHeaderItem(5, __qtablewidgetitem52)
         __qtablewidgetitem53 = QTableWidgetItem()
-        __qtablewidgetitem53.setFont(font11);
-        self.tableWidget_7.setHorizontalHeaderItem(8, __qtablewidgetitem53)
+        __qtablewidgetitem53.setFont(font10);
+        self.tableWidget_7.setHorizontalHeaderItem(6, __qtablewidgetitem53)
         __qtablewidgetitem54 = QTableWidgetItem()
-        __qtablewidgetitem54.setFont(font11);
-        self.tableWidget_7.setHorizontalHeaderItem(9, __qtablewidgetitem54)
+        __qtablewidgetitem54.setFont(font10);
+        self.tableWidget_7.setHorizontalHeaderItem(7, __qtablewidgetitem54)
+        __qtablewidgetitem55 = QTableWidgetItem()
+        __qtablewidgetitem55.setFont(font10);
+        self.tableWidget_7.setHorizontalHeaderItem(8, __qtablewidgetitem55)
+        __qtablewidgetitem56 = QTableWidgetItem()
+        __qtablewidgetitem56.setFont(font10);
+        self.tableWidget_7.setHorizontalHeaderItem(9, __qtablewidgetitem56)
         self.tableWidget_7.setObjectName(u"tableWidget_7")
-        font14 = QFont()
-        font14.setFamilies([u"Times New Roman"])
-        font14.setPointSize(12)
-        self.tableWidget_7.setFont(font14)
+        self.tableWidget_7.setFont(font4)
         self.tableWidget_7.setSortingEnabled(True)
         self.tableWidget_7.verticalHeader().setVisible(False)
         self.tableWidget_7.verticalHeader().setCascadingSectionResizes(True)
@@ -962,11 +994,11 @@ class Ui_MainWindow(object):
         self.label_11.setMaximumSize(QSize(150, 100))
         self.label_11.setFont(font8)
         self.label_11.setTabletTracking(False)
-        self.label_11.setLayoutDirection(Qt.LeftToRight)
+        self.label_11.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
         self.label_11.setStyleSheet(u"")
         self.label_11.setPixmap(QPixmap(u":/image/logo.png"))
         self.label_11.setScaledContents(True)
-        self.label_11.setAlignment(Qt.AlignCenter)
+        self.label_11.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.label_11.setWordWrap(False)
 
         self.horizontalLayout_13.addWidget(self.label_11)
@@ -1002,7 +1034,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1042, 26))
+        self.menubar.setGeometry(QRect(0, 0, 868, 33))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -1027,8 +1059,10 @@ class Ui_MainWindow(object):
         self.actionKattalashtirish_2.setText(QCoreApplication.translate("MainWindow", u"Kattalashtirish            F5", None))
         self.actionKichiklashtirish_2.setText(QCoreApplication.translate("MainWindow", u"Kichiklashtirish           F6", None))
         self.actionsssss.setText(QCoreApplication.translate("MainWindow", u"sssss", None))
+        self.actionQidirish_F3.setText(QCoreApplication.translate("MainWindow", u"Qidirish            F3", None))
+        self.actionSotish_F4.setText(QCoreApplication.translate("MainWindow", u"Sotish               F4", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600;\">Umumiy hisob</span></p></body></html>", None))
-        self.lineEdit_2.setPlaceholderText(QCoreApplication.translate("MainWindow", u" \ud83d\udd0dQidirish yoki \ud83d\udcf7 scanner ...", None))
+        self.lineEdit_2.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Qidirish yoki scanner ...", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt; font-weight:600;\">Mahsulot qidirish</span></p></body></html>", None))
         ___qtablewidgetitem = self.tableWidget_2.horizontalHeaderItem(0)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"Id", None));
@@ -1040,6 +1074,8 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Soni", None));
         ___qtablewidgetitem4 = self.tableWidget_2.horizontalHeaderItem(4)
         ___qtablewidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Barcode", None));
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Bekor qilish", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Sotish", None))
 #if QT_CONFIG(tooltip)
         self.lineEdit.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"right\"><br/></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
@@ -1047,8 +1083,10 @@ class Ui_MainWindow(object):
         self.lineEdit.setWhatsThis(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"right\">sd</p></body></html>", None))
 #endif // QT_CONFIG(whatsthis)
         self.lineEdit.setText(QCoreApplication.translate("MainWindow", u"0 so'm", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Bekor qilish", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Sotish", None))
+        self.comboBox.setItemText(0, QCoreApplication.translate("MainWindow", u"Naqt", None))
+        self.comboBox.setItemText(1, QCoreApplication.translate("MainWindow", u"Plastik", None))
+        self.comboBox.setItemText(2, QCoreApplication.translate("MainWindow", u"Nasiya", None))
+
         self.label.setText("")
         self.pushButton_5.setText(QCoreApplication.translate("MainWindow", u"Qo'shish", None))
         self.comboBox_2.setItemText(0, QCoreApplication.translate("MainWindow", u"Sotuv 1", None))
@@ -1099,7 +1137,7 @@ class Ui_MainWindow(object):
         self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"  Yangi qo'shish  ", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u" Saqlash ", None))
         self.pushButton_13.setText(QCoreApplication.translate("MainWindow", u" Buyurtma", None))
-        self.lineEdit_3.setPlaceholderText(QCoreApplication.translate("MainWindow", u" \ud83d\udd0d Qidirish", None))
+        self.lineEdit_3.setPlaceholderText(QCoreApplication.translate("MainWindow", u" Qidirish", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Jami dasmoya qiymati: 0 so'm", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab2_2), QCoreApplication.translate("MainWindow", u"Ombor", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"[oy / kun / yil]", None))
@@ -1113,41 +1151,48 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem24.setText(QCoreApplication.translate("MainWindow", u"Vaqt", None));
         ___qtablewidgetitem25 = self.tableWidget_5.horizontalHeaderItem(2)
         ___qtablewidgetitem25.setText(QCoreApplication.translate("MainWindow", u"Umumiy hisob", None));
-        ___qtablewidgetitem26 = self.tableWidget_3.horizontalHeaderItem(0)
-        ___qtablewidgetitem26.setText(QCoreApplication.translate("MainWindow", u"Id", None));
-        ___qtablewidgetitem27 = self.tableWidget_3.horizontalHeaderItem(1)
-        ___qtablewidgetitem27.setText(QCoreApplication.translate("MainWindow", u"Kitob nomi", None));
-        ___qtablewidgetitem28 = self.tableWidget_3.horizontalHeaderItem(2)
-        ___qtablewidgetitem28.setText(QCoreApplication.translate("MainWindow", u"Soni", None));
-        ___qtablewidgetitem29 = self.tableWidget_3.horizontalHeaderItem(3)
-        ___qtablewidgetitem29.setText(QCoreApplication.translate("MainWindow", u"Umumiy hisob", None));
+        ___qtablewidgetitem26 = self.tableWidget_5.horizontalHeaderItem(3)
+        ___qtablewidgetitem26.setText(QCoreApplication.translate("MainWindow", u"To'lov turi", None));
+        ___qtablewidgetitem27 = self.tableWidget_3.horizontalHeaderItem(0)
+        ___qtablewidgetitem27.setText(QCoreApplication.translate("MainWindow", u"Id", None));
+        ___qtablewidgetitem28 = self.tableWidget_3.horizontalHeaderItem(1)
+        ___qtablewidgetitem28.setText(QCoreApplication.translate("MainWindow", u"Kitob nomi", None));
+        ___qtablewidgetitem29 = self.tableWidget_3.horizontalHeaderItem(2)
+        ___qtablewidgetitem29.setText(QCoreApplication.translate("MainWindow", u"Soni", None));
+        ___qtablewidgetitem30 = self.tableWidget_3.horizontalHeaderItem(3)
+        ___qtablewidgetitem30.setText(QCoreApplication.translate("MainWindow", u"Umumiy hisob", None));
+        ___qtablewidgetitem31 = self.tableWidget_3.horizontalHeaderItem(4)
+        ___qtablewidgetitem31.setText(QCoreApplication.translate("MainWindow", u"To'lov turi", None));
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab3_2), QCoreApplication.translate("MainWindow", u"Sotuv tarixi", None))
-        ___qtablewidgetitem30 = self.tableWidget_8.horizontalHeaderItem(0)
-        ___qtablewidgetitem30.setText(QCoreApplication.translate("MainWindow", u"Id", None));
-        ___qtablewidgetitem31 = self.tableWidget_8.horizontalHeaderItem(1)
-        ___qtablewidgetitem31.setText(QCoreApplication.translate("MainWindow", u"Vaqt", None));
-        ___qtablewidgetitem32 = self.tableWidget_8.horizontalHeaderItem(2)
-        ___qtablewidgetitem32.setText(QCoreApplication.translate("MainWindow", u"Umumiy hisob", None));
-        ___qtablewidgetitem33 = self.tableWidget_8.horizontalHeaderItem(3)
-        ___qtablewidgetitem33.setText(QCoreApplication.translate("MainWindow", u"Kimdan", None));
-        ___qtablewidgetitem34 = self.tableWidget_9.horizontalHeaderItem(0)
-        ___qtablewidgetitem34.setText(QCoreApplication.translate("MainWindow", u"Id", None));
-        ___qtablewidgetitem35 = self.tableWidget_9.horizontalHeaderItem(1)
-        ___qtablewidgetitem35.setText(QCoreApplication.translate("MainWindow", u"Kitob nomi", None));
-        ___qtablewidgetitem36 = self.tableWidget_9.horizontalHeaderItem(2)
-        ___qtablewidgetitem36.setText(QCoreApplication.translate("MainWindow", u"Soni", None));
-        ___qtablewidgetitem37 = self.tableWidget_9.horizontalHeaderItem(3)
-        ___qtablewidgetitem37.setText(QCoreApplication.translate("MainWindow", u"Umumiy hisob", None));
-        ___qtablewidgetitem38 = self.tableWidget_9.horizontalHeaderItem(4)
-        ___qtablewidgetitem38.setText(QCoreApplication.translate("MainWindow", u"Kelish narx", None));
-        ___qtablewidgetitem39 = self.tableWidget_9.horizontalHeaderItem(5)
-        ___qtablewidgetitem39.setText(QCoreApplication.translate("MainWindow", u"Sotish narxi", None));
+        ___qtablewidgetitem32 = self.tableWidget_8.horizontalHeaderItem(0)
+        ___qtablewidgetitem32.setText(QCoreApplication.translate("MainWindow", u"Id", None));
+        ___qtablewidgetitem33 = self.tableWidget_8.horizontalHeaderItem(1)
+        ___qtablewidgetitem33.setText(QCoreApplication.translate("MainWindow", u"Vaqt", None));
+        ___qtablewidgetitem34 = self.tableWidget_8.horizontalHeaderItem(2)
+        ___qtablewidgetitem34.setText(QCoreApplication.translate("MainWindow", u"Umumiy hisob", None));
+        ___qtablewidgetitem35 = self.tableWidget_8.horizontalHeaderItem(3)
+        ___qtablewidgetitem35.setText(QCoreApplication.translate("MainWindow", u"Kimdan", None));
+        ___qtablewidgetitem36 = self.tableWidget_9.horizontalHeaderItem(0)
+        ___qtablewidgetitem36.setText(QCoreApplication.translate("MainWindow", u"Id", None));
+        ___qtablewidgetitem37 = self.tableWidget_9.horizontalHeaderItem(1)
+        ___qtablewidgetitem37.setText(QCoreApplication.translate("MainWindow", u"Kitob nomi", None));
+        ___qtablewidgetitem38 = self.tableWidget_9.horizontalHeaderItem(2)
+        ___qtablewidgetitem38.setText(QCoreApplication.translate("MainWindow", u"Soni", None));
+        ___qtablewidgetitem39 = self.tableWidget_9.horizontalHeaderItem(3)
+        ___qtablewidgetitem39.setText(QCoreApplication.translate("MainWindow", u"Umumiy hisob", None));
+        ___qtablewidgetitem40 = self.tableWidget_9.horizontalHeaderItem(4)
+        ___qtablewidgetitem40.setText(QCoreApplication.translate("MainWindow", u"Kelish narx", None));
+        ___qtablewidgetitem41 = self.tableWidget_9.horizontalHeaderItem(5)
+        ___qtablewidgetitem41.setText(QCoreApplication.translate("MainWindow", u"Sotish narxi", None));
         self.label_12.setText(QCoreApplication.translate("MainWindow", u"[oy / kun / yil]", None))
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"dan", None))
         self.label_14.setText(QCoreApplication.translate("MainWindow", u"gacha", None))
         self.pushButton_15.setText(QCoreApplication.translate("MainWindow", u"Filterlash", None))
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Jami sotilganlar qiymati filiter bo'yicha: 0 so'm", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Tovar tarixi", None))
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt; font-weight:600;\">Mahsulot qidirish</span></p></body></html>", None))
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600;\">Umumiy hisob</span></p></body></html>", None))
+        self.lineEdit_4.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Qidirish yoki scanner ...", None))
 #if QT_CONFIG(tooltip)
         self.lineEdit_5.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"right\"><br/></p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
@@ -1155,43 +1200,40 @@ class Ui_MainWindow(object):
         self.lineEdit_5.setWhatsThis(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"right\">sd</p></body></html>", None))
 #endif // QT_CONFIG(whatsthis)
         self.lineEdit_5.setText(QCoreApplication.translate("MainWindow", u"0 so'm", None))
-        self.label_10.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p><span style=\" font-size:16pt; font-weight:600;\">Mahsulot qidirish</span></p></body></html>", None))
-        ___qtablewidgetitem40 = self.tableWidget_6.horizontalHeaderItem(0)
-        ___qtablewidgetitem40.setText(QCoreApplication.translate("MainWindow", u"Id", None));
-        ___qtablewidgetitem41 = self.tableWidget_6.horizontalHeaderItem(1)
-        ___qtablewidgetitem41.setText(QCoreApplication.translate("MainWindow", u"Nomi", None));
-        ___qtablewidgetitem42 = self.tableWidget_6.horizontalHeaderItem(2)
-        ___qtablewidgetitem42.setText(QCoreApplication.translate("MainWindow", u"Narx", None));
-        ___qtablewidgetitem43 = self.tableWidget_6.horizontalHeaderItem(3)
-        ___qtablewidgetitem43.setText(QCoreApplication.translate("MainWindow", u"Soni", None));
-        ___qtablewidgetitem44 = self.tableWidget_6.horizontalHeaderItem(4)
-        ___qtablewidgetitem44.setText(QCoreApplication.translate("MainWindow", u"Barcode", None));
-        self.label_9.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:16pt; font-weight:600;\">Umumiy hisob</span></p></body></html>", None))
-        self.lineEdit_4.setPlaceholderText(QCoreApplication.translate("MainWindow", u" \ud83d\udd0dQidirish yoki \ud83d\udcf7 scanner ...", None))
+        ___qtablewidgetitem42 = self.tableWidget_6.horizontalHeaderItem(0)
+        ___qtablewidgetitem42.setText(QCoreApplication.translate("MainWindow", u"Id", None));
+        ___qtablewidgetitem43 = self.tableWidget_6.horizontalHeaderItem(1)
+        ___qtablewidgetitem43.setText(QCoreApplication.translate("MainWindow", u"Nomi", None));
+        ___qtablewidgetitem44 = self.tableWidget_6.horizontalHeaderItem(2)
+        ___qtablewidgetitem44.setText(QCoreApplication.translate("MainWindow", u"Narx", None));
+        ___qtablewidgetitem45 = self.tableWidget_6.horizontalHeaderItem(3)
+        ___qtablewidgetitem45.setText(QCoreApplication.translate("MainWindow", u"Soni", None));
+        ___qtablewidgetitem46 = self.tableWidget_6.horizontalHeaderItem(4)
+        ___qtablewidgetitem46.setText(QCoreApplication.translate("MainWindow", u"Barcode", None));
         self.pushButton_9.setText(QCoreApplication.translate("MainWindow", u"Bekor qilish", None))
         self.pushButton_11.setText(QCoreApplication.translate("MainWindow", u"Saqlash", None))
         self.pushButton_12.setText(QCoreApplication.translate("MainWindow", u"Qo'shish", None))
         self.lineEdit_6.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Kimdan", None))
-        ___qtablewidgetitem45 = self.tableWidget_7.horizontalHeaderItem(0)
-        ___qtablewidgetitem45.setText(QCoreApplication.translate("MainWindow", u"Id", None));
-        ___qtablewidgetitem46 = self.tableWidget_7.horizontalHeaderItem(1)
-        ___qtablewidgetitem46.setText(QCoreApplication.translate("MainWindow", u"Nomi", None));
-        ___qtablewidgetitem47 = self.tableWidget_7.horizontalHeaderItem(2)
-        ___qtablewidgetitem47.setText(QCoreApplication.translate("MainWindow", u"Soni", None));
-        ___qtablewidgetitem48 = self.tableWidget_7.horizontalHeaderItem(3)
-        ___qtablewidgetitem48.setText(QCoreApplication.translate("MainWindow", u"Kelish Narxi", None));
-        ___qtablewidgetitem49 = self.tableWidget_7.horizontalHeaderItem(4)
-        ___qtablewidgetitem49.setText(QCoreApplication.translate("MainWindow", u"Narxi", None));
-        ___qtablewidgetitem50 = self.tableWidget_7.horizontalHeaderItem(5)
-        ___qtablewidgetitem50.setText(QCoreApplication.translate("MainWindow", u"Pachka Narxi", None));
-        ___qtablewidgetitem51 = self.tableWidget_7.horizontalHeaderItem(6)
-        ___qtablewidgetitem51.setText(QCoreApplication.translate("MainWindow", u"Barcode", None));
-        ___qtablewidgetitem52 = self.tableWidget_7.horizontalHeaderItem(7)
-        ___qtablewidgetitem52.setText(QCoreApplication.translate("MainWindow", u"Qoldiq", None));
-        ___qtablewidgetitem53 = self.tableWidget_7.horizontalHeaderItem(8)
-        ___qtablewidgetitem53.setText(QCoreApplication.translate("MainWindow", u"Hisob", None));
-        ___qtablewidgetitem54 = self.tableWidget_7.horizontalHeaderItem(9)
-        ___qtablewidgetitem54.setText(QCoreApplication.translate("MainWindow", u"O'chirish", None));
+        ___qtablewidgetitem47 = self.tableWidget_7.horizontalHeaderItem(0)
+        ___qtablewidgetitem47.setText(QCoreApplication.translate("MainWindow", u"Id", None));
+        ___qtablewidgetitem48 = self.tableWidget_7.horizontalHeaderItem(1)
+        ___qtablewidgetitem48.setText(QCoreApplication.translate("MainWindow", u"Nomi", None));
+        ___qtablewidgetitem49 = self.tableWidget_7.horizontalHeaderItem(2)
+        ___qtablewidgetitem49.setText(QCoreApplication.translate("MainWindow", u"Soni", None));
+        ___qtablewidgetitem50 = self.tableWidget_7.horizontalHeaderItem(3)
+        ___qtablewidgetitem50.setText(QCoreApplication.translate("MainWindow", u"Kelish Narxi", None));
+        ___qtablewidgetitem51 = self.tableWidget_7.horizontalHeaderItem(4)
+        ___qtablewidgetitem51.setText(QCoreApplication.translate("MainWindow", u"Narxi", None));
+        ___qtablewidgetitem52 = self.tableWidget_7.horizontalHeaderItem(5)
+        ___qtablewidgetitem52.setText(QCoreApplication.translate("MainWindow", u"Pachka Narxi", None));
+        ___qtablewidgetitem53 = self.tableWidget_7.horizontalHeaderItem(6)
+        ___qtablewidgetitem53.setText(QCoreApplication.translate("MainWindow", u"Barcode", None));
+        ___qtablewidgetitem54 = self.tableWidget_7.horizontalHeaderItem(7)
+        ___qtablewidgetitem54.setText(QCoreApplication.translate("MainWindow", u"Qoldiq", None));
+        ___qtablewidgetitem55 = self.tableWidget_7.horizontalHeaderItem(8)
+        ___qtablewidgetitem55.setText(QCoreApplication.translate("MainWindow", u"Hisob", None));
+        ___qtablewidgetitem56 = self.tableWidget_7.horizontalHeaderItem(9)
+        ___qtablewidgetitem56.setText(QCoreApplication.translate("MainWindow", u"O'chirish", None));
         self.label_11.setText("")
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Yangi tovar", None))
     # retranslateUi

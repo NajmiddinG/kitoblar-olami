@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1042</width>
-    <height>828</height>
+    <width>868</width>
+    <height>609</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -25,11 +25,13 @@
    <string>Diamond books</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="icons/images.qrc">
+   <iconset resource="../../icons/images.qrc">
     <normaloff>:/image/logo.jpg</normaloff>:/image/logo.jpg</iconset>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(25, 25, 50); color: white;</string>
+   <string notr="true">background-color: #212121;
+color: white;
+border-color: white;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_20">
@@ -48,10 +50,10 @@
          <string notr="true"/>
         </property>
         <property name="tabPosition">
-         <enum>QTabWidget::North</enum>
+         <enum>QTabWidget::TabPosition::North</enum>
         </property>
         <property name="tabShape">
-         <enum>QTabWidget::Triangular</enum>
+         <enum>QTabWidget::TabShape::Triangular</enum>
         </property>
         <property name="currentIndex">
          <number>0</number>
@@ -64,7 +66,7 @@
         </property>
         <widget class="QWidget" name="tab1_2">
          <attribute name="icon">
-          <iconset resource="icons/images.qrc">
+          <iconset resource="../../icons/images.qrc">
            <normaloff>:/image/main..png</normaloff>:/image/main..png</iconset>
          </attribute>
          <attribute name="title">
@@ -115,10 +117,10 @@
                      </font>
                     </property>
                     <property name="alignment">
-                     <set>Qt::AlignCenter</set>
+                     <set>Qt::AlignmentFlag::AlignCenter</set>
                     </property>
                     <property name="placeholderText">
-                     <string> 🔍Qidirish yoki 📷 scanner ...</string>
+                     <string>Qidirish yoki scanner ...</string>
                     </property>
                    </widget>
                   </item>
@@ -135,7 +137,7 @@
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Mahsulot qidirish&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="alignment">
-                     <set>Qt::AlignCenter</set>
+                     <set>Qt::AlignmentFlag::AlignCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -161,25 +163,25 @@
                      <number>1</number>
                     </property>
                     <property name="horizontalScrollBarPolicy">
-                     <enum>Qt::ScrollBarAsNeeded</enum>
+                     <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
                     </property>
                     <property name="editTriggers">
-                     <set>QAbstractItemView::NoEditTriggers</set>
+                     <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
                     </property>
                     <property name="defaultDropAction">
-                     <enum>Qt::IgnoreAction</enum>
+                     <enum>Qt::DropAction::IgnoreAction</enum>
                     </property>
                     <property name="selectionMode">
-                     <enum>QAbstractItemView::SingleSelection</enum>
+                     <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
                     </property>
                     <property name="selectionBehavior">
-                     <enum>QAbstractItemView::SelectRows</enum>
+                     <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
                     </property>
                     <property name="textElideMode">
-                     <enum>Qt::ElideRight</enum>
+                     <enum>Qt::TextElideMode::ElideRight</enum>
                     </property>
                     <property name="horizontalScrollMode">
-                     <enum>QAbstractItemView::ScrollPerItem</enum>
+                     <enum>QAbstractItemView::ScrollMode::ScrollPerItem</enum>
                     </property>
                     <property name="sortingEnabled">
                      <bool>true</bool>
@@ -216,16 +218,8 @@
                       <font>
                        <family>Times New Roman</family>
                        <pointsize>12</pointsize>
-                       <weight>75</weight>
                        <bold>true</bold>
                       </font>
-                     </property>
-                     <property name="background">
-                      <color>
-                       <red>255</red>
-                       <green>255</green>
-                       <blue>255</blue>
-                      </color>
                      </property>
                     </column>
                     <column>
@@ -236,7 +230,6 @@
                       <font>
                        <family>Times New Roman</family>
                        <pointsize>12</pointsize>
-                       <weight>75</weight>
                        <bold>true</bold>
                       </font>
                      </property>
@@ -249,7 +242,6 @@
                       <font>
                        <family>Times New Roman</family>
                        <pointsize>12</pointsize>
-                       <weight>75</weight>
                        <bold>true</bold>
                       </font>
                      </property>
@@ -262,7 +254,6 @@
                       <font>
                        <family>Times New Roman</family>
                        <pointsize>12</pointsize>
-                       <weight>75</weight>
                        <bold>true</bold>
                       </font>
                      </property>
@@ -275,7 +266,6 @@
                       <font>
                        <family>Times New Roman</family>
                        <pointsize>12</pointsize>
-                       <weight>75</weight>
                        <bold>true</bold>
                       </font>
                      </property>
@@ -284,39 +274,7 @@
                   </item>
                  </layout>
                 </item>
-                <item row="2" column="0">
-                 <widget class="QLineEdit" name="lineEdit">
-                  <property name="font">
-                   <font>
-                    <family>Times New Roman</family>
-                    <pointsize>20</pointsize>
-                    <stylestrategy>PreferDefault</stylestrategy>
-                   </font>
-                  </property>
-                  <property name="focusPolicy">
-                   <enum>Qt::StrongFocus</enum>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="whatsThis">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;sd&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="layoutDirection">
-                   <enum>Qt::LeftToRight</enum>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string>0 so'm</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
+                <item row="4" column="0">
                  <layout class="QGridLayout" name="gridLayout_15">
                   <item row="0" column="2">
                    <spacer name="horizontalSpacer_18">
@@ -328,10 +286,10 @@
                      </font>
                     </property>
                     <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
+                     <enum>Qt::Orientation::Horizontal</enum>
                     </property>
                     <property name="sizeType">
-                     <enum>QSizePolicy::Minimum</enum>
+                     <enum>QSizePolicy::Policy::Minimum</enum>
                     </property>
                     <property name="sizeHint" stdset="0">
                      <size>
@@ -351,10 +309,10 @@
                      </font>
                     </property>
                     <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
+                     <enum>Qt::Orientation::Horizontal</enum>
                     </property>
                     <property name="sizeType">
-                     <enum>QSizePolicy::Expanding</enum>
+                     <enum>QSizePolicy::Policy::Expanding</enum>
                     </property>
                     <property name="sizeHint" stdset="0">
                      <size>
@@ -374,10 +332,10 @@
                      </font>
                     </property>
                     <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
+                     <enum>Qt::Orientation::Horizontal</enum>
                     </property>
                     <property name="sizeType">
-                     <enum>QSizePolicy::Expanding</enum>
+                     <enum>QSizePolicy::Policy::Expanding</enum>
                     </property>
                     <property name="sizeHint" stdset="0">
                      <size>
@@ -415,7 +373,6 @@
                      <font>
                       <family>Times New Roman</family>
                       <pointsize>14</pointsize>
-                      <weight>50</weight>
                       <bold>false</bold>
                       <stylestrategy>PreferDefault</stylestrategy>
                      </font>
@@ -431,10 +388,10 @@
                   <item row="1" column="2">
                    <spacer name="verticalSpacer_2">
                     <property name="orientation">
-                     <enum>Qt::Vertical</enum>
+                     <enum>Qt::Orientation::Vertical</enum>
                     </property>
                     <property name="sizeType">
-                     <enum>QSizePolicy::Fixed</enum>
+                     <enum>QSizePolicy::Policy::Fixed</enum>
                     </property>
                     <property name="sizeHint" stdset="0">
                      <size>
@@ -443,6 +400,83 @@
                      </size>
                     </property>
                    </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item row="2" column="0">
+                 <layout class="QHBoxLayout" name="horizontalLayout_4">
+                  <item>
+                   <widget class="QLineEdit" name="lineEdit">
+                    <property name="font">
+                     <font>
+                      <family>Times New Roman</family>
+                      <pointsize>15</pointsize>
+                      <stylestrategy>PreferDefault</stylestrategy>
+                     </font>
+                    </property>
+                    <property name="focusPolicy">
+                     <enum>Qt::FocusPolicy::StrongFocus</enum>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;sd&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="layoutDirection">
+                     <enum>Qt::LayoutDirection::LeftToRight</enum>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>0 so'm</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignmentFlag::AlignCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="comboBox">
+                    <property name="minimumSize">
+                     <size>
+                      <width>100</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>100</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Times New Roman</family>
+                      <pointsize>15</pointsize>
+                      <stylestrategy>PreferDefault</stylestrategy>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">padding-left: 5px;</string>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>Naqt</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Plastik</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>Nasiya</string>
+                     </property>
+                    </item>
+                   </widget>
                   </item>
                  </layout>
                 </item>
@@ -459,7 +493,7 @@
                   <item>
                    <spacer name="horizontalSpacer_20">
                     <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
+                     <enum>Qt::Orientation::Horizontal</enum>
                     </property>
                     <property name="sizeHint" stdset="0">
                      <size>
@@ -497,7 +531,7 @@
                      <bool>false</bool>
                     </property>
                     <property name="layoutDirection">
-                     <enum>Qt::LeftToRight</enum>
+                     <enum>Qt::LayoutDirection::LeftToRight</enum>
                     </property>
                     <property name="styleSheet">
                      <string notr="true"/>
@@ -506,13 +540,13 @@
                      <string/>
                     </property>
                     <property name="pixmap">
-                     <pixmap resource="icons/images.qrc">:/image/logo.png</pixmap>
+                     <pixmap resource="../../icons/images.qrc">:/image/logo.png</pixmap>
                     </property>
                     <property name="scaledContents">
                      <bool>true</bool>
                     </property>
                     <property name="alignment">
-                     <set>Qt::AlignCenter</set>
+                     <set>Qt::AlignmentFlag::AlignCenter</set>
                     </property>
                     <property name="wordWrap">
                      <bool>false</bool>
@@ -522,7 +556,7 @@
                   <item>
                    <spacer name="horizontalSpacer_21">
                     <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
+                     <enum>Qt::Orientation::Horizontal</enum>
                     </property>
                     <property name="sizeHint" stdset="0">
                      <size>
@@ -577,13 +611,12 @@
                      <font>
                       <family>Times New Roman</family>
                       <pointsize>16</pointsize>
-                      <weight>50</weight>
                       <bold>false</bold>
                       <stylestrategy>PreferDefault</stylestrategy>
                      </font>
                     </property>
                     <property name="contextMenuPolicy">
-                     <enum>Qt::NoContextMenu</enum>
+                     <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
                     </property>
                     <property name="acceptDrops">
                      <bool>false</bool>
@@ -592,7 +625,7 @@
                      <bool>false</bool>
                     </property>
                     <property name="insertPolicy">
-                     <enum>QComboBox::InsertBeforeCurrent</enum>
+                     <enum>QComboBox::InsertPolicy::InsertBeforeCurrent</enum>
                     </property>
                     <item>
                      <property name="text">
@@ -636,10 +669,11 @@
                      <font>
                       <family>Times New Roman</family>
                       <pointsize>14</pointsize>
+                      <stylestrategy>PreferDefault</stylestrategy>
                      </font>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true">background-color:red; color: white;</string>
+                     <string notr="true">background-color: rgb(160, 20, 20); color: white;</string>
                     </property>
                     <property name="text">
                      <string>-</string>
@@ -649,7 +683,7 @@
                   <item>
                    <spacer name="horizontalSpacer">
                     <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
+                     <enum>Qt::Orientation::Horizontal</enum>
                     </property>
                     <property name="sizeHint" stdset="0">
                      <size>
@@ -672,19 +706,19 @@
                    </font>
                   </property>
                   <property name="dragDropMode">
-                   <enum>QAbstractItemView::NoDragDrop</enum>
+                   <enum>QAbstractItemView::DragDropMode::NoDragDrop</enum>
                   </property>
                   <property name="selectionMode">
-                   <enum>QAbstractItemView::ExtendedSelection</enum>
+                   <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
                   </property>
                   <property name="selectionBehavior">
-                   <enum>QAbstractItemView::SelectItems</enum>
+                   <enum>QAbstractItemView::SelectionBehavior::SelectItems</enum>
                   </property>
                   <property name="textElideMode">
-                   <enum>Qt::ElideRight</enum>
+                   <enum>Qt::TextElideMode::ElideRight</enum>
                   </property>
                   <property name="gridStyle">
-                   <enum>Qt::SolidLine</enum>
+                   <enum>Qt::PenStyle::SolidLine</enum>
                   </property>
                   <property name="sortingEnabled">
                    <bool>true</bool>
@@ -698,11 +732,11 @@
                   <attribute name="horizontalHeaderCascadingSectionResizes">
                    <bool>false</bool>
                   </attribute>
-                  <attribute name="horizontalHeaderDefaultSectionSize">
-                   <number>150</number>
-                  </attribute>
                   <attribute name="horizontalHeaderMinimumSectionSize">
                    <number>57</number>
+                  </attribute>
+                  <attribute name="horizontalHeaderDefaultSectionSize">
+                   <number>150</number>
                   </attribute>
                   <attribute name="verticalHeaderVisible">
                    <bool>false</bool>
@@ -718,7 +752,6 @@
                     <font>
                      <family>Times New Roman</family>
                      <pointsize>14</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -731,7 +764,6 @@
                     <font>
                      <family>Times New Roman</family>
                      <pointsize>14</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -744,7 +776,6 @@
                     <font>
                      <family>Times New Roman</family>
                      <pointsize>14</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -757,7 +788,6 @@
                     <font>
                      <family>Times New Roman</family>
                      <pointsize>14</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -770,7 +800,6 @@
                     <font>
                      <family>Times New Roman</family>
                      <pointsize>14</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -783,7 +812,6 @@
                     <font>
                      <family>Times New Roman</family>
                      <pointsize>14</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -796,7 +824,6 @@
                     <font>
                      <family>Times New Roman</family>
                      <pointsize>14</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -809,7 +836,6 @@
                     <font>
                      <family>Times New Roman</family>
                      <pointsize>14</pointsize>
-                     <weight>75</weight>
                      <bold>true</bold>
                     </font>
                    </property>
@@ -826,7 +852,7 @@
         </widget>
         <widget class="QWidget" name="tab2_2">
          <attribute name="icon">
-          <iconset resource="icons/images.qrc">
+          <iconset resource="../../icons/images.qrc">
            <normaloff>:/image/books.png</normaloff>:/image/books.png</iconset>
          </attribute>
          <attribute name="title">
@@ -841,7 +867,6 @@
                <font>
                 <family>Times New Roman</family>
                 <pointsize>14</pointsize>
-                <weight>50</weight>
                 <bold>false</bold>
                 <stylestrategy>PreferDefault</stylestrategy>
                </font>
@@ -850,10 +875,10 @@
                <bool>false</bool>
               </property>
               <property name="selectionMode">
-               <enum>QAbstractItemView::ExtendedSelection</enum>
+               <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
               </property>
               <property name="selectionBehavior">
-               <enum>QAbstractItemView::SelectItems</enum>
+               <enum>QAbstractItemView::SelectionBehavior::SelectItems</enum>
               </property>
               <property name="sortingEnabled">
                <bool>true</bool>
@@ -885,7 +910,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -898,7 +922,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -911,7 +934,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -924,7 +946,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -937,7 +958,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -950,7 +970,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -963,7 +982,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -976,7 +994,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -989,7 +1006,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1002,7 +1018,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1030,7 +1045,7 @@
                  <string> Yuklab olish</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons/images.qrc">
+                 <iconset resource="../../icons/images.qrc">
                   <normaloff>:/image/excel.png</normaloff>:/image/excel.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1044,10 +1059,10 @@
               <item>
                <spacer name="horizontalSpacer_22">
                 <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                 <enum>Qt::Orientation::Horizontal</enum>
                 </property>
                 <property name="sizeType">
-                 <enum>QSizePolicy::Minimum</enum>
+                 <enum>QSizePolicy::Policy::Minimum</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
@@ -1063,7 +1078,6 @@
                  <font>
                   <family>Times New Roman</family>
                   <pointsize>14</pointsize>
-                  <weight>50</weight>
                   <bold>false</bold>
                   <stylestrategy>PreferDefault</stylestrategy>
                  </font>
@@ -1078,7 +1092,7 @@
                  <string>  Yangi qo'shish  </string>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons/images.qrc">
+                 <iconset resource="../../icons/images.qrc">
                   <normaloff>:/image/excel.png</normaloff>:/image/excel.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1092,10 +1106,10 @@
               <item>
                <spacer name="horizontalSpacer_23">
                 <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                 <enum>Qt::Orientation::Horizontal</enum>
                 </property>
                 <property name="sizeType">
-                 <enum>QSizePolicy::Minimum</enum>
+                 <enum>QSizePolicy::Policy::Minimum</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
@@ -1111,7 +1125,6 @@
                  <font>
                   <family>Times New Roman</family>
                   <pointsize>14</pointsize>
-                  <weight>50</weight>
                   <bold>false</bold>
                   <stylestrategy>PreferDefault</stylestrategy>
                  </font>
@@ -1127,10 +1140,10 @@
               <item>
                <spacer name="horizontalSpacer_24">
                 <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                 <enum>Qt::Orientation::Horizontal</enum>
                 </property>
                 <property name="sizeType">
-                 <enum>QSizePolicy::Minimum</enum>
+                 <enum>QSizePolicy::Policy::Minimum</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
@@ -1146,6 +1159,7 @@
                  <font>
                   <family>Times New Roman</family>
                   <pointsize>14</pointsize>
+                  <stylestrategy>PreferDefault</stylestrategy>
                  </font>
                 </property>
                 <property name="styleSheet">
@@ -1155,7 +1169,7 @@
                  <string> Buyurtma</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons/images.qrc">
+                 <iconset resource="../../icons/images.qrc">
                   <normaloff>:/image/excel.png</normaloff>:/image/excel.png</iconset>
                 </property>
                 <property name="iconSize">
@@ -1169,7 +1183,7 @@
               <item>
                <spacer name="horizontalSpacer_25">
                 <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                 <enum>Qt::Orientation::Horizontal</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
@@ -1195,10 +1209,10 @@
                  </font>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <set>Qt::AlignmentFlag::AlignCenter</set>
                 </property>
                 <property name="placeholderText">
-                 <string> 🔍 Qidirish</string>
+                 <string> Qidirish</string>
                 </property>
                </widget>
               </item>
@@ -1224,7 +1238,7 @@
         </widget>
         <widget class="QWidget" name="tab3_2">
          <attribute name="icon">
-          <iconset resource="icons/images.qrc">
+          <iconset resource="../../icons/images.qrc">
            <normaloff>:/image/history.png</normaloff>:/image/history.png</iconset>
          </attribute>
          <attribute name="title">
@@ -1249,6 +1263,12 @@
             </item>
             <item>
              <widget class="QDateEdit" name="dateEdit">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <family>Times New Roman</family>
@@ -1274,6 +1294,12 @@
             </item>
             <item>
              <widget class="QDateEdit" name="dateEdit_2">
+              <property name="minimumSize">
+               <size>
+                <width>150</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <family>Times New Roman</family>
@@ -1324,7 +1350,7 @@
                </font>
               </property>
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Orientation::Horizontal</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -1362,10 +1388,10 @@
                </font>
               </property>
               <property name="selectionMode">
-               <enum>QAbstractItemView::ExtendedSelection</enum>
+               <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
               </property>
               <property name="selectionBehavior">
-               <enum>QAbstractItemView::SelectItems</enum>
+               <enum>QAbstractItemView::SelectionBehavior::SelectItems</enum>
               </property>
               <property name="sortingEnabled">
                <bool>true</bool>
@@ -1384,7 +1410,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1397,7 +1422,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1410,7 +1434,18 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>To'lov turi</string>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>14</pointsize>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1433,7 +1468,7 @@
                </font>
               </property>
               <property name="selectionMode">
-               <enum>QAbstractItemView::ExtendedSelection</enum>
+               <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
               </property>
               <property name="sortingEnabled">
                <bool>true</bool>
@@ -1455,7 +1490,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1471,7 +1505,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1484,7 +1517,6 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1497,7 +1529,18 @@
                 <font>
                  <family>Times New Roman</family>
                  <pointsize>14</pointsize>
-                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>To'lov turi</string>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>14</pointsize>
                  <bold>true</bold>
                 </font>
                </property>
@@ -1510,7 +1553,7 @@
         </widget>
         <widget class="QWidget" name="tab_2">
          <attribute name="icon">
-          <iconset resource="icons/images.qrc">
+          <iconset resource="../../icons/images.qrc">
            <normaloff>:/image/history.png</normaloff>:/image/history.png</iconset>
          </attribute>
          <attribute name="title">
@@ -1531,10 +1574,10 @@
                  </font>
                 </property>
                 <property name="selectionMode">
-                 <enum>QAbstractItemView::ExtendedSelection</enum>
+                 <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
                 </property>
                 <property name="selectionBehavior">
-                 <enum>QAbstractItemView::SelectItems</enum>
+                 <enum>QAbstractItemView::SelectionBehavior::SelectItems</enum>
                 </property>
                 <property name="sortingEnabled">
                  <bool>true</bool>
@@ -1553,7 +1596,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -1566,7 +1608,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -1579,7 +1620,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -1592,7 +1632,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -1615,7 +1654,7 @@
                  </font>
                 </property>
                 <property name="selectionMode">
-                 <enum>QAbstractItemView::ExtendedSelection</enum>
+                 <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
                 </property>
                 <property name="sortingEnabled">
                  <bool>true</bool>
@@ -1637,7 +1676,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -1653,7 +1691,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -1666,7 +1703,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -1679,7 +1715,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -1692,7 +1727,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -1705,7 +1739,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -1732,6 +1765,12 @@
               </item>
               <item>
                <widget class="QDateEdit" name="dateEdit_3">
+                <property name="minimumSize">
+                 <size>
+                  <width>150</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <family>Times New Roman</family>
@@ -1757,6 +1796,12 @@
               </item>
               <item>
                <widget class="QDateEdit" name="dateEdit_4">
+                <property name="minimumSize">
+                 <size>
+                  <width>150</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="font">
                  <font>
                   <family>Times New Roman</family>
@@ -1807,7 +1852,7 @@
                  </font>
                 </property>
                 <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                 <enum>Qt::Orientation::Horizontal</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
@@ -1839,7 +1884,7 @@
         </widget>
         <widget class="QWidget" name="tab">
          <attribute name="icon">
-          <iconset resource="icons/images.qrc">
+          <iconset resource="../../icons/images.qrc">
            <normaloff>:/image/plus.png</normaloff>:/image/plus.png</iconset>
          </attribute>
          <attribute name="title">
@@ -1850,38 +1895,6 @@
            <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,8">
             <item>
              <layout class="QGridLayout" name="gridLayout_5">
-              <item row="4" column="0">
-               <widget class="QLineEdit" name="lineEdit_5">
-                <property name="font">
-                 <font>
-                  <family>Times New Roman</family>
-                  <pointsize>20</pointsize>
-                  <stylestrategy>PreferDefault</stylestrategy>
-                 </font>
-                </property>
-                <property name="focusPolicy">
-                 <enum>Qt::StrongFocus</enum>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="whatsThis">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;sd&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="layoutDirection">
-                 <enum>Qt::LeftToRight</enum>
-                </property>
-                <property name="styleSheet">
-                 <string notr="true"/>
-                </property>
-                <property name="text">
-                 <string>0 so'm</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="0">
                <widget class="QLabel" name="label_10">
                 <property name="font">
@@ -1895,101 +1908,8 @@
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Mahsulot qidirish&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <set>Qt::AlignmentFlag::AlignCenter</set>
                 </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QTableWidget" name="tableWidget_6">
-                <property name="font">
-                 <font>
-                  <family>Times New Roman</family>
-                  <pointsize>10</pointsize>
-                 </font>
-                </property>
-                <property name="editTriggers">
-                 <set>QAbstractItemView::NoEditTriggers</set>
-                </property>
-                <property name="selectionMode">
-                 <enum>QAbstractItemView::SingleSelection</enum>
-                </property>
-                <property name="selectionBehavior">
-                 <enum>QAbstractItemView::SelectRows</enum>
-                </property>
-                <property name="sortingEnabled">
-                 <bool>true</bool>
-                </property>
-                <attribute name="verticalHeaderVisible">
-                 <bool>false</bool>
-                </attribute>
-                <attribute name="verticalHeaderCascadingSectionResizes">
-                 <bool>true</bool>
-                </attribute>
-                <column>
-                 <property name="text">
-                  <string>Id</string>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Times New Roman</family>
-                   <pointsize>12</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Nomi</string>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Times New Roman</family>
-                   <pointsize>12</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Narx</string>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Times New Roman</family>
-                   <pointsize>12</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Soni</string>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Times New Roman</family>
-                   <pointsize>12</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                </column>
-                <column>
-                 <property name="text">
-                  <string>Barcode</string>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <family>Times New Roman</family>
-                   <pointsize>12</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                </column>
                </widget>
               </item>
               <item row="3" column="0">
@@ -2028,11 +1948,136 @@
                  </font>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <set>Qt::AlignmentFlag::AlignCenter</set>
                 </property>
                 <property name="placeholderText">
-                 <string> 🔍Qidirish yoki 📷 scanner ...</string>
+                 <string>Qidirish yoki scanner ...</string>
                 </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_5">
+                  <property name="font">
+                   <font>
+                    <family>Times New Roman</family>
+                    <pointsize>15</pointsize>
+                    <stylestrategy>PreferDefault</stylestrategy>
+                   </font>
+                  </property>
+                  <property name="focusPolicy">
+                   <enum>Qt::FocusPolicy::StrongFocus</enum>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;sd&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LayoutDirection::LeftToRight</enum>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string>0 so'm</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="0">
+               <widget class="QTableWidget" name="tableWidget_6">
+                <property name="font">
+                 <font>
+                  <family>Times New Roman</family>
+                  <pointsize>10</pointsize>
+                  <stylestrategy>PreferDefault</stylestrategy>
+                 </font>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::SelectionMode::SingleSelection</enum>
+                </property>
+                <property name="selectionBehavior">
+                 <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
+                </property>
+                <property name="sortingEnabled">
+                 <bool>true</bool>
+                </property>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderCascadingSectionResizes">
+                 <bool>true</bool>
+                </attribute>
+                <column>
+                 <property name="text">
+                  <string>Id</string>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Times New Roman</family>
+                   <pointsize>12</pointsize>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Nomi</string>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Times New Roman</family>
+                   <pointsize>12</pointsize>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Narx</string>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Times New Roman</family>
+                   <pointsize>12</pointsize>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Soni</string>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Times New Roman</family>
+                   <pointsize>12</pointsize>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Barcode</string>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Times New Roman</family>
+                   <pointsize>12</pointsize>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                </column>
                </widget>
               </item>
               <item row="5" column="0">
@@ -2047,10 +2092,10 @@
                    </font>
                   </property>
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeType">
-                   <enum>QSizePolicy::Minimum</enum>
+                   <enum>QSizePolicy::Policy::Minimum</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -2070,10 +2115,10 @@
                    </font>
                   </property>
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeType">
-                   <enum>QSizePolicy::Expanding</enum>
+                   <enum>QSizePolicy::Policy::Expanding</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -2093,10 +2138,10 @@
                    </font>
                   </property>
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeType">
-                   <enum>QSizePolicy::Expanding</enum>
+                   <enum>QSizePolicy::Policy::Expanding</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -2134,7 +2179,6 @@
                    <font>
                     <family>Times New Roman</family>
                     <pointsize>14</pointsize>
-                    <weight>50</weight>
                     <bold>false</bold>
                     <stylestrategy>PreferDefault</stylestrategy>
                    </font>
@@ -2150,10 +2194,10 @@
                 <item row="1" column="2">
                  <spacer name="verticalSpacer_3">
                   <property name="orientation">
-                   <enum>Qt::Vertical</enum>
+                   <enum>Qt::Orientation::Vertical</enum>
                   </property>
                   <property name="sizeType">
-                   <enum>QSizePolicy::Fixed</enum>
+                   <enum>QSizePolicy::Policy::Fixed</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -2206,10 +2250,11 @@
                    <font>
                     <family>Times New Roman</family>
                     <pointsize>14</pointsize>
+                    <stylestrategy>PreferDefault</stylestrategy>
                    </font>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
                   </property>
                   <property name="placeholderText">
                    <string>Kimdan</string>
@@ -2219,7 +2264,7 @@
                 <item>
                  <spacer name="horizontalSpacer_2">
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -2237,6 +2282,7 @@
                  <font>
                   <family>Times New Roman</family>
                   <pointsize>12</pointsize>
+                  <stylestrategy>PreferDefault</stylestrategy>
                  </font>
                 </property>
                 <property name="sortingEnabled">
@@ -2256,7 +2302,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -2269,7 +2314,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -2282,7 +2326,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -2295,7 +2338,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -2308,7 +2350,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -2321,7 +2362,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -2334,7 +2374,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -2347,7 +2386,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -2360,7 +2398,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -2373,7 +2410,6 @@
                   <font>
                    <family>Times New Roman</family>
                    <pointsize>14</pointsize>
-                   <weight>75</weight>
                    <bold>true</bold>
                   </font>
                  </property>
@@ -2385,7 +2421,7 @@
                 <item>
                  <spacer name="horizontalSpacer_30">
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -2423,7 +2459,7 @@
                    <bool>false</bool>
                   </property>
                   <property name="layoutDirection">
-                   <enum>Qt::LeftToRight</enum>
+                   <enum>Qt::LayoutDirection::LeftToRight</enum>
                   </property>
                   <property name="styleSheet">
                    <string notr="true"/>
@@ -2432,13 +2468,13 @@
                    <string/>
                   </property>
                   <property name="pixmap">
-                   <pixmap resource="icons/images.qrc">:/image/logo.png</pixmap>
+                   <pixmap resource="../../icons/images.qrc">:/image/logo.png</pixmap>
                   </property>
                   <property name="scaledContents">
                    <bool>true</bool>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
                   </property>
                   <property name="wordWrap">
                    <bool>false</bool>
@@ -2448,7 +2484,7 @@
                 <item>
                  <spacer name="horizontalSpacer_31">
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -2479,10 +2515,10 @@
        </font>
       </property>
       <property name="orientation">
-       <enum>Qt::Vertical</enum>
+       <enum>Qt::Orientation::Vertical</enum>
       </property>
       <property name="sizeType">
-       <enum>QSizePolicy::Maximum</enum>
+       <enum>QSizePolicy::Policy::Maximum</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>
@@ -2499,8 +2535,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1042</width>
-     <height>26</height>
+     <width>868</width>
+     <height>33</height>
     </rect>
    </property>
   </widget>
@@ -2550,9 +2586,19 @@
     <string>sssss</string>
    </property>
   </action>
+  <action name="actionQidirish_F3">
+   <property name="text">
+    <string>Qidirish            F3</string>
+   </property>
+  </action>
+  <action name="actionSotish_F4">
+   <property name="text">
+    <string>Sotish               F4</string>
+   </property>
+  </action>
  </widget>
  <resources>
-  <include location="icons/images.qrc"/>
+  <include location="../../icons/images.qrc"/>
  </resources>
  <connections/>
 </ui>

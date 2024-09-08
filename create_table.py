@@ -27,7 +27,8 @@ try:
     cur.execute("""CREATE TABLE IF NOT EXISTS Tarix (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 sana DATETIME NOT NULL,
-                hisob INTEGER NOT NULL
+                hisob INTEGER NOT NULL,
+                tolov_turi TEXT NOT NULL DEFAULT 'Naqt'
                 )""")
     conn.commit()
 
@@ -112,6 +113,18 @@ try:
         cur.execute("UPDATE Kitob SET kimdan = 'Nomalum' WHERE kimdan IS NULL")
         conn.commit()
         print('\033[92m' + "The 'kimdan' column already exists in Kitob table"+ '\033[0m')
+    
+    cur.execute("PRAGMA table_info(Tarix)")
+    columns = cur.fetchall()
+    column_names = [col[1] for col in columns]
+    if 'tolov_turi' not in column_names:
+        cur.execute("ALTER TABLE Tarix ADD COLUMN tolov_turi TEXT DEFAULT 'Naqt'")
+        conn.commit()
+        print('\033[92m' + "Added 'tolov_turi' column to Tarix table"+ '\033[0m')
+    else:
+        cur.execute("UPDATE Tarix SET tolov_turi = 'Nomalum' WHERE tolov_turi IS NULL")
+        conn.commit()
+        print('\033[92m' + "The 'tolov_turi' column already exists in Tarix table"+ '\033[0m')
     
     print('\033[92m' + 'Database tables are ready' + '\033[0m')
 except Exception as e:

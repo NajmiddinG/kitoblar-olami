@@ -1,31 +1,69 @@
-from main_ui import Ui_MainWindow
-# from main_ui2 import Ui_Form
-from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QFileDialog, QMessageBox
+import sys
+from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QFileDialog, QMessageBox, QTableWidget
 from PySide6.QtCore import QTimer
 from PySide6 import QtWidgets
 from openpyxl import Workbook
 from openpyxl.styles import Font
 import pandas as pd
-import sys, create_table as db
+import create_table as db
 from datetime import datetime, date
-from PySide6.QtGui import QColor, QKeySequence, QShortcut, QAction
+from PySide6.QtGui import QColor, QKeySequence, QShortcut, QAction, QIcon
 from PySide6.QtCore import Qt, QDate
+from ui import Ui_MainWindow
 
 conn = db.conn
 cur = db.cur
 
-def tableResizeMode(table):
+def tableResizeMode(table: QTableWidget):
     header = table.horizontalHeader()
     for i in range(header.count()):
+        # table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
-        header.setStyleSheet("color: black;")  
+        table.setStyleSheet("""
+            QTableWidget {
+                border: 1px solid #333; /* Darker border around the entire table */
+                gridline-color: #444; /* Darker color of the grid lines between cells */
+                background-color: #222; /* Dark background color for the table */
+            }
+            QTableWidget::item {
+                border: 1px solid #333; /* Darker border around each cell */
+                background-color: #333; /* Dark background color for cells */
+                color: #ddd; /* Light text color for cells */
+            }
+            QTableWidget::item:selected {
+                background: #555; /* Darker background color of selected cells */
+                border: 1px solid #777; /* Lighter border color of selected cells */
+                color: #fff; /* Light text color for selected cells */
+            }
+            QTableWidget::item:hover {
+                background: #444; /* Darker background color when hovering over a cell */
+            }
+            QHeaderView::section {
+                background-color: #333; /* Dark background color of header sections */
+                color: #ddd; /* Light text color of header sections */
+                border: 1px solid #444; /* Border around header sections */
+            }
+            QHeaderView::indicator {
+                width: 16px; /* Width of the indicator area (for sort arrows) */
+                height: 16px; /* Height of the indicator area (for sort arrows) */
+                border: none; /* No border for the indicator area */
+                background-color: white; /* Background color for the indicator area */
+            }
+            QHeaderView::indicator:checked {
+                background-color: white; /* Background color when checked (sorted) */
+            }
+        """)
+        # header.setStyleSheet("color: black;")  
 
 class DiamondWindow(QMainWindow, Ui_MainWindow):
-
     def __init__(self):
-        super().__init__()
+        super(DiamondWindow, self).__init__()
         self.setupUi(self)
-        self.setGeometry(0, 0, 2400, 1000)
+        self.table_resize()
+        self.initialize_variables()
+        self.connect_handlers()
+
+    def table_resize(self):
         tableResizeMode(self.tableWidget)
         tableResizeMode(self.tableWidget_2)
         tableResizeMode(self.tableWidget_3)
@@ -35,6 +73,9 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         tableResizeMode(self.tableWidget_7)
         tableResizeMode(self.tableWidget_8)
         tableResizeMode(self.tableWidget_9)
+
+    def initialize_variables(self):
+        self.setGeometry(0, 0, 2400, 1000)
         self.addproductwidget = None
         self.tableWidget_2.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers)
         self.sotuv = {} # Dictionary tartib name: (List(book id, number))
@@ -42,22 +83,130 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.prev_sotuv = 0
         self.setCentralWidget(self.tabWidget)
         self.handle_tabbar_clicked(0)
-        try: self.tabWidget.tabBarClicked.disconnect(self.handle_tabbar_clicked)
-        except: pass
-        self.tabWidget.tabBarClicked.connect(self.handle_tabbar_clicked)
+        self.tabWidget.tabBarClicked.connect(self.handle_tabbar_clicked, Qt.UniqueConnection)
         self.label_change()
         qmenu = self.menuBar()
         qmenu.setStyleSheet("""
-            QMenuBar::item:selected {
+        QMenuBar::item:selected {
             background-color: blue;
             color: white;
         }
-            QMenuBar::item {
+        QMenuBar::item {
             border: 1px solid blue;
             padding: 5px;
         }
+        
         """)
-       
+        line_edit_style = """
+        QLineEdit {
+            background-color: #333; /* Dark background color for the line edit */
+            color: #ddd; /* Light text color for the line edit */
+            border: 1px solid #444; /* Darker border color */
+            padding: 5px; /* Padding inside the line edit */
+            border-radius: 3px; /* Rounded corners for the border */
+        }
+        QLineEdit:focus {
+            border: 1px solid #555; /* Slightly lighter border when focused */
+            background-color: #444; /* Slightly lighter background when focused */
+        }
+        QLineEdit::placeholder {
+            color: #888; /* Color of the placeholder text */
+        }
+        """
+        self.lineEdit.setStyleSheet(line_edit_style)
+        self.lineEdit_2.setStyleSheet(line_edit_style)
+        self.lineEdit_3.setStyleSheet(line_edit_style)
+        self.lineEdit_4.setStyleSheet(line_edit_style)
+        self.lineEdit_5.setStyleSheet(line_edit_style)
+        self.lineEdit_6.setStyleSheet(line_edit_style)
+        
+        combo_box_style = """
+        QComboBox {
+            background-color: #333; /* Dark background for the combo box */
+            color: #ddd; /* Light text color for the combo box */
+            padding: 5px; /* Padding inside the combo box */
+        }
+        QComboBox QAbstractItemView {
+            background-color: #333; /* Dark background for the drop-down list */
+            color: #ddd; /* Light text color for items in the drop-down list */
+            border: 1px solid #444; /* Dark border for the drop-down list */
+            selection-background-color: #555; /* Background color for selected items */
+            selection-color: #fff; /* Text color for selected items */
+        }
+        QComboBox::item {
+            padding: 5px; /* Padding for items in the drop-down list */
+        }
+        QComboBox::item:selected {
+            background-color: #555; /* Background color for selected item in the drop-down list */
+            color: #fff; /* Text color for selected item in the drop-down list */
+        }
+        """
+        self.comboBox.setStyleSheet(combo_box_style)
+        self.comboBox_2.setStyleSheet(combo_box_style)
+
+        success_button_style = """
+            QPushButton {
+                background-color: rgb(31, 118, 28); /* Dark green background for success */
+                color: white; /* White text color */
+                border: none; /* No border */
+                border-radius: 5px; /* Rounded corners */
+                padding-left: 5px; /* Padding inside the button */
+                padding-right: 5px; /* Padding inside the button */
+                padding-top: 2px; /* Padding inside the button */
+                padding-bottom: 2px; /* Padding inside the button */
+                font-size: 20px; /* Font size for the text */
+                max-height: 32px; /* Maximum height of the button */
+                min-height: 10px; /* Maximum height of the button */
+                min-width: 20px; /* Maximum height of the button */
+            }
+            QPushButton:hover {
+                background-color: rgb(24, 87, 21); /* Slightly darker green on hover */
+                opacity: 0.9; /* Slightly transparent on hover */
+            }
+            QPushButton:pressed {
+                background-color: rgb(18, 65, 16); /* Even darker green when pressed */
+                opacity: 0.8; /* More transparent when pressed */
+            }
+        """
+        danger_button_style = """
+            QPushButton {
+                background-color: rgb(160, 20, 20); /* Dark red background for danger */
+                color: white; /* White text color */
+                border: none; /* No border */
+                border-radius: 5px; /* Rounded corners */
+                padding-left: 5px; /* Padding inside the button */
+                padding-right: 5px; /* Padding inside the button */
+                padding-top: 2px; /* Padding inside the button */
+                padding-bottom: 2px; /* Padding inside the button */
+                font-size: 20px; /* Font size for the text */
+                max-height: 32px; /* Maximum height of the button */
+                min-height: 10px; /* Maximum height of the button */
+                min-width: 20px; /* Maximum height of the button */
+            }
+            QPushButton:hover {
+                background-color: rgb(140, 20, 20); /* Slightly darker red on hover */
+                opacity: 0.9; /* Slightly transparent on hover */
+            }
+            QPushButton:pressed {
+                background-color: rgb(120, 20, 20); /* Even darker red when pressed */
+                opacity: 0.8; /* More transparent when pressed */
+            }
+        """
+        self.pushButton.setStyleSheet(danger_button_style)
+        self.pushButton_8.setStyleSheet(danger_button_style)
+        self.pushButton_9.setStyleSheet(danger_button_style)
+        self.pushButton_2.setStyleSheet(success_button_style)
+        self.pushButton_3.setStyleSheet(success_button_style)
+        self.pushButton_4.setStyleSheet(success_button_style)
+        self.pushButton_5.setStyleSheet(success_button_style)
+        self.pushButton_6.setStyleSheet(success_button_style)
+        self.pushButton_7.setStyleSheet(success_button_style)
+        self.pushButton_10.setStyleSheet(success_button_style)
+        self.pushButton_11.setStyleSheet(success_button_style)
+        self.pushButton_12.setStyleSheet(success_button_style)
+        self.pushButton_13.setStyleSheet(success_button_style)
+        self.pushButton_15.setStyleSheet(success_button_style)
+
         # menus
         menubar = self.menuBar()
         file_menu = menubar.addMenu('Funksiyalar')
@@ -90,6 +239,36 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.shortcut = QShortcut(shortcut, self)
         self.shortcut.activated.connect(self.F4_func_control)
         self.Key_F3_function()
+
+    def connect_handlers(self):
+        self.lineEdit_2.textChanged.connect(self.on_line_edit_changed, Qt.UniqueConnection)
+        self.lineEdit_2.returnPressed.connect(self.scanner_returned, Qt.UniqueConnection)
+        self.tableWidget_2.cellDoubleClicked.connect(self.add_selected_item_to_table, Qt.UniqueConnection)
+        self.pushButton_5.clicked.connect(self.add_selected_item_to_table, Qt.UniqueConnection)
+        self.pushButton_10.clicked.connect(self.add_selected_item_to_new_table, Qt.UniqueConnection)
+        self.pushButton_2.clicked.connect(self.accept_buy, Qt.UniqueConnection)
+        self.pushButton.clicked.connect(self.cancel_buy)
+        self.tableWidget.itemChanged.connect(self.handle_item_changed, Qt.UniqueConnection)
+        self.tableWidget.clicked.connect(self.clicked_cancel, Qt.UniqueConnection)
+        self.comboBox_2.currentIndexChanged.connect(self.sell_combo_control, Qt.UniqueConnection)
+        self.pushButton_8.clicked.connect(self.sotuv_table_remove, Qt.UniqueConnection)
+        self.pushButton_3.clicked.connect(self.save_tableWidget_data_to_database, Qt.UniqueConnection)
+        self.pushButton_13.clicked.connect(self.create_order, Qt.UniqueConnection)
+        self.pushButton_6.clicked.connect(self.clicked_export_book, Qt.UniqueConnection)
+        self.pushButton_4.clicked.connect(self.clicked_new_book, Qt.UniqueConnection)
+        self.lineEdit_3.textChanged.connect(self.on_line_edit_changed, Qt.UniqueConnection)
+        self.tableWidget_5.itemSelectionChanged.connect(self.handle_tableWidget_5_selected, Qt.UniqueConnection)
+        self.pushButton_7.clicked.connect(self.filter_history, Qt.UniqueConnection)
+        self.lineEdit_4.textChanged.connect(self.on_line_edit_changed2, Qt.UniqueConnection)
+        self.lineEdit_4.returnPressed.connect(self.scanner_returned2, Qt.UniqueConnection)
+        self.tableWidget_6.cellDoubleClicked.connect(self.add_selected_item_to_table2, Qt.UniqueConnection)
+        self.pushButton_12.clicked.connect(self.add_selected_item_to_table2, Qt.UniqueConnection)
+        self.pushButton_11.clicked.connect(self.accept_buy2, Qt.UniqueConnection)
+        self.pushButton_9.clicked.connect(self.cancel_buy2, Qt.UniqueConnection)
+        self.tableWidget_7.itemChanged.connect(self.handle_item_changed2, Qt.UniqueConnection)
+        self.tableWidget_7.clicked.connect(self.clicked_cancel2, Qt.UniqueConnection)
+        self.tableWidget_8.itemSelectionChanged.connect(self.handle_tableWidget_8_selected, Qt.UniqueConnection)
+        self.pushButton_15.clicked.connect(self.filter_history2, Qt.UniqueConnection)
 
     def Key_F3_function(self):
         index = self.tabWidget.currentIndex()
@@ -136,46 +315,36 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         elif index==1: self.mahsulot_tab()
         elif index==2: self.sotuv_tarix_tab()
         elif index==3: self.tovar_tarix_tab()
-        style_sheet = f"QTabBar::tab:selected {{ background-color: green; }}"
+        style_sheet = """
+        QTabWidget::pane {
+            border: 1px solid #444; /* Border around the tab widget */
+            border-radius: 5px; /* Rounded corners for the tab widget pane */
+            background-color: #222; /* Dark background for the tab pane */
+        }
+        QTabBar::tab {
+            background-color: #333; /* Dark background for tabs */
+            color: #ddd; /* Light text color for tabs */
+            border: 1px solid #444; /* Border around each tab */
+            border-radius: 5px; /* Rounded corners for tabs */
+            padding: 10px; /* Padding inside the tabs */
+            min-width: 80px; /* Minimum width of tabs */
+        }
+        QTabBar::tab:selected {
+            background-color: #444; /* Darker background for the selected tab */
+            color: #fff; /* Light text color for the selected tab */
+        }
+        QTabBar::tab:hover {
+            background-color: #555; /* Slightly lighter background on hover */
+        }
+        QTabWidget::tab-bar {
+            alignment: center; /* Center-align the tabs */
+        }
+        """
         self.tabWidget.setStyleSheet(style_sheet)
         self.tabWidget.setCurrentIndex(index)
         self.Key_F3_function()
 
     def sotuv_tab(self):
-        try: self.lineEdit_2.textChanged.disconnect(self.on_line_edit_changed)
-        except: pass
-        self.lineEdit_2.textChanged.connect(self.on_line_edit_changed)
-        try: self.lineEdit_2.returnPressed.disconnect(self.scanner_returned)
-        except: pass
-        self.lineEdit_2.returnPressed.connect(self.scanner_returned)
-
-        try:self.tableWidget_2.cellDoubleClicked.disconnect(self.add_selected_item_to_table)
-        except: pass
-        self.tableWidget_2.cellDoubleClicked.connect(self.add_selected_item_to_table)
-        try: self.pushButton_5.clicked.disconnect(self.add_selected_item_to_table)
-        except: pass
-        self.pushButton_5.clicked.connect(self.add_selected_item_to_table)
-        try: self.pushButton_10.clicked.disconnect(self.add_selected_item_to_new_table)
-        except: pass
-        self.pushButton_10.clicked.connect(self.add_selected_item_to_new_table)
-        try: self.pushButton_2.clicked.disconnect(self.accept_buy)
-        except: pass
-        self.pushButton_2.clicked.connect(self.accept_buy)
-        try: self.pushButton.clicked.disconnect(self.cancel_buy)
-        except: pass
-        self.pushButton.clicked.connect(self.cancel_buy)
-        try: self.tableWidget.itemChanged.disconnect(self.handle_item_changed)
-        except: pass
-        self.tableWidget.itemChanged.connect(self.handle_item_changed)
-        try: self.tableWidget.clicked.disconnect(self.clicked_cancel)
-        except: pass
-        self.tableWidget.clicked.connect(self.clicked_cancel)
-        try: self.comboBox_2.currentIndexChanged.disconnect(self.sell_combo_control)
-        except: pass
-        self.comboBox_2.currentIndexChanged.connect(self.sell_combo_control)
-        try: self.pushButton_8.clicked.disconnect(self.sotuv_table_remove)
-        except: pass
-        self.pushButton_8.clicked.connect(self.sotuv_table_remove)
         self.Key_F3_function()
 
         # Timer for the delay
@@ -246,7 +415,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 for i in tex:
                     if i.isdigit():
                         umumiy_hisob+=i
-                cur.execute("INSERT INTO Tarix (sana, hisob) VALUES (?, ?)", (formatted_datetime, umumiy_hisob))
+                cur.execute("INSERT INTO Tarix (sana, hisob, tolov_turi) VALUES (?, ?, ?)", (formatted_datetime, umumiy_hisob, self.comboBox.currentText()))
                 conn.commit()
                 tarix_id = cur.lastrowid
                 for row_index in range(rows):
@@ -308,8 +477,6 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.Key_F3_function()
 
     def sotuv_table_remove(self):
-        try: self.pushButton_8.clicked.disconnect(self.sotuv_table_remove)
-        except: pass
         try:
             curr_combo = self.comboBox_2.currentIndex()
             curr_combo_text = self.comboBox_2.currentText()
@@ -379,7 +546,6 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                     item.setForeground(QColor(255, 255, 255))
         # self.tableWidget_2.setRowCount(0)
         self.curr_sotuv = self.comboBox_2.currentText()
-        self.pushButton_8.clicked.connect(self.sotuv_table_remove)
         self.Key_F3_function()
 
     def sell_combo_control(self):
@@ -521,29 +687,9 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 is_present=row_index
                 break
         return is_present
-        self.Key_F3_function()
     
     def mahsulot_tab(self):
         self.populate_tableWidget_4()
-        try:
-            self.pushButton_3.clicked.disconnect(self.save_tableWidget_data_to_database)
-        except: pass
-        self.pushButton_3.clicked.connect(self.save_tableWidget_data_to_database)
-        try:
-            self.pushButton_13.clicked.disconnect(self.create_order)
-        except: pass
-        self.pushButton_13.clicked.connect(self.create_order)
-        try:
-            self.pushButton_6.clicked.disconnect(self.clicked_export_book)
-        except: pass
-        self.pushButton_6.clicked.connect(self.clicked_export_book)
-        try:
-            self.pushButton_4.clicked.disconnect(self.clicked_new_book)
-        except: pass
-        self.pushButton_4.clicked.connect(self.clicked_new_book)
-        try: self.lineEdit_3.textChanged.disconnect(self.on_line_edit_changed)
-        except: pass
-        self.lineEdit_3.textChanged.connect(self.on_line_edit_changed)
 
         self.timer = QTimer(self)
         self.timer.setSingleShot(True)
@@ -666,6 +812,13 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         return s_text.strip()[::-1]
         self.Key_F3_function()
     
+    def is_numeric(self, value):
+        try:
+            float(value)
+            return True
+        except ValueError:
+            return False
+        
     def populate_tableWidget_4(self, filter=''):
         if not filter: filter = self.lineEdit_3.text()
         self.tableWidget_4.setRowCount(0)
@@ -679,15 +832,18 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         data = cur.fetchall()
         num_rows_to_add = 10 + len(data)
         dasmoya = 0
+        self.tableWidget_4.setSortingEnabled(False)
         self.tableWidget_4.setRowCount(num_rows_to_add)
         for row_index, row_data in enumerate(data):
             dasmoya += int(float(row_data[2]))*int(float(row_data[6]))
             for col_index, col_data in enumerate(row_data):
-                item = QTableWidgetItem(str(col_data))
+                item = QTableWidgetItem()
+                item.setData(Qt.DisplayRole, int(col_data) if self.is_numeric(col_data) else col_data)
                 self.tableWidget_4.setItem(row_index, col_index, item)
+        self.tableWidget_4.setSortingEnabled(True)
         
         money = self.spacecomma(dasmoya)
-        self.label_7.setText("Jami dasmoya qiymati: "+money+" so'm")
+        self.label_7.setText("Jami dasmoya qiymati: " + money + " so'm")
 
         for i in range(len(data), num_rows_to_add):
             for j in range(self.tableWidget_4.columnCount()):
@@ -764,6 +920,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
 
     def show_message(self):
         self.msg_box = QMessageBox()
+        self.msg_box.setWindowIcon(QIcon(":/image/logo.jpg"))
         self.msg_box.setWindowTitle('Xabar')
         # icon = QtGui.QIcon()
         # icon.addPixmap(QtGui.QPixmap(":/image/logo.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -773,7 +930,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             self.msg_box.setStyleSheet("QMessageBox {background-color: lightgray; color: green; font-size: 16px;} QPushButton { color: green; } QLabel {color: green;} QWindowTitle {color: green;}")
         else:
             self.msg_box.setStyleSheet("QMessageBox {background-color: lightgray; color: red; font-size: 16px;} QPushButton { color: red; } QLabel {color: red;} QWindowTitle {color: red;}")
-        self.msg_box.exec_()
+        self.msg_box.exec()
         self.Key_F3_function()
 
     def close_message_box(self):
@@ -790,13 +947,6 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.dateEdit.setDate(seven_days_ago)
 
         self.show_tarix()
-        try: self.tableWidget_5.itemSelectionChanged.disconnect(self.handle_tableWidget_5_selected)
-        except: pass
-        self.tableWidget_5.itemSelectionChanged.connect(self.handle_tableWidget_5_selected)
-        try:
-            self.pushButton_7.clicked.disconnect(self.filter_history)
-        except: pass
-        self.pushButton_7.clicked.connect(self.filter_history)
         self.filter_history()
         self.Key_F3_function()
     
@@ -864,34 +1014,6 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.Key_F3_function()
 
     def tovar_tab(self):
-        try: self.lineEdit_4.textChanged.disconnect(self.on_line_edit_changed2)
-        except: pass
-        self.lineEdit_4.textChanged.connect(self.on_line_edit_changed2)
-        try: self.lineEdit_4.returnPressed.disconnect(self.scanner_returned2)
-        except: pass
-        self.lineEdit_4.returnPressed.connect(self.scanner_returned2)
-
-        try:self.tableWidget_6.cellDoubleClicked.disconnect(self.add_selected_item_to_table2)
-        except: pass
-        self.tableWidget_6.cellDoubleClicked.connect(self.add_selected_item_to_table2)
-        try: self.pushButton_12.clicked.disconnect(self.add_selected_item_to_table2)
-        except: pass
-        self.pushButton_12.clicked.connect(self.add_selected_item_to_table2)
-        # try: self.pushButton_10.clicked.disconnect(self.add_selected_item_to_new_table)
-        # except: pass
-        # self.pushButton_10.clicked.connect(self.add_selected_item_to_new_table)
-        try: self.pushButton_11.clicked.disconnect(self.accept_buy2)
-        except: pass
-        self.pushButton_11.clicked.connect(self.accept_buy2)
-        try: self.pushButton_9.clicked.disconnect(self.cancel_buy2)
-        except: pass
-        self.pushButton_9.clicked.connect(self.cancel_buy2)
-        try: self.tableWidget_7.itemChanged.disconnect(self.handle_item_changed2)
-        except: pass
-        self.tableWidget_7.itemChanged.connect(self.handle_item_changed2)
-        try: self.tableWidget_7.clicked.disconnect(self.clicked_cancel2)
-        except: pass
-        self.tableWidget_7.clicked.connect(self.clicked_cancel2)
         self.Key_F3_function2()
 
         self.timer = QTimer(self)
@@ -1116,13 +1238,6 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.dateEdit_3.setDate(seven_days_ago)
 
         self.show_tarix2()
-        try: self.tableWidget_8.itemSelectionChanged.disconnect(self.handle_tableWidget_8_selected)
-        except: pass
-        self.tableWidget_8.itemSelectionChanged.connect(self.handle_tableWidget_8_selected)
-        try:
-            self.pushButton_15.clicked.disconnect(self.filter_history2)
-        except: pass
-        self.pushButton_15.clicked.connect(self.filter_history2)
         self.filter_history2()
         self.Key_F3_function()
     

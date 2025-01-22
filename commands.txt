@@ -1,4 +1,6 @@
+pyinstaller main.spec
 pyinstaller --noconsole --upx-dir= --onefile main.py
+py .\converter.py
 pyside6-uic untitled.ui -o main_ui.py
 pyside6-rcc -o .\images_rc.py .\icons\images.qrc
 

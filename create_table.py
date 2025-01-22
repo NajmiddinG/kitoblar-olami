@@ -26,9 +26,10 @@ try:
 
     cur.execute("""CREATE TABLE IF NOT EXISTS Tarix (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                kimga TEXT,
                 sana DATETIME NOT NULL,
                 hisob INTEGER NOT NULL,
-                tolov_turi TEXT NOT NULL DEFAULT 'Naqt'
+                tolov_turi TEXT NOT NULL DEFAULT 'Naqd'
                 )""")
     conn.commit()
 
@@ -118,13 +119,28 @@ try:
     columns = cur.fetchall()
     column_names = [col[1] for col in columns]
     if 'tolov_turi' not in column_names:
-        cur.execute("ALTER TABLE Tarix ADD COLUMN tolov_turi TEXT DEFAULT 'Naqt'")
+        cur.execute("ALTER TABLE Tarix ADD COLUMN tolov_turi TEXT DEFAULT 'Naqd'")
         conn.commit()
         print('\033[92m' + "Added 'tolov_turi' column to Tarix table"+ '\033[0m')
     else:
         cur.execute("UPDATE Tarix SET tolov_turi = 'Nomalum' WHERE tolov_turi IS NULL")
         conn.commit()
         print('\033[92m' + "The 'tolov_turi' column already exists in Tarix table"+ '\033[0m')
+    if 'kimga' not in column_names:
+        cur.execute("ALTER TABLE Tarix ADD COLUMN kimga TEXT DEFAULT 'Nomalum'")
+        conn.commit()
+        print('\033[92m' + "Added 'kimga' column to Tarix table"+ '\033[0m')
+    else:
+        cur.execute("UPDATE Tarix SET kimga = 'Nomalum' WHERE kimga IS NULL")
+        conn.commit()
+        print('\033[92m' + "The 'kimga' column already exists in Tarix table"+ '\033[0m')
+    
+    cur.execute("""
+        UPDATE Tarix
+        SET tolov_turi = 'Naqd'
+        WHERE tolov_turi = 'Naqt'
+    """)
+    conn.commit()
     
     print('\033[92m' + 'Database tables are ready' + '\033[0m')
 except Exception as e:

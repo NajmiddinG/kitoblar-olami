@@ -1,5 +1,5 @@
 import sys
-from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QFileDialog, QMessageBox, QTableWidget
+from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QFileDialog, QMessageBox, QTableWidget, QToolTip 
 from PySide6.QtCore import QTimer
 from PySide6 import QtWidgets
 from openpyxl import Workbook
@@ -55,6 +55,47 @@ def tableResizeMode(table: QTableWidget):
         """)
         # header.setStyleSheet("color: black;")  
 
+def tableResizeMode2(table: QTableWidget):
+    header = table.horizontalHeader()
+    for i in range(header.count()):
+        # table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
+        table.setStyleSheet("""
+            QTableWidget {
+                border: 1px solid #333; /* Dark border around the entire table */
+                gridline-color: #444; /* Darker color for the grid lines */
+                background-color: #2b3e3a; /* Darker teal background for the table */
+            }
+            QTableWidget::item {
+                border: 1px solid #333; /* Darker border around each cell */
+                background-color: #1f2f2b; /* Darker teal for cells */
+                color: #ddd; /* Light text color for cells */
+            }
+            QTableWidget::item:selected {
+                background: #33675f; /* Slightly lighter teal background when selected */
+                border: 1px solid #555; /* Lighter border color when selected */
+                color: #fff; /* White text for selected cells */
+            }
+            QTableWidget::item:hover {
+                background: #3d5c56; /* Hover effect with a slightly lighter background */
+            }
+            QHeaderView::section {
+                background-color: #1c2c28; /* Darker teal background for header sections */
+                color: #ddd; /* Light text color for header sections */
+                border: 1px solid #444; /* Border around header sections */
+            }
+            QHeaderView::indicator {
+                width: 16px; /* Width of the indicator area (for sort arrows) */
+                height: 16px; /* Height of the indicator area (for sort arrows) */
+                border: none; /* No border for the indicator area */
+                background-color: #ddd; /* Light background color for the indicator area */
+            }
+            QHeaderView::indicator:checked {
+                background-color: #ddd; /* Light background color when sorted */
+            }
+        """)
+        # header.setStyleSheet("color: black;")  
+
 class DiamondWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(DiamondWindow, self).__init__()
@@ -69,8 +110,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         tableResizeMode(self.tableWidget_3)
         tableResizeMode(self.tableWidget_4)
         tableResizeMode(self.tableWidget_5)
-        tableResizeMode(self.tableWidget_6)
-        tableResizeMode(self.tableWidget_7)
+        tableResizeMode2(self.tableWidget_6)
+        tableResizeMode2(self.tableWidget_7)
         tableResizeMode(self.tableWidget_8)
         tableResizeMode(self.tableWidget_9)
 
@@ -92,49 +133,87 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             color: white;
         }
         QMenuBar::item {
-            border: 1px solid blue;
+            border: 1px solid rgb(94, 111, 135);
             padding: 5px;
         }
-        
         """)
+
+        self.label_16.setStyleSheet("""
+        QLabel {
+            color: #9CA7B7;
+            background-color: #080A0C;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            padding-top: 5px;
+            padding-right: 10px;
+            padding-bottom: 5px;
+            padding-left: 10px;
+            border: 1px solid rgb(94, 111, 135);
+            border-left: 0px
+        }
+        """)
+        self.label_17.setStyleSheet("""
+            QLabel {
+                color: #ddd; /* Light text color for better contrast */
+                background-color: #1f2f2b; /* Dark teal background, complementary to page background */
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+                padding-top: 5px;
+                padding-right: 10px;
+                padding-bottom: 5px;
+                padding-left: 10px;
+                border: 1px solid #33675f; /* A slightly lighter teal border */
+                border-left: 0px; /* Removing the left border for a cleaner design */
+            }
+        """)
+
         line_edit_style = """
         QLineEdit {
             background-color: #333; /* Dark background color for the line edit */
             color: #ddd; /* Light text color for the line edit */
-            border: 1px solid #444; /* Darker border color */
+            border: 1px solid rgb(94, 111, 135);
             padding: 5px; /* Padding inside the line edit */
             border-radius: 3px; /* Rounded corners for the border */
-        }
-        QLineEdit:focus {
-            border: 1px solid #555; /* Slightly lighter border when focused */
-            background-color: #444; /* Slightly lighter background when focused */
         }
         QLineEdit::placeholder {
             color: #888; /* Color of the placeholder text */
         }
         """
-        self.lineEdit.setStyleSheet(line_edit_style)
         self.lineEdit_2.setStyleSheet(line_edit_style)
         self.lineEdit_3.setStyleSheet(line_edit_style)
         self.lineEdit_4.setStyleSheet(line_edit_style)
-        self.lineEdit_5.setStyleSheet(line_edit_style)
         self.lineEdit_6.setStyleSheet(line_edit_style)
+        self.lineEdit_7.setStyleSheet(line_edit_style)
+        customline_edit_style = """
+        QLineEdit{
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border: 1px solid rgb(94, 111, 135);
+            padding: 5px;
+            padding-left: 15px;
+            border-right: 0px;
+        }
+        QLineEdit::placeholder {
+            color: #888; /* Color of the placeholder text */
+        }
+        """
+        self.lineEdit.setStyleSheet(customline_edit_style)
+        self.lineEdit_5.setStyleSheet(customline_edit_style)
         
         combo_box_style = """
         QComboBox {
+            border: 1px solid rgb(94, 111, 135);
+            height: 35px;
+            padding-left: 8px;
             background-color: #333; /* Dark background for the combo box */
             color: #ddd; /* Light text color for the combo box */
-            padding: 5px; /* Padding inside the combo box */
+            border-radius: 3px; /* Rounded corners for the border */
         }
         QComboBox QAbstractItemView {
             background-color: #333; /* Dark background for the drop-down list */
             color: #ddd; /* Light text color for items in the drop-down list */
-            border: 1px solid #444; /* Dark border for the drop-down list */
             selection-background-color: #555; /* Background color for selected items */
             selection-color: #fff; /* Text color for selected items */
-        }
-        QComboBox::item {
-            padding: 5px; /* Padding for items in the drop-down list */
         }
         QComboBox::item:selected {
             background-color: #555; /* Background color for selected item in the drop-down list */
@@ -143,12 +222,14 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         """
         self.comboBox.setStyleSheet(combo_box_style)
         self.comboBox_2.setStyleSheet(combo_box_style)
+        self.comboBox_3.setStyleSheet(combo_box_style)
+        self.comboBox_4.setStyleSheet(combo_box_style)
 
         success_button_style = """
             QPushButton {
                 background-color: rgb(31, 118, 28); /* Dark green background for success */
                 color: white; /* White text color */
-                border: none; /* No border */
+                border: 1px solid rgb(94, 111, 135);
                 border-radius: 5px; /* Rounded corners */
                 padding-left: 5px; /* Padding inside the button */
                 padding-right: 5px; /* Padding inside the button */
@@ -172,7 +253,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             QPushButton {
                 background-color: rgb(160, 20, 20); /* Dark red background for danger */
                 color: white; /* White text color */
-                border: none; /* No border */
+                border: 1px solid rgb(94, 111, 135);
                 border-radius: 5px; /* Rounded corners */
                 padding-left: 5px; /* Padding inside the button */
                 padding-right: 5px; /* Padding inside the button */
@@ -199,6 +280,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_3.setStyleSheet(success_button_style)
         self.pushButton_4.setStyleSheet(success_button_style)
         self.pushButton_5.setStyleSheet(success_button_style)
+        self.pushButton_14.setStyleSheet(danger_button_style)
         self.pushButton_6.setStyleSheet(success_button_style)
         self.pushButton_7.setStyleSheet(success_button_style)
         self.pushButton_10.setStyleSheet(success_button_style)
@@ -206,6 +288,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_12.setStyleSheet(success_button_style)
         self.pushButton_13.setStyleSheet(success_button_style)
         self.pushButton_15.setStyleSheet(success_button_style)
+        self.pushButton_16.setStyleSheet(danger_button_style)
+        self.pushButton_17.setStyleSheet(danger_button_style)
 
         # menus
         menubar = self.menuBar()
@@ -245,12 +329,15 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.lineEdit_2.returnPressed.connect(self.scanner_returned, Qt.UniqueConnection)
         self.tableWidget_2.cellDoubleClicked.connect(self.add_selected_item_to_table, Qt.UniqueConnection)
         self.pushButton_5.clicked.connect(self.add_selected_item_to_table, Qt.UniqueConnection)
+        self.pushButton_14.clicked.connect(self.subtract_selected_item_to_table, Qt.UniqueConnection)
         self.pushButton_10.clicked.connect(self.add_selected_item_to_new_table, Qt.UniqueConnection)
         self.pushButton_2.clicked.connect(self.accept_buy, Qt.UniqueConnection)
         self.pushButton.clicked.connect(self.cancel_buy)
         self.tableWidget.itemChanged.connect(self.handle_item_changed, Qt.UniqueConnection)
         self.tableWidget.clicked.connect(self.clicked_cancel, Qt.UniqueConnection)
         self.comboBox_2.currentIndexChanged.connect(self.sell_combo_control, Qt.UniqueConnection)
+        self.comboBox_3.currentIndexChanged.connect(self.filter_history_combo, Qt.UniqueConnection)
+        self.comboBox_4.currentIndexChanged.connect(self.filter_history2_combo, Qt.UniqueConnection)
         self.pushButton_8.clicked.connect(self.sotuv_table_remove, Qt.UniqueConnection)
         self.pushButton_3.clicked.connect(self.save_tableWidget_data_to_database, Qt.UniqueConnection)
         self.pushButton_13.clicked.connect(self.create_order, Qt.UniqueConnection)
@@ -263,12 +350,14 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.lineEdit_4.returnPressed.connect(self.scanner_returned2, Qt.UniqueConnection)
         self.tableWidget_6.cellDoubleClicked.connect(self.add_selected_item_to_table2, Qt.UniqueConnection)
         self.pushButton_12.clicked.connect(self.add_selected_item_to_table2, Qt.UniqueConnection)
+        self.pushButton_16.clicked.connect(self.subtract_selected_item_to_table2, Qt.UniqueConnection)
         self.pushButton_11.clicked.connect(self.accept_buy2, Qt.UniqueConnection)
         self.pushButton_9.clicked.connect(self.cancel_buy2, Qt.UniqueConnection)
         self.tableWidget_7.itemChanged.connect(self.handle_item_changed2, Qt.UniqueConnection)
         self.tableWidget_7.clicked.connect(self.clicked_cancel2, Qt.UniqueConnection)
         self.tableWidget_8.itemSelectionChanged.connect(self.handle_tableWidget_8_selected, Qt.UniqueConnection)
         self.pushButton_15.clicked.connect(self.filter_history2, Qt.UniqueConnection)
+        self.pushButton_17.clicked.connect(self.return_product, Qt.UniqueConnection)
 
     def Key_F3_function(self):
         index = self.tabWidget.currentIndex()
@@ -317,14 +406,14 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         elif index==3: self.tovar_tarix_tab()
         style_sheet = """
         QTabWidget::pane {
-            border: 1px solid #444; /* Border around the tab widget */
+            border: 1px solid rgb(94, 111, 135);
             border-radius: 5px; /* Rounded corners for the tab widget pane */
             background-color: #222; /* Dark background for the tab pane */
         }
         QTabBar::tab {
             background-color: #333; /* Dark background for tabs */
             color: #ddd; /* Light text color for tabs */
-            border: 1px solid #444; /* Border around each tab */
+            border: 1px solid rgb(94, 111, 135);
             border-radius: 5px; /* Rounded corners for tabs */
             padding: 10px; /* Padding inside the tabs */
             min-width: 80px; /* Minimum width of tabs */
@@ -394,14 +483,17 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 total_amount += narxi * count
                 self.tableWidget.setItem(row_index, 6, QTableWidgetItem(str(narxi*count)))
 
-        self.lineEdit.setText(self.spacecomma(int(total_amount))+" so'm")
+        self.lineEdit.setText(self.spacecomma(int(total_amount)))
         self.Key_F3_function()
 
     def cancel_buy(self):
         self.tableWidget_2.setRowCount(0)
         self.tableWidget.setRowCount(0)
         self.lineEdit_2.clear()
-        self.lineEdit.setText("0 so'm")
+        self.lineEdit.setText("")
+        self.lineEdit.setText("")
+        self.lineEdit_7.setText("")
+        self.comboBox.setCurrentIndex(0)
         self.Key_F3_function()
 
     def accept_buy(self):
@@ -412,10 +504,12 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
                 tex  = self.lineEdit.text()
                 umumiy_hisob = ''
+                kimga = self.lineEdit_7.text()
+                if not kimga: kimga = "Nomalum"
                 for i in tex:
                     if i.isdigit():
                         umumiy_hisob+=i
-                cur.execute("INSERT INTO Tarix (sana, hisob, tolov_turi) VALUES (?, ?, ?)", (formatted_datetime, umumiy_hisob, self.comboBox.currentText()))
+                cur.execute("INSERT INTO Tarix (kimga, sana, hisob, tolov_turi) VALUES (?, ?, ?, ?)", (kimga, formatted_datetime, umumiy_hisob, self.comboBox.currentText()))
                 conn.commit()
                 tarix_id = cur.lastrowid
                 for row_index in range(rows):
@@ -438,6 +532,45 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             QTimer.singleShot(50, self.show_message)
         self.cancel_buy()
         self.Key_F3_function()
+
+    def return_product(self):
+        row_index = self.tableWidget_5.currentRow()
+        if row_index < 0: 
+            return
+
+        tarix_id = self.tableWidget_5.item(row_index, 0).text()
+
+        # Create a message box to confirm the action
+        confirmation = QMessageBox.question(
+            self, 
+            'Vazvratni tasdiqlash', 
+            f"#'{tarix_id}' ni vazvrat qilmoqchimiz?", 
+            QMessageBox.Yes | QMessageBox.No
+        )
+
+        # If user selects 'Yes', proceed
+        if confirmation == QMessageBox.Yes:
+            try:
+                cur.execute("SELECT Kitob, soni FROM TarixItem WHERE Tarix = ?", (tarix_id,))
+                tarix_items = cur.fetchall()  # [(Kitob, soni), ...]
+
+                for kitob_id, soni in tarix_items:
+                    cur.execute("SELECT qoldiq FROM Kitob WHERE id = ?", (kitob_id,))
+                    current_stock = cur.fetchone()[0]
+                    new_stock = int(current_stock) + int(soni)
+                    cur.execute("UPDATE Kitob SET qoldiq = ? WHERE id = ?", (new_stock, kitob_id))
+
+                cur.execute("DELETE FROM TarixItem WHERE Tarix = ?", (tarix_id,))
+                cur.execute("DELETE FROM Tarix WHERE id = ?", (tarix_id,))
+                conn.commit()
+
+                print(f"Return completed for Tarix ID {tarix_id}. Stock updated and records deleted.")
+
+            except Exception as e:
+                conn.rollback()
+                print(f"Error occurred: {e}")
+
+        self.filter_history()
 
     def on_line_edit_changed(self):
         # Start the timer when the text in the line edit changes
@@ -480,7 +613,6 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         try:
             curr_combo = self.comboBox_2.currentIndex()
             curr_combo_text = self.comboBox_2.currentText()
-            
             if self.comboBox_2.count()!=1:
 
                 try: del self.sotuv[curr_combo_text]
@@ -679,6 +811,25 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                     item.setForeground(QColor(255, 255, 255))
         # self.tableWidget_2.setRowCount(0)
         self.Key_F3_function()
+    
+    def subtract_selected_item_to_table(self):
+        selected_item = self.tableWidget_2.currentRow()
+        # self.lineEdit_2.clear()
+        if selected_item>-1:
+            id = int(float(self.tableWidget_2.item(selected_item, 0).text()))
+            check = self.check_tablewidget_add(id)
+            if check!=-1:
+                cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
+                data = cur.fetchone()
+                qoldiq = int(float(data[4]))
+                prev = int(float(self.tableWidget.item(check, 2).text()))
+                if 0<prev:
+                    self.tableWidget.setItem(check, 2, QTableWidgetItem(str(prev-1)))
+                    item = self.tableWidget.item(check, 2)
+                    item.setBackground(QColor(0, 0, 255))
+                    item.setForeground(QColor(255, 255, 255))
+        # self.tableWidget_2.setRowCount(0)
+        self.Key_F3_function()
 
     def check_tablewidget_add(self, id):
         is_present = -1
@@ -837,8 +988,21 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         for row_index, row_data in enumerate(data):
             dasmoya += int(float(row_data[2]))*int(float(row_data[6]))
             for col_index, col_data in enumerate(row_data):
-                item = QTableWidgetItem()
-                item.setData(Qt.DisplayRole, int(col_data) if self.is_numeric(col_data) else col_data)
+                truncated_data = str(col_data)
+
+                if len(truncated_data) > 40:
+                    truncated_data = truncated_data[:40] + "..."
+                
+                item = QTableWidgetItem(truncated_data)
+                
+                if len(str(col_data)) > 40:
+                    item.setToolTip(str(col_data))
+
+                if self.is_numeric(col_data):
+                    item.setData(Qt.DisplayRole, int(col_data))
+                else:
+                    item.setData(Qt.DisplayRole, truncated_data)
+                
                 self.tableWidget_4.setItem(row_index, col_index, item)
         self.tableWidget_4.setSortingEnabled(True)
         
@@ -897,8 +1061,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                         pachka_narx
                         """
                         cur.execute("""
-                            INSERT INTO Kitob (nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq, kelgan_sana, buyurtma=?, kimdan=?)
-                            VALUES (?, ?, ?, ?, ?, ?, ?)
+                            INSERT INTO Kitob (nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq, kelgan_sana, buyurtma, kimdan)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """, (nomi, int(float(tan_narx)), int(float(narxi)), int(float(pachka_narx)), barcode, int(float(qoldiq)), date.today(), buyurtma, kimdan))
                         conn.commit()
                 elif id and not nomi and not narxi and not barcode and not qoldiq:
@@ -939,21 +1103,96 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
 
     def sotuv_tarix_tab(self):
         # Date
-        tomorrow = QDate.currentDate().addDays(1)
-        self.dateEdit_2.setDate(tomorrow)
+        today = QDate.currentDate()
+        self.dateEdit_2.setDate(today)
 
-        # Calculate the date 7 days back from tomorrow
-        seven_days_ago = tomorrow.addDays(-1)
-        self.dateEdit.setDate(seven_days_ago)
+        self.dateEdit.setDate(today)
+        self.comboBox_3.setCurrentIndex(0)
 
         self.show_tarix()
         self.filter_history()
         self.Key_F3_function()
     
+    def filter_history_combo(self, index):
+        today = QDate.currentDate()
+
+        if index == 0:  # "Today"
+            self.dateEdit.setDate(today)
+            self.dateEdit_2.setDate(today)
+
+        elif index == 1:  # "This week"
+            start_of_week = today.addDays(-(today.dayOfWeek() - 1))  # Monday
+            end_of_week = start_of_week.addDays(6)  # Sunday
+            self.dateEdit.setDate(start_of_week)
+            self.dateEdit_2.setDate(end_of_week)
+
+        elif index == 2:  # "A week" (Last 7 days)
+            self.dateEdit.setDate(today.addDays(-7))
+            self.dateEdit_2.setDate(today)
+
+        elif index == 3:  # "This month"
+            start_of_month = QDate(today.year(), today.month(), 1)
+            end_of_month = QDate(today.year(), today.month(), start_of_month.daysInMonth())
+            self.dateEdit.setDate(start_of_month)
+            self.dateEdit_2.setDate(end_of_month)
+
+        elif index == 4:  # "One month" (Last 30 days)
+            self.dateEdit.setDate(today.addDays(-30))
+            self.dateEdit_2.setDate(today)
+
+        elif index == 5:  # "This year"
+            start_of_year = QDate(today.year(), 1, 1)
+            end_of_year = QDate(today.year(), 12, 31)
+            self.dateEdit.setDate(start_of_year)
+            self.dateEdit_2.setDate(end_of_year)
+
+        elif index == 6:  # "One year" (Last 365 days)
+            self.dateEdit.setDate(today.addDays(-365))
+            self.dateEdit_2.setDate(today)
+        self.filter_history()
+    
+    def filter_history2_combo(self, index):
+        today = QDate.currentDate()
+
+        if index == 0:  # "Today"
+            self.dateEdit_3.setDate(today)
+            self.dateEdit_4.setDate(today)
+
+        elif index == 1:  # "This week"
+            start_of_week = today.addDays(-(today.dayOfWeek() - 1))  # Monday
+            end_of_week = start_of_week.addDays(6)  # Sunday
+            self.dateEdit_3.setDate(start_of_week)
+            self.dateEdit_4.setDate(end_of_week)
+
+        elif index == 2:  # "A week" (Last 7 days)
+            self.dateEdit_3.setDate(today.addDays(-7))
+            self.dateEdit_4.setDate(today)
+
+        elif index == 3:  # "This month"
+            start_of_month = QDate(today.year(), today.month(), 1)
+            end_of_month = QDate(today.year(), today.month(), start_of_month.daysInMonth())
+            self.dateEdit_3.setDate(start_of_month)
+            self.dateEdit_4.setDate(end_of_month)
+
+        elif index == 4:  # "One month" (Last 30 days)
+            self.dateEdit_3.setDate(today.addDays(-30))
+            self.dateEdit_4.setDate(today)
+
+        elif index == 5:  # "This year"
+            start_of_year = QDate(today.year(), 1, 1)
+            end_of_year = QDate(today.year(), 12, 31)
+            self.dateEdit_3.setDate(start_of_year)
+            self.dateEdit_4.setDate(end_of_year)
+
+        elif index == 6:  # "One year" (Last 365 days)
+            self.dateEdit_3.setDate(today.addDays(-365))
+            self.dateEdit_4.setDate(today)
+        self.filter_history2()
+
     def filter_history(self):
         self.tableWidget_3.setRowCount(0)
         start_date = self.dateEdit.date().toString("yyyy-MM-dd")
-        end_date = self.dateEdit_2.date().toString("yyyy-MM-dd")
+        end_date = self.dateEdit_2.date().addDays(1).toString("yyyy-MM-dd")
 
         query = "SELECT * FROM Tarix WHERE sana >= ? AND sana <= ? ORDER BY sana DESC"
         cur.execute(query, (start_date, end_date))
@@ -961,10 +1200,23 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         tarix_data = cur.fetchall()
         self.display_data_in_table(tarix_data, self.tableWidget_5)
         query_sum = "SELECT SUM(hisob) AS total_hisob FROM Tarix WHERE sana >= ? AND sana <= ?"
-        cur.execute(query_sum, (start_date, end_date))  # Replace start_date and end_date with your actual date values
+        cur.execute(query_sum, (start_date, end_date))
         total_hisob = cur.fetchone()[0]
-        if total_hisob is None: total_hisob=0
-        self.label_8.setText(f"Jami sotilganlar qiymati filiter bo'yicha: {self.spacecomma(total_hisob)} so'm")
+        if total_hisob is None:
+            total_hisob = 0
+
+        query_payment_types = """
+            SELECT tolov_turi, SUM(hisob) 
+            FROM Tarix 
+            WHERE sana >= ? AND sana <= ? 
+            GROUP BY tolov_turi
+        """
+        cur.execute(query_payment_types, (start_date, end_date))
+        payment_type_sums = cur.fetchall()
+        payment_summary_text = f"Jami: {self.spacecomma(total_hisob)} so'm\n"
+        for payment_type, total in payment_type_sums:
+            payment_summary_text += f"{payment_type}: {self.spacecomma(total)} so'm\n"
+        self.label_8.setText(payment_summary_text)
         self.Key_F3_function()
 
     def handle_tableWidget_5_selected(self):
@@ -997,7 +1249,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         cur.execute("SELECT SUM(hisob) FROM Tarix ORDER BY sana DESC")
         total_hisob = cur.fetchone()[0]
         if total_hisob is None: total_hisob=0
-        self.label_8.setText(f"Jami sotilganlar qiymati filiter bo'yicha: {self.spacecomma(total_hisob)} so'm")
+        self.label_8.setText(f"Jami: {self.spacecomma(total_hisob)} so'm")
         self.Key_F3_function()
     
     def display_data_in_table(self, data, table_widget):
@@ -1007,7 +1259,15 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
 
             for row_index, row_data in enumerate(data):
                 for col_index, col_data in enumerate(row_data):
-                    item = QTableWidgetItem(str(col_data))
+                    truncated_data = str(col_data)
+
+                    if len(truncated_data) > 40:
+                        truncated_data = truncated_data[:40] + "..."
+                    item = QTableWidgetItem(truncated_data)
+                    
+                    if len(str(col_data)) > 40:
+                        item.setToolTip(str(col_data))
+
                     table_widget.setItem(row_index, col_index, item)
         except:
             pass
@@ -1022,8 +1282,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.Key_F3_function()
 
     def store_new_product(self, p):
-        cur.execute("INSERT INTO Kitob (nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq, kelgan_sana) VALUES (?, ?, ?, ?, ?, ?, ?)", 
-                    (p[0], p[1], p[2], p[3], p[4], p[5], p[6]))
+        cur.execute("INSERT INTO Kitob (nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq, kelgan_sana, kimdan) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+                    (p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]))
         conn.commit()
         return cur.lastrowid
 
@@ -1063,7 +1323,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 total_amount+=add
                 self.tableWidget_7.setItem(row_index, 8, QTableWidgetItem(str(add)))
 
-        self.lineEdit_5.setText(self.spacecomma(int(total_amount))+" so'm")
+        self.lineEdit_5.setText(self.spacecomma(int(total_amount)))
         self.Key_F3_function2()
         self.Key_F3_function()
 
@@ -1072,7 +1332,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.tableWidget_7.setRowCount(0)
         self.lineEdit_5.clear()
         self.lineEdit_6.clear()
-        self.lineEdit_5.setText("0 so'm")
+        self.lineEdit_5.setText("0")
         self.Key_F3_function2()
         self.Key_F3_function()
 
@@ -1088,7 +1348,12 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                     if i.isdigit():
                         umumiy_hisob+=i
                 kimdan = self.lineEdit_6.text()
-                if not kimdan: kimdan = "Nomalum"
+                if len(kimdan) < 3:
+                    QTimer.singleShot(5000, self.close_message_box)
+                    self.message_info = "Kiritish xatosi!\nTovarlarni kimdan olganingizni kiriting!\nEng kichik ism uzunligi 3 ta belgi bo'lishi mumkin!"
+                    self.message_type = 0
+                    QTimer.singleShot(50, self.show_message)
+                    return
                 cur.execute("INSERT INTO Tovar (kimdan, sana, hisob) VALUES (?, ?, ?)", (kimdan, formatted_datetime, umumiy_hisob))
                 conn.commit()
                 tarix_id = cur.lastrowid
@@ -1099,14 +1364,16 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                     narx = int(float(self.tableWidget_7.item(row_index, 4).text()))
                     pachka_narx = int(float(self.tableWidget_7.item(row_index, 5).text()))
                     barcode = self.tableWidget_7.item(row_index, 6).text()
-                    qoldiq = int(float(self.tableWidget_7.item(row_index, 7).text()))
                     hisob = int(float(self.tableWidget_7.item(row_index, 8).text()))
                     try:
                         kitob_id = int(float(self.tableWidget_7.item(row_index, 0).text()))
+                        cur.execute("SELECT qoldiq FROM Kitob where id = ?", (kitob_id,))
+                        qoldiq = int(cur.fetchone()[0])
                         cur.execute("UPDATE Kitob SET nomi = ?, tan_narx = ?, narxi = ?, pachka_narx = ?, barcode = ?, qoldiq = ?, kelgan_sana=?, kimdan=? WHERE id = ?", (nomi, tan_narx, narx, pachka_narx, barcode, qoldiq+soni, date.today(), kimdan, kitob_id))
                         conn.commit()
                     except Exception as e:
-                        product = (nomi, tan_narx, narx, pachka_narx, barcode, qoldiq+soni, date.today())
+                        qoldiq = 0
+                        product = (nomi, tan_narx, narx, pachka_narx, barcode, qoldiq+soni, date.today(), kimdan)
                         kitob_id = self.store_new_product(product)
                         
                     cur.execute("INSERT INTO TovarItem (Tovar, Kitob, soni, hisob, tan_narx, sotuv_narx) VALUES (?, ?, ?, ?, ?, ?)", (tarix_id, kitob_id, soni, hisob, tan_narx, narx))
@@ -1218,6 +1485,48 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.Key_F3_function2()
         self.Key_F3_function()
 
+    def subtract_selected_item_to_table2(self):
+        selected_item = self.tableWidget_6.currentRow()
+        self.lineEdit_4.clear()
+        if selected_item>-1:
+            id = int(float(self.tableWidget_6.item(selected_item, 0).text()))
+            check = self.check_tablewidget_add2(id)
+            if check==-1:
+                row_position = self.tableWidget_7.rowCount()
+                self.tableWidget_7.insertRow(row_position)
+                cur.execute("SELECT id, nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq FROM Kitob WHERE id=?", (id,))
+                data = cur.fetchone()
+                # if int(float(data[4])):
+                for col_num, col_data in enumerate(data):
+                    item = QTableWidgetItem(str(col_data))
+                    if col_num>1: col_num = max(0, col_num - 1)
+                    self.tableWidget_7.setItem(row_position, col_num, item)
+
+                self.tableWidget_7.setItem(row_position, 2, QTableWidgetItem('1'))
+                column_position = 9
+                item = QTableWidgetItem('Bekor qilish')
+                background_color = QColor(160, 20, 20)
+                color = QColor(255, 255, 255)
+                item.setBackground(background_color)
+                item.setForeground(color)
+                item.setFlags(item.flags() & ~Qt.ItemIsEditable)
+                self.tableWidget_7.setItem(row_position, column_position, item)
+                # item = self.tableWidget_7.item(row_position, 2)
+                # item.setBackground(QColor(0, 0, 255))
+                # item.setForeground(QColor(255, 255, 255))
+                # item = self.tableWidget_7.item(row_position, 3)
+                # item.setBackground(QColor(60, 179, 113))
+                # item.setForeground(QColor(255, 255, 255))
+            else:
+                prev = int(float(self.tableWidget_7.item(check, 2).text()))
+                self.tableWidget_7.setItem(check, 2, QTableWidgetItem(str(max(0, prev-1))))
+                # item = self.tableWidget_7.item(check, 2)
+                # item.setBackground(QColor(0, 0, 255))
+                # item.setForeground(QColor(255, 255, 255))
+        # self.tableWidget_6.setRowCount(0)
+        self.Key_F3_function2()
+        self.Key_F3_function()
+
     def check_tablewidget_add2(self, id):
         is_present = -1
         for row_index in range(self.tableWidget_7.rowCount()):
@@ -1230,12 +1539,12 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         return is_present
 
     def tovar_tarix_tab(self):
-        tomorrow = QDate.currentDate().addDays(1)
-        self.dateEdit_4.setDate(tomorrow)
+        today = QDate.currentDate()
+        self.dateEdit_4.setDate(today)
 
-        # Calculate the date 7 days back from tomorrow
-        seven_days_ago = tomorrow.addDays(-1)
-        self.dateEdit_3.setDate(seven_days_ago)
+        # Calculate the date 7 days back from today
+        self.dateEdit_3.setDate(today)
+        self.comboBox_4.setCurrentIndex(0)
 
         self.show_tarix2()
         self.filter_history2()
@@ -1244,7 +1553,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
     def filter_history2(self):
         self.tableWidget_9.setRowCount(0)
         start_date = self.dateEdit_3.date().toString("yyyy-MM-dd")
-        end_date = self.dateEdit_4.date().toString("yyyy-MM-dd")
+        end_date = self.dateEdit_4.date().addDays(1).toString("yyyy-MM-dd")
 
         query = "SELECT * FROM Tovar WHERE sana >= ? AND sana <= ? ORDER BY sana DESC"
         cur.execute(query, (start_date, end_date))
@@ -1255,7 +1564,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         cur.execute(query_sum, (start_date, end_date))  # Replace start_date and end_date with your actual date values
         total_hisob = cur.fetchone()[0]
         if total_hisob is None: total_hisob=0
-        self.label_15.setText(f"Jami sotilganlar qiymati filiter bo'yicha: {self.spacecomma(total_hisob)} so'm")
+        self.label_15.setText(f"Jami: {self.spacecomma(total_hisob)} so'm")
         self.Key_F3_function()
 
     def handle_tableWidget_8_selected(self):
@@ -1288,7 +1597,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         cur.execute("SELECT SUM(hisob) FROM Tovar ORDER BY sana DESC")
         total_hisob = cur.fetchone()[0]
         if total_hisob is None: total_hisob=0
-        self.label_15.setText(f"Jami sotilganlar qiymati filiter bo'yicha: {self.spacecomma(total_hisob)} so'm")
+        self.label_15.setText(f"Jami: {self.spacecomma(total_hisob)} so'm")
         self.Key_F3_function()
     
     def display_data_in_table2(self, data, table_widget):
@@ -1298,7 +1607,15 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
 
             for row_index, row_data in enumerate(data):
                 for col_index, col_data in enumerate(row_data):
-                    item = QTableWidgetItem(str(col_data))
+                    truncated_data = str(col_data)
+
+                    if len(truncated_data) > 40:
+                        truncated_data = truncated_data[:40] + "..."
+                    
+                    item = QTableWidgetItem(truncated_data)
+                    if len(str(col_data)) > 40:
+                        item.setToolTip(str(col_data))
+
                     table_widget.setItem(row_index, col_index, item)
         except:
             pass

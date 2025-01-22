@@ -921,6 +921,9 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.tab_2, icon4, "")
         self.tab = QWidget()
         self.tab.setObjectName(u"tab")
+        self.tab.setStyleSheet(u"background-color: #004d40;\n"
+"color: white;\n"
+"border-color: white;")
         self.gridLayout = QGridLayout(self.tab)
         self.gridLayout.setObjectName(u"gridLayout")
         self.horizontalLayout_2 = QHBoxLayout()
@@ -1201,7 +1204,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1657, 33))
+        self.menubar.setGeometry(QRect(0, 0, 1657, 22))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")

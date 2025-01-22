@@ -1,5 +1,5 @@
 import sys
-from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QFileDialog, QMessageBox, QTableWidget
+from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QFileDialog, QMessageBox, QTableWidget, QToolTip 
 from PySide6.QtCore import QTimer
 from PySide6 import QtWidgets
 from openpyxl import Workbook
@@ -55,6 +55,47 @@ def tableResizeMode(table: QTableWidget):
         """)
         # header.setStyleSheet("color: black;")  
 
+def tableResizeMode2(table: QTableWidget):
+    header = table.horizontalHeader()
+    for i in range(header.count()):
+        # table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
+        table.setStyleSheet("""
+            QTableWidget {
+                border: 1px solid #333; /* Dark border around the entire table */
+                gridline-color: #444; /* Darker color for the grid lines */
+                background-color: #2b3e3a; /* Darker teal background for the table */
+            }
+            QTableWidget::item {
+                border: 1px solid #333; /* Darker border around each cell */
+                background-color: #1f2f2b; /* Darker teal for cells */
+                color: #ddd; /* Light text color for cells */
+            }
+            QTableWidget::item:selected {
+                background: #33675f; /* Slightly lighter teal background when selected */
+                border: 1px solid #555; /* Lighter border color when selected */
+                color: #fff; /* White text for selected cells */
+            }
+            QTableWidget::item:hover {
+                background: #3d5c56; /* Hover effect with a slightly lighter background */
+            }
+            QHeaderView::section {
+                background-color: #1c2c28; /* Darker teal background for header sections */
+                color: #ddd; /* Light text color for header sections */
+                border: 1px solid #444; /* Border around header sections */
+            }
+            QHeaderView::indicator {
+                width: 16px; /* Width of the indicator area (for sort arrows) */
+                height: 16px; /* Height of the indicator area (for sort arrows) */
+                border: none; /* No border for the indicator area */
+                background-color: #ddd; /* Light background color for the indicator area */
+            }
+            QHeaderView::indicator:checked {
+                background-color: #ddd; /* Light background color when sorted */
+            }
+        """)
+        # header.setStyleSheet("color: black;")  
+
 class DiamondWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(DiamondWindow, self).__init__()
@@ -69,8 +110,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         tableResizeMode(self.tableWidget_3)
         tableResizeMode(self.tableWidget_4)
         tableResizeMode(self.tableWidget_5)
-        tableResizeMode(self.tableWidget_6)
-        tableResizeMode(self.tableWidget_7)
+        tableResizeMode2(self.tableWidget_6)
+        tableResizeMode2(self.tableWidget_7)
         tableResizeMode(self.tableWidget_8)
         tableResizeMode(self.tableWidget_9)
 
@@ -110,6 +151,20 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             border: 1px solid rgb(94, 111, 135);
             border-left: 0px
         }
+        """)
+        self.label_17.setStyleSheet("""
+            QLabel {
+                color: #ddd; /* Light text color for better contrast */
+                background-color: #1f2f2b; /* Dark teal background, complementary to page background */
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+                padding-top: 5px;
+                padding-right: 10px;
+                padding-bottom: 5px;
+                padding-left: 10px;
+                border: 1px solid #33675f; /* A slightly lighter teal border */
+                border-left: 0px; /* Removing the left border for a cleaner design */
+            }
         """)
 
         line_edit_style = """
@@ -933,8 +988,21 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         for row_index, row_data in enumerate(data):
             dasmoya += int(float(row_data[2]))*int(float(row_data[6]))
             for col_index, col_data in enumerate(row_data):
-                item = QTableWidgetItem()
-                item.setData(Qt.DisplayRole, int(col_data) if self.is_numeric(col_data) else col_data)
+                truncated_data = str(col_data)
+
+                if len(truncated_data) > 40:
+                    truncated_data = truncated_data[:40] + "..."
+                
+                item = QTableWidgetItem(truncated_data)
+                
+                if len(str(col_data)) > 40:
+                    item.setToolTip(str(col_data))
+
+                if self.is_numeric(col_data):
+                    item.setData(Qt.DisplayRole, int(col_data))
+                else:
+                    item.setData(Qt.DisplayRole, truncated_data)
+                
                 self.tableWidget_4.setItem(row_index, col_index, item)
         self.tableWidget_4.setSortingEnabled(True)
         
@@ -1191,7 +1259,15 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
 
             for row_index, row_data in enumerate(data):
                 for col_index, col_data in enumerate(row_data):
-                    item = QTableWidgetItem(str(col_data))
+                    truncated_data = str(col_data)
+
+                    if len(truncated_data) > 40:
+                        truncated_data = truncated_data[:40] + "..."
+                    item = QTableWidgetItem(truncated_data)
+                    
+                    if len(str(col_data)) > 40:
+                        item.setToolTip(str(col_data))
+
                     table_widget.setItem(row_index, col_index, item)
         except:
             pass
@@ -1206,8 +1282,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.Key_F3_function()
 
     def store_new_product(self, p):
-        cur.execute("INSERT INTO Kitob (nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq, kelgan_sana) VALUES (?, ?, ?, ?, ?, ?, ?)", 
-                    (p[0], p[1], p[2], p[3], p[4], p[5], p[6]))
+        cur.execute("INSERT INTO Kitob (nomi, tan_narx, narxi, pachka_narx, barcode, qoldiq, kelgan_sana, kimdan) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+                    (p[0], p[1], p[2], p[3], p[4], p[5], p[6], p[7]))
         conn.commit()
         return cur.lastrowid
 
@@ -1247,7 +1323,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 total_amount+=add
                 self.tableWidget_7.setItem(row_index, 8, QTableWidgetItem(str(add)))
 
-        self.lineEdit_5.setText(self.spacecomma(int(total_amount))+" so'm")
+        self.lineEdit_5.setText(self.spacecomma(int(total_amount)))
         self.Key_F3_function2()
         self.Key_F3_function()
 
@@ -1256,7 +1332,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.tableWidget_7.setRowCount(0)
         self.lineEdit_5.clear()
         self.lineEdit_6.clear()
-        self.lineEdit_5.setText("0 so'm")
+        self.lineEdit_5.setText("0")
         self.Key_F3_function2()
         self.Key_F3_function()
 
@@ -1272,7 +1348,12 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                     if i.isdigit():
                         umumiy_hisob+=i
                 kimdan = self.lineEdit_6.text()
-                if not kimdan: kimdan = "Nomalum"
+                if len(kimdan) < 3:
+                    QTimer.singleShot(5000, self.close_message_box)
+                    self.message_info = "Kiritish xatosi!\nTovarlarni kimdan olganingizni kiriting!\nEng kichik ism uzunligi 3 ta belgi bo'lishi mumkin!"
+                    self.message_type = 0
+                    QTimer.singleShot(50, self.show_message)
+                    return
                 cur.execute("INSERT INTO Tovar (kimdan, sana, hisob) VALUES (?, ?, ?)", (kimdan, formatted_datetime, umumiy_hisob))
                 conn.commit()
                 tarix_id = cur.lastrowid
@@ -1283,14 +1364,16 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                     narx = int(float(self.tableWidget_7.item(row_index, 4).text()))
                     pachka_narx = int(float(self.tableWidget_7.item(row_index, 5).text()))
                     barcode = self.tableWidget_7.item(row_index, 6).text()
-                    qoldiq = int(float(self.tableWidget_7.item(row_index, 7).text()))
                     hisob = int(float(self.tableWidget_7.item(row_index, 8).text()))
                     try:
                         kitob_id = int(float(self.tableWidget_7.item(row_index, 0).text()))
+                        cur.execute("SELECT qoldiq FROM Kitob where id = ?", (kitob_id,))
+                        qoldiq = int(cur.fetchone()[0])
                         cur.execute("UPDATE Kitob SET nomi = ?, tan_narx = ?, narxi = ?, pachka_narx = ?, barcode = ?, qoldiq = ?, kelgan_sana=?, kimdan=? WHERE id = ?", (nomi, tan_narx, narx, pachka_narx, barcode, qoldiq+soni, date.today(), kimdan, kitob_id))
                         conn.commit()
                     except Exception as e:
-                        product = (nomi, tan_narx, narx, pachka_narx, barcode, qoldiq+soni, date.today())
+                        qoldiq = 0
+                        product = (nomi, tan_narx, narx, pachka_narx, barcode, qoldiq+soni, date.today(), kimdan)
                         kitob_id = self.store_new_product(product)
                         
                     cur.execute("INSERT INTO TovarItem (Tovar, Kitob, soni, hisob, tan_narx, sotuv_narx) VALUES (?, ?, ?, ?, ?, ?)", (tarix_id, kitob_id, soni, hisob, tan_narx, narx))
@@ -1470,7 +1553,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
     def filter_history2(self):
         self.tableWidget_9.setRowCount(0)
         start_date = self.dateEdit_3.date().toString("yyyy-MM-dd")
-        end_date = self.dateEdit_4.date().toString("yyyy-MM-dd")
+        end_date = self.dateEdit_4.date().addDays(1).toString("yyyy-MM-dd")
 
         query = "SELECT * FROM Tovar WHERE sana >= ? AND sana <= ? ORDER BY sana DESC"
         cur.execute(query, (start_date, end_date))
@@ -1524,7 +1607,15 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
 
             for row_index, row_data in enumerate(data):
                 for col_index, col_data in enumerate(row_data):
-                    item = QTableWidgetItem(str(col_data))
+                    truncated_data = str(col_data)
+
+                    if len(truncated_data) > 40:
+                        truncated_data = truncated_data[:40] + "..."
+                    
+                    item = QTableWidgetItem(truncated_data)
+                    if len(str(col_data)) > 40:
+                        item.setToolTip(str(col_data))
+
                     table_widget.setItem(row_index, col_index, item)
         except:
             pass

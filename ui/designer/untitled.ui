@@ -2280,6 +2280,11 @@ border-left: 0px
          </layout>
         </widget>
         <widget class="QWidget" name="tab">
+         <property name="styleSheet">
+          <string notr="true">background-color: #004d40;
+color: white;
+border-color: white;</string>
+         </property>
          <attribute name="icon">
           <iconset resource="../../icons/images.qrc">
            <normaloff>:/image/plus.png</normaloff>:/image/plus.png</iconset>
@@ -3048,7 +3053,7 @@ border-left: 0px
      <x>0</x>
      <y>0</y>
      <width>1657</width>
-     <height>33</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

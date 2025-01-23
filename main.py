@@ -990,12 +990,12 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             for col_index, col_data in enumerate(row_data):
                 truncated_data = str(col_data)
 
-                if len(truncated_data) > 40:
-                    truncated_data = truncated_data[:40] + "..."
+                if len(truncated_data) > 25:
+                    truncated_data = truncated_data[:25] + "..."
                 
                 item = QTableWidgetItem(truncated_data)
                 
-                if len(str(col_data)) > 40:
+                if len(str(col_data)) > 25:
                     item.setToolTip(str(col_data))
 
                 if self.is_numeric(col_data):
@@ -1261,11 +1261,11 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 for col_index, col_data in enumerate(row_data):
                     truncated_data = str(col_data)
 
-                    if len(truncated_data) > 40:
-                        truncated_data = truncated_data[:40] + "..."
+                    if len(truncated_data) > 25:
+                        truncated_data = truncated_data[:25] + "..."
                     item = QTableWidgetItem(truncated_data)
                     
-                    if len(str(col_data)) > 40:
+                    if len(str(col_data)) > 25:
                         item.setToolTip(str(col_data))
 
                     table_widget.setItem(row_index, col_index, item)
@@ -1609,11 +1609,11 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 for col_index, col_data in enumerate(row_data):
                     truncated_data = str(col_data)
 
-                    if len(truncated_data) > 40:
-                        truncated_data = truncated_data[:40] + "..."
+                    if len(truncated_data) > 25:
+                        truncated_data = truncated_data[:25] + "..."
                     
                     item = QTableWidgetItem(truncated_data)
-                    if len(str(col_data)) > 40:
+                    if len(str(col_data)) > 25:
                         item.setToolTip(str(col_data))
 
                     table_widget.setItem(row_index, col_index, item)

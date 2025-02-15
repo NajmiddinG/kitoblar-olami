@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'untitled.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.8.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -28,7 +28,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1657, 906)
+        MainWindow.resize(1657, 875)
         MainWindow.setMinimumSize(QSize(0, 600))
         font = QFont()
         font.setFamilies([u"Times New Roman"])
@@ -158,11 +158,11 @@ class Ui_MainWindow(object):
         self.tableWidget_2.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.tableWidget_2.setTextElideMode(Qt.TextElideMode.ElideRight)
         self.tableWidget_2.setHorizontalScrollMode(QAbstractItemView.ScrollMode.ScrollPerItem)
-        self.tableWidget_2.setSortingEnabled(True)
+        self.tableWidget_2.setSortingEnabled(False)
         self.tableWidget_2.setRowCount(0)
         self.tableWidget_2.horizontalHeader().setCascadingSectionResizes(False)
         self.tableWidget_2.horizontalHeader().setDefaultSectionSize(150)
-        self.tableWidget_2.horizontalHeader().setProperty("showSortIndicator", True)
+        self.tableWidget_2.horizontalHeader().setProperty(u"showSortIndicator", False)
         self.tableWidget_2.horizontalHeader().setStretchLastSection(False)
         self.tableWidget_2.verticalHeader().setVisible(False)
         self.tableWidget_2.verticalHeader().setCascadingSectionResizes(True)
@@ -444,12 +444,13 @@ class Ui_MainWindow(object):
         self.tableWidget.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectItems)
         self.tableWidget.setTextElideMode(Qt.TextElideMode.ElideRight)
         self.tableWidget.setGridStyle(Qt.PenStyle.SolidLine)
-        self.tableWidget.setSortingEnabled(True)
+        self.tableWidget.setSortingEnabled(False)
         self.tableWidget.setRowCount(0)
         self.tableWidget.horizontalHeader().setVisible(True)
         self.tableWidget.horizontalHeader().setCascadingSectionResizes(False)
         self.tableWidget.horizontalHeader().setMinimumSectionSize(57)
         self.tableWidget.horizontalHeader().setDefaultSectionSize(150)
+        self.tableWidget.horizontalHeader().setProperty(u"showSortIndicator", False)
         self.tableWidget.verticalHeader().setVisible(False)
         self.tableWidget.verticalHeader().setCascadingSectionResizes(True)
 
@@ -515,7 +516,7 @@ class Ui_MainWindow(object):
         self.tableWidget_4.setAutoFillBackground(False)
         self.tableWidget_4.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
         self.tableWidget_4.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectItems)
-        self.tableWidget_4.setSortingEnabled(True)
+        self.tableWidget_4.setSortingEnabled(False)
         self.tableWidget_4.setRowCount(10)
         self.tableWidget_4.horizontalHeader().setDefaultSectionSize(200)
         self.tableWidget_4.verticalHeader().setVisible(False)
@@ -695,7 +696,7 @@ class Ui_MainWindow(object):
         self.tableWidget_5.setFont(font2)
         self.tableWidget_5.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
         self.tableWidget_5.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectItems)
-        self.tableWidget_5.setSortingEnabled(True)
+        self.tableWidget_5.setSortingEnabled(False)
         self.tableWidget_5.horizontalHeader().setDefaultSectionSize(200)
         self.tableWidget_5.verticalHeader().setVisible(False)
 
@@ -728,7 +729,7 @@ class Ui_MainWindow(object):
         self.tableWidget_3.setSizePolicy(sizePolicy)
         self.tableWidget_3.setFont(font2)
         self.tableWidget_3.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
-        self.tableWidget_3.setSortingEnabled(True)
+        self.tableWidget_3.setSortingEnabled(False)
         self.tableWidget_3.setRowCount(0)
         self.tableWidget_3.horizontalHeader().setDefaultSectionSize(200)
         self.tableWidget_3.verticalHeader().setVisible(False)
@@ -797,7 +798,7 @@ class Ui_MainWindow(object):
         self.tableWidget_8.setFont(font2)
         self.tableWidget_8.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
         self.tableWidget_8.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectItems)
-        self.tableWidget_8.setSortingEnabled(True)
+        self.tableWidget_8.setSortingEnabled(False)
         self.tableWidget_8.horizontalHeader().setDefaultSectionSize(200)
         self.tableWidget_8.verticalHeader().setVisible(False)
 
@@ -830,7 +831,7 @@ class Ui_MainWindow(object):
         self.tableWidget_9.setSizePolicy(sizePolicy)
         self.tableWidget_9.setFont(font2)
         self.tableWidget_9.setSelectionMode(QAbstractItemView.SelectionMode.ExtendedSelection)
-        self.tableWidget_9.setSortingEnabled(True)
+        self.tableWidget_9.setSortingEnabled(False)
         self.tableWidget_9.setRowCount(0)
         self.tableWidget_9.horizontalHeader().setDefaultSectionSize(200)
         self.tableWidget_9.verticalHeader().setVisible(False)
@@ -1042,7 +1043,7 @@ class Ui_MainWindow(object):
         self.tableWidget_6.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.tableWidget_6.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         self.tableWidget_6.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
-        self.tableWidget_6.setSortingEnabled(True)
+        self.tableWidget_6.setSortingEnabled(False)
         self.tableWidget_6.verticalHeader().setVisible(False)
         self.tableWidget_6.verticalHeader().setCascadingSectionResizes(True)
 
@@ -1149,7 +1150,7 @@ class Ui_MainWindow(object):
         self.tableWidget_7.setHorizontalHeaderItem(9, __qtablewidgetitem57)
         self.tableWidget_7.setObjectName(u"tableWidget_7")
         self.tableWidget_7.setFont(font4)
-        self.tableWidget_7.setSortingEnabled(True)
+        self.tableWidget_7.setSortingEnabled(False)
         self.tableWidget_7.verticalHeader().setVisible(False)
         self.tableWidget_7.verticalHeader().setCascadingSectionResizes(True)
 
@@ -1204,7 +1205,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1657, 22))
+        self.menubar.setGeometry(QRect(0, 0, 1657, 33))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")

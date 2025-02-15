@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1657</width>
-    <height>906</height>
+    <height>875</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -206,7 +206,7 @@ border-color: white;</string>
                      <enum>QAbstractItemView::ScrollMode::ScrollPerItem</enum>
                     </property>
                     <property name="sortingEnabled">
-                     <bool>true</bool>
+                     <bool>false</bool>
                     </property>
                     <property name="rowCount">
                      <number>0</number>
@@ -218,7 +218,7 @@ border-color: white;</string>
                      <number>150</number>
                     </attribute>
                     <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
-                     <bool>true</bool>
+                     <bool>false</bool>
                     </attribute>
                     <attribute name="horizontalHeaderStretchLastSection">
                      <bool>false</bool>
@@ -909,7 +909,7 @@ border-left: 0px
                    <enum>Qt::PenStyle::SolidLine</enum>
                   </property>
                   <property name="sortingEnabled">
-                   <bool>true</bool>
+                   <bool>false</bool>
                   </property>
                   <property name="rowCount">
                    <number>0</number>
@@ -925,6 +925,9 @@ border-left: 0px
                   </attribute>
                   <attribute name="horizontalHeaderDefaultSectionSize">
                    <number>150</number>
+                  </attribute>
+                  <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+                   <bool>false</bool>
                   </attribute>
                   <attribute name="verticalHeaderVisible">
                    <bool>false</bool>
@@ -1069,7 +1072,7 @@ border-left: 0px
                <enum>QAbstractItemView::SelectionBehavior::SelectItems</enum>
               </property>
               <property name="sortingEnabled">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <property name="rowCount">
                <number>10</number>
@@ -1639,7 +1642,7 @@ border-left: 0px
                <enum>QAbstractItemView::SelectionBehavior::SelectItems</enum>
               </property>
               <property name="sortingEnabled">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <attribute name="horizontalHeaderDefaultSectionSize">
                <number>200</number>
@@ -1728,7 +1731,7 @@ border-left: 0px
                <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
               </property>
               <property name="sortingEnabled">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
               <property name="rowCount">
                <number>0</number>
@@ -1906,7 +1909,7 @@ border-left: 0px
                  <enum>QAbstractItemView::SelectionBehavior::SelectItems</enum>
                 </property>
                 <property name="sortingEnabled">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <attribute name="horizontalHeaderDefaultSectionSize">
                  <number>200</number>
@@ -1983,7 +1986,7 @@ border-left: 0px
                  <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
                 </property>
                 <property name="sortingEnabled">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <property name="rowCount">
                  <number>0</number>
@@ -2550,7 +2553,7 @@ border-left: 0px
                  <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
                 </property>
                 <property name="sortingEnabled">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <attribute name="verticalHeaderVisible">
                  <bool>false</bool>
@@ -2825,7 +2828,7 @@ border-left: 0px
                  </font>
                 </property>
                 <property name="sortingEnabled">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </property>
                 <attribute name="verticalHeaderVisible">
                  <bool>false</bool>
@@ -3053,7 +3056,7 @@ border-left: 0px
      <x>0</x>
      <y>0</y>
      <width>1657</width>
-     <height>22</height>
+     <height>33</height>
     </rect>
    </property>
   </widget>

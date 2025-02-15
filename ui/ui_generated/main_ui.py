@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.2
+## Created by: Qt User Interface Compiler version 6.8.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -97,7 +97,7 @@ class Ui_MainWindow(object):
         self.tableWidget_3.setFont(font1)
         self.tableWidget_3.horizontalHeader().setMinimumSectionSize(32)
         self.tableWidget_3.horizontalHeader().setDefaultSectionSize(150)
-        self.tableWidget_3.horizontalHeader().setProperty("showSortIndicator", True)
+        self.tableWidget_3.horizontalHeader().setProperty(u"showSortIndicator", True)
         self.tableWidget_3.verticalHeader().setVisible(False)
         self.tableWidget_3.verticalHeader().setCascadingSectionResizes(True)
         self.tableWidget_3.verticalHeader().setMinimumSectionSize(24)
@@ -278,7 +278,7 @@ class Ui_MainWindow(object):
         self.tableWidget_4.setObjectName(u"tableWidget_4")
         self.tableWidget_4.horizontalHeader().setMinimumSectionSize(57)
         self.tableWidget_4.horizontalHeader().setDefaultSectionSize(150)
-        self.tableWidget_4.horizontalHeader().setProperty("showSortIndicator", True)
+        self.tableWidget_4.horizontalHeader().setProperty(u"showSortIndicator", True)
         self.tableWidget_4.verticalHeader().setVisible(False)
         self.tableWidget_4.verticalHeader().setCascadingSectionResizes(True)
         self.tableWidget_4.verticalHeader().setMinimumSectionSize(24)

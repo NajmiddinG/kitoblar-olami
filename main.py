@@ -447,7 +447,6 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.Key_F3_function()
 
     def clicked_cancel(self, item):
-        print("clicked")
         if item.column() == 7:
             if 0 <= item.row() < self.tableWidget.rowCount():
                 self.tableWidget.removeRow(item.row())
@@ -531,6 +530,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             self.message_type = 0
             QTimer.singleShot(50, self.show_message)
         self.cancel_buy()
+        if self.sotuv.keys():
+            self.sotuv_table_remove()
         self.Key_F3_function()
 
     def return_product(self):
@@ -613,7 +614,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         try:
             curr_combo = self.comboBox_2.currentIndex()
             curr_combo_text = self.comboBox_2.currentText()
-            if self.comboBox_2.count()!=1:
+            if self.comboBox_2.count() != 1:
 
                 try: del self.sotuv[curr_combo_text]
                 except: pass
@@ -687,6 +688,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             # self.prev_sotuv=len(self.sotuv)
         count = self.comboBox_2.count()
         self.tableWidget.setRowCount(0)
+        self.tableWidget_2.setRowCount(0)
         try:
             curr_sell = self.sotuv[self.comboBox_2.currentText()]
         except: return
@@ -752,6 +754,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         
         self.curr_sotuv = f'Sotuv {int(curr_combo_text)+1}'
         self.tableWidget.setRowCount(0)
+        self.tableWidget_2.setRowCount(0)
         # self.add_selected_item_to_table()
         self.Key_F3_function()
 
@@ -990,21 +993,14 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             for col_index, col_data in enumerate(row_data):
                 truncated_data = str(col_data)
 
-                if len(truncated_data) > 40:
-                    truncated_data = truncated_data[:40] + "..."
-                
-                item = QTableWidgetItem(truncated_data)
-                
-                if len(str(col_data)) > 40:
+                if len(truncated_data) > 35:
+                    truncated_data = truncated_data[:35] + "..."
+                item = QTableWidgetItem()
+                if len(str(col_data)) > 35:
                     item.setToolTip(str(col_data))
-
-                if self.is_numeric(col_data):
-                    item.setData(Qt.DisplayRole, int(col_data))
-                else:
-                    item.setData(Qt.DisplayRole, truncated_data)
+                item.setData(Qt.DisplayRole, truncated_data)
                 
                 self.tableWidget_4.setItem(row_index, col_index, item)
-        self.tableWidget_4.setSortingEnabled(True)
         
         money = self.spacecomma(dasmoya)
         self.label_7.setText("Jami dasmoya qiymati: " + money + " so'm")
@@ -1261,11 +1257,11 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 for col_index, col_data in enumerate(row_data):
                     truncated_data = str(col_data)
 
-                    if len(truncated_data) > 40:
-                        truncated_data = truncated_data[:40] + "..."
+                    if len(truncated_data) > 35:
+                        truncated_data = truncated_data[:35] + "..."
                     item = QTableWidgetItem(truncated_data)
                     
-                    if len(str(col_data)) > 40:
+                    if len(str(col_data)) > 35:
                         item.setToolTip(str(col_data))
 
                     table_widget.setItem(row_index, col_index, item)
@@ -1609,11 +1605,11 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 for col_index, col_data in enumerate(row_data):
                     truncated_data = str(col_data)
 
-                    if len(truncated_data) > 40:
-                        truncated_data = truncated_data[:40] + "..."
+                    if len(truncated_data) > 35:
+                        truncated_data = truncated_data[:35] + "..."
                     
                     item = QTableWidgetItem(truncated_data)
-                    if len(str(col_data)) > 40:
+                    if len(str(col_data)) > 35:
                         item.setToolTip(str(col_data))
 
                     table_widget.setItem(row_index, col_index, item)

@@ -114,6 +114,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         tableResizeMode2(self.tableWidget_7)
         tableResizeMode(self.tableWidget_8)
         tableResizeMode(self.tableWidget_9)
+        tableResizeMode(self.tableWidget_21)
 
     def initialize_variables(self):
         self.setGeometry(0, 0, 2400, 1000)
@@ -490,7 +491,6 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.tableWidget.setRowCount(0)
         self.lineEdit_2.clear()
         self.lineEdit.setText("")
-        self.lineEdit.setText("")
         self.lineEdit_7.setText("")
         self.comboBox.setCurrentIndex(0)
         self.Key_F3_function()
@@ -630,6 +630,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 else:
                     self.comboBox_2.setCurrentIndex(a)
                     self.curr_sotuv = self.comboBox_2.currentText()
+            else:
+                self.sotuv[curr_combo_text] = []
         except: pass
         self.tableWidget.setRowCount(0)
         try:
@@ -751,10 +753,12 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         new_item_index = self.comboBox_2.findText(new_item_text)
 
         self.comboBox_2.setCurrentIndex(new_item_index)
-        
+
         self.curr_sotuv = f'Sotuv {int(curr_combo_text)+1}'
         self.tableWidget.setRowCount(0)
         self.tableWidget_2.setRowCount(0)
+        self.lineEdit.setText("")
+        self.lineEdit_7.setText("")
         # self.add_selected_item_to_table()
         self.Key_F3_function()
 
@@ -814,7 +818,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                     item.setForeground(QColor(255, 255, 255))
         # self.tableWidget_2.setRowCount(0)
         self.Key_F3_function()
-    
+
     def subtract_selected_item_to_table(self):
         selected_item = self.tableWidget_2.currentRow()
         # self.lineEdit_2.clear()

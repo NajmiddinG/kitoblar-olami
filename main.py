@@ -1716,8 +1716,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         if not filter: filter = self.lineEdit_18.text()
         self.tableWidget_21.setRowCount(0)
         if filter:
-            query = "SELECT id, ism, familiya, telefon, ball, code, manzil, sana FROM Clients WHERE ism LIKE ? OR id LIKE ? OR familiya LIKE ? ORDER BY CAST(ism AS SIGNED) DESC"
-            cur.execute(query, (f'%{filter}%', f'%{filter}%', f'%{filter}%'))
+            query = "SELECT id, ism, familiya, telefon, ball, code, manzil, sana FROM Clients WHERE ism LIKE ? OR id LIKE ? OR familiya LIKE ? OR code LIKE ? ORDER BY CAST(ism AS SIGNED) DESC"
+            cur.execute(query, (f'%{filter}%', f'%{filter}%', f'%{filter}%', f'%{filter}%'))
         else:
             query = "SELECT id, ism, familiya, telefon, ball, code, manzil, sana FROM Clients ORDER BY CAST(ism AS SIGNED) DESC"
             cur.execute(query)

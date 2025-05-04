@@ -3115,7 +3115,7 @@ border-left: 0px
               </column>
               <column>
                <property name="text">
-                <string>Familiya</string>
+                <string>Ism</string>
                </property>
                <property name="font">
                 <font>
@@ -3127,7 +3127,7 @@ border-left: 0px
               </column>
               <column>
                <property name="text">
-                <string>Ism</string>
+                <string>Familiya</string>
                </property>
                <property name="font">
                 <font>
@@ -3152,6 +3152,18 @@ border-left: 0px
               <column>
                <property name="text">
                 <string>Ball</string>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>14</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Code</string>
                </property>
                <property name="font">
                 <font>
@@ -3189,6 +3201,36 @@ border-left: 0px
             </item>
             <item row="1" column="1">
              <layout class="QHBoxLayout" name="horizontalLayout_33">
+              <item>
+               <widget class="QPushButton" name="pushButton_18">
+                <property name="font">
+                 <font>
+                  <family>Times New Roman</family>
+                  <pointsize>14</pointsize>
+                  <stylestrategy>PreferDefault</stylestrategy>
+                 </font>
+                </property>
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(31, 118, 28); color: white;</string>
+                </property>
+                <property name="text">
+                 <string> Yuklab olish</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../../icons/images.qrc">
+                  <normaloff>:/image/excel.png</normaloff>:/image/excel.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
               <item>
                <spacer name="horizontalSpacer_57">
                 <property name="orientation">
@@ -3273,7 +3315,7 @@ border-left: 0px
              </font>
             </property>
             <property name="text">
-             <string>Jami dasmoya qiymati: 0 so'm</string>
+             <string>Jami ballar qiymati: 0 ball</string>
             </property>
            </widget>
           </item>

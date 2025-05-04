@@ -1204,8 +1204,8 @@ class Ui_MainWindow(object):
         self.gridLayout_37 = QGridLayout()
         self.gridLayout_37.setObjectName(u"gridLayout_37")
         self.tableWidget_21 = QTableWidget(self.tab_3)
-        if (self.tableWidget_21.columnCount() < 7):
-            self.tableWidget_21.setColumnCount(7)
+        if (self.tableWidget_21.columnCount() < 8):
+            self.tableWidget_21.setColumnCount(8)
         __qtablewidgetitem58 = QTableWidgetItem()
         __qtablewidgetitem58.setFont(font11);
         self.tableWidget_21.setHorizontalHeaderItem(0, __qtablewidgetitem58)
@@ -1227,6 +1227,9 @@ class Ui_MainWindow(object):
         __qtablewidgetitem64 = QTableWidgetItem()
         __qtablewidgetitem64.setFont(font11);
         self.tableWidget_21.setHorizontalHeaderItem(6, __qtablewidgetitem64)
+        __qtablewidgetitem65 = QTableWidgetItem()
+        __qtablewidgetitem65.setFont(font11);
+        self.tableWidget_21.setHorizontalHeaderItem(7, __qtablewidgetitem65)
         if (self.tableWidget_21.rowCount() < 10):
             self.tableWidget_21.setRowCount(10)
         self.tableWidget_21.setObjectName(u"tableWidget_21")
@@ -1243,6 +1246,16 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_33 = QHBoxLayout()
         self.horizontalLayout_33.setObjectName(u"horizontalLayout_33")
+        self.pushButton_18 = QPushButton(self.tab_3)
+        self.pushButton_18.setObjectName(u"pushButton_18")
+        self.pushButton_18.setFont(font2)
+        self.pushButton_18.setAutoFillBackground(False)
+        self.pushButton_18.setStyleSheet(u"background-color: rgb(31, 118, 28); color: white;")
+        self.pushButton_18.setIcon(icon2)
+        self.pushButton_18.setIconSize(QSize(24, 24))
+
+        self.horizontalLayout_33.addWidget(self.pushButton_18)
+
         self.horizontalSpacer_57 = QSpacerItem(40, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_33.addItem(self.horizontalSpacer_57)
@@ -1524,20 +1537,23 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem58 = self.tableWidget_21.horizontalHeaderItem(0)
         ___qtablewidgetitem58.setText(QCoreApplication.translate("MainWindow", u"Id", None));
         ___qtablewidgetitem59 = self.tableWidget_21.horizontalHeaderItem(1)
-        ___qtablewidgetitem59.setText(QCoreApplication.translate("MainWindow", u"Familiya", None));
+        ___qtablewidgetitem59.setText(QCoreApplication.translate("MainWindow", u"Ism", None));
         ___qtablewidgetitem60 = self.tableWidget_21.horizontalHeaderItem(2)
-        ___qtablewidgetitem60.setText(QCoreApplication.translate("MainWindow", u"Ism", None));
+        ___qtablewidgetitem60.setText(QCoreApplication.translate("MainWindow", u"Familiya", None));
         ___qtablewidgetitem61 = self.tableWidget_21.horizontalHeaderItem(3)
         ___qtablewidgetitem61.setText(QCoreApplication.translate("MainWindow", u"Telefon raqam", None));
         ___qtablewidgetitem62 = self.tableWidget_21.horizontalHeaderItem(4)
         ___qtablewidgetitem62.setText(QCoreApplication.translate("MainWindow", u"Ball", None));
         ___qtablewidgetitem63 = self.tableWidget_21.horizontalHeaderItem(5)
-        ___qtablewidgetitem63.setText(QCoreApplication.translate("MainWindow", u"Manzil", None));
+        ___qtablewidgetitem63.setText(QCoreApplication.translate("MainWindow", u"Code", None));
         ___qtablewidgetitem64 = self.tableWidget_21.horizontalHeaderItem(6)
-        ___qtablewidgetitem64.setText(QCoreApplication.translate("MainWindow", u"Sana", None));
+        ___qtablewidgetitem64.setText(QCoreApplication.translate("MainWindow", u"Manzil", None));
+        ___qtablewidgetitem65 = self.tableWidget_21.horizontalHeaderItem(7)
+        ___qtablewidgetitem65.setText(QCoreApplication.translate("MainWindow", u"Sana", None));
+        self.pushButton_18.setText(QCoreApplication.translate("MainWindow", u" Yuklab olish", None))
         self.pushButton_43.setText(QCoreApplication.translate("MainWindow", u" Saqlash ", None))
         self.lineEdit_18.setPlaceholderText(QCoreApplication.translate("MainWindow", u" Qidirish", None))
-        self.label_39.setText(QCoreApplication.translate("MainWindow", u"Jami dasmoya qiymati: 0 so'm", None))
+        self.label_39.setText(QCoreApplication.translate("MainWindow", u"Jami ballar qiymati: 0 ball", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QCoreApplication.translate("MainWindow", u"Mijozlar", None))
     # retranslateUi
 

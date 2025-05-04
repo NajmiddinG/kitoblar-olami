@@ -1,11 +1,12 @@
 import sys
+import uuid
+import pandas as pd
+import create_table as db
 from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QFileDialog, QMessageBox, QTableWidget, QToolTip 
 from PySide6.QtCore import QTimer
 from PySide6 import QtWidgets
 from openpyxl import Workbook
 from openpyxl.styles import Font
-import pandas as pd
-import create_table as db
 from datetime import datetime, date
 from PySide6.QtGui import QColor, QKeySequence, QShortcut, QAction, QIcon
 from PySide6.QtCore import Qt, QDate
@@ -114,6 +115,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         tableResizeMode2(self.tableWidget_7)
         tableResizeMode(self.tableWidget_8)
         tableResizeMode(self.tableWidget_9)
+        tableResizeMode(self.tableWidget_21)
 
     def initialize_variables(self):
         self.setGeometry(0, 0, 2400, 1000)
@@ -122,6 +124,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.sotuv = {} # Dictionary tartib name: (List(book id, number))
         self.curr_sotuv = "Sotuv 1"
         self.prev_sotuv = 0
+        self.current_selected_product_id = -1
+        self.current_selected_tovar_product_id = -1
         self.setCentralWidget(self.tabWidget)
         self.handle_tabbar_clicked(0)
         self.tabWidget.tabBarClicked.connect(self.handle_tabbar_clicked, Qt.UniqueConnection)
@@ -181,6 +185,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         """
         self.lineEdit_2.setStyleSheet(line_edit_style)
         self.lineEdit_3.setStyleSheet(line_edit_style)
+        self.lineEdit_18.setStyleSheet(line_edit_style)
         self.lineEdit_4.setStyleSheet(line_edit_style)
         self.lineEdit_6.setStyleSheet(line_edit_style)
         self.lineEdit_7.setStyleSheet(line_edit_style)
@@ -278,10 +283,12 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_9.setStyleSheet(danger_button_style)
         self.pushButton_2.setStyleSheet(success_button_style)
         self.pushButton_3.setStyleSheet(success_button_style)
+        self.pushButton_43.setStyleSheet(success_button_style)
         self.pushButton_4.setStyleSheet(success_button_style)
         self.pushButton_5.setStyleSheet(success_button_style)
         self.pushButton_14.setStyleSheet(danger_button_style)
         self.pushButton_6.setStyleSheet(success_button_style)
+        self.pushButton_18.setStyleSheet(success_button_style)
         self.pushButton_7.setStyleSheet(success_button_style)
         self.pushButton_10.setStyleSheet(success_button_style)
         self.pushButton_11.setStyleSheet(success_button_style)
@@ -327,6 +334,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
     def connect_handlers(self):
         self.lineEdit_2.textChanged.connect(self.on_line_edit_changed, Qt.UniqueConnection)
         self.lineEdit_2.returnPressed.connect(self.scanner_returned, Qt.UniqueConnection)
+        self.tableWidget.cellClicked.connect(self.tableWidget_cell_clicked)
+        self.tableWidget_2.cellClicked.connect(self.tableWidget_2_cell_clicked)
         self.tableWidget_2.cellDoubleClicked.connect(self.add_selected_item_to_table, Qt.UniqueConnection)
         self.pushButton_5.clicked.connect(self.add_selected_item_to_table, Qt.UniqueConnection)
         self.pushButton_14.clicked.connect(self.subtract_selected_item_to_table, Qt.UniqueConnection)
@@ -340,14 +349,19 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.comboBox_4.currentIndexChanged.connect(self.filter_history2_combo, Qt.UniqueConnection)
         self.pushButton_8.clicked.connect(self.sotuv_table_remove, Qt.UniqueConnection)
         self.pushButton_3.clicked.connect(self.save_tableWidget_data_to_database, Qt.UniqueConnection)
+        self.pushButton_43.clicked.connect(self.save_tableWidget_client_data_to_database, Qt.UniqueConnection)
         self.pushButton_13.clicked.connect(self.create_order, Qt.UniqueConnection)
         self.pushButton_6.clicked.connect(self.clicked_export_book, Qt.UniqueConnection)
+        self.pushButton_18.clicked.connect(self.clicked_export_clients, Qt.UniqueConnection)
         self.pushButton_4.clicked.connect(self.clicked_new_book, Qt.UniqueConnection)
         self.lineEdit_3.textChanged.connect(self.on_line_edit_changed, Qt.UniqueConnection)
+        self.lineEdit_18.textChanged.connect(self.on_line_edit_changed, Qt.UniqueConnection)
         self.tableWidget_5.itemSelectionChanged.connect(self.handle_tableWidget_5_selected, Qt.UniqueConnection)
         self.pushButton_7.clicked.connect(self.filter_history, Qt.UniqueConnection)
         self.lineEdit_4.textChanged.connect(self.on_line_edit_changed2, Qt.UniqueConnection)
         self.lineEdit_4.returnPressed.connect(self.scanner_returned2, Qt.UniqueConnection)
+        self.tableWidget_6.cellClicked.connect(self.tableWidget_6_cell_clicked)
+        self.tableWidget_7.cellClicked.connect(self.tableWidget_7_cell_clicked)
         self.tableWidget_6.cellDoubleClicked.connect(self.add_selected_item_to_table2, Qt.UniqueConnection)
         self.pushButton_12.clicked.connect(self.add_selected_item_to_table2, Qt.UniqueConnection)
         self.pushButton_16.clicked.connect(self.subtract_selected_item_to_table2, Qt.UniqueConnection)
@@ -359,6 +373,35 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_15.clicked.connect(self.filter_history2, Qt.UniqueConnection)
         self.pushButton_17.clicked.connect(self.return_product, Qt.UniqueConnection)
 
+    def convert_to_int(self, item, default=-1):
+        if item:
+            text = item.text().strip()
+            try:
+                id = int(float(text))
+                if id > 0:
+                    item = id
+            except ValueError:
+                item = default
+        else:
+            item = default
+        return item
+
+    def tableWidget_cell_clicked(self, row, column):
+        item = self.tableWidget.item(row, 0)
+        self.current_selected_product_id = self.convert_to_int(item, self.current_selected_product_id)
+        
+    def tableWidget_2_cell_clicked(self, row, column):
+        item = self.tableWidget_2.item(row, 0)
+        self.current_selected_product_id = self.convert_to_int(item, self.current_selected_product_id)
+
+    def tableWidget_6_cell_clicked(self, row, column):
+        item = self.tableWidget_6.item(row, 0)
+        self.current_selected_tovar_product_id = self.convert_to_int(item, self.current_selected_tovar_product_id)
+        
+    def tableWidget_7_cell_clicked(self, row, column):
+        item = self.tableWidget_7.item(row, 0)
+        self.current_selected_tovar_product_id = self.convert_to_int(item, self.current_selected_tovar_product_id)
+
     def Key_F3_function(self):
         index = self.tabWidget.currentIndex()
         if index==0:
@@ -367,6 +410,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             self.lineEdit_4.setFocus()
         elif index==1:
             self.lineEdit_3.setFocus()
+        elif index==5:
+            self.lineEdit_18.setFocus()
 
     def F4_func_control(self):
         index = self.tabWidget.currentIndex()
@@ -404,6 +449,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         elif index==1: self.mahsulot_tab()
         elif index==2: self.sotuv_tarix_tab()
         elif index==3: self.tovar_tarix_tab()
+        elif index == 5: self.client_tab()
         style_sheet = """
         QTabWidget::pane {
             border: 1px solid rgb(94, 111, 135);
@@ -490,7 +536,6 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.tableWidget.setRowCount(0)
         self.lineEdit_2.clear()
         self.lineEdit.setText("")
-        self.lineEdit.setText("")
         self.lineEdit_7.setText("")
         self.comboBox.setCurrentIndex(0)
         self.Key_F3_function()
@@ -501,7 +546,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             if rows:
                 current_datetime = datetime.now()
                 formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
-                tex  = self.lineEdit.text()
+                tex = self.lineEdit.text()
                 umumiy_hisob = ''
                 kimga = self.lineEdit_7.text()
                 if not kimga: kimga = "Nomalum"
@@ -520,6 +565,16 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                     conn.commit()
                     cur.execute("INSERT INTO TarixItem (Tarix, Kitob, soni, hisob) VALUES (?, ?, ?, ?)", (tarix_id, kitob_id, soni, hisob))
                     conn.commit()
+
+                # Add bonus ball for the client
+                if self.comboBox.currentText() in ["Naqd", "Plastik"]:
+                    cur.execute("SELECT id, ball FROM Clients WHERE code = ?", (kimga,))
+                    client = cur.fetchone()
+                    if client:
+                        client_id, old_ball = client
+                        new_ball = int(float(old_ball)) + (int(float(umumiy_hisob)) // 1000)
+                        cur.execute("UPDATE Clients SET ball = ? WHERE id = ?", (str(new_ball), client_id))
+                        conn.commit()
             QTimer.singleShot(1000, self.close_message_box)
             self.message_info = "Sotildi"
             self.message_type = 1
@@ -564,8 +619,6 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 cur.execute("DELETE FROM TarixItem WHERE Tarix = ?", (tarix_id,))
                 cur.execute("DELETE FROM Tarix WHERE id = ?", (tarix_id,))
                 conn.commit()
-
-                print(f"Return completed for Tarix ID {tarix_id}. Stock updated and records deleted.")
 
             except Exception as e:
                 conn.rollback()
@@ -630,6 +683,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 else:
                     self.comboBox_2.setCurrentIndex(a)
                     self.curr_sotuv = self.comboBox_2.currentText()
+            else:
+                self.sotuv[curr_combo_text] = []
         except: pass
         self.tableWidget.setRowCount(0)
         try:
@@ -751,18 +806,19 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         new_item_index = self.comboBox_2.findText(new_item_text)
 
         self.comboBox_2.setCurrentIndex(new_item_index)
-        
+
         self.curr_sotuv = f'Sotuv {int(curr_combo_text)+1}'
         self.tableWidget.setRowCount(0)
         self.tableWidget_2.setRowCount(0)
+        self.lineEdit.setText("")
+        self.lineEdit_7.setText("")
         # self.add_selected_item_to_table()
         self.Key_F3_function()
 
     def add_selected_item_to_table(self):
-        selected_item = self.tableWidget_2.currentRow()
         self.lineEdit_2.clear()
-        if selected_item>-1:
-            id = int(float(self.tableWidget_2.item(selected_item, 0).text()))
+        id = self.current_selected_product_id
+        if id > -1:
             check = self.check_tablewidget_add(id)
             if check==-1: 
                 row_position = self.tableWidget.rowCount()
@@ -814,12 +870,11 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                     item.setForeground(QColor(255, 255, 255))
         # self.tableWidget_2.setRowCount(0)
         self.Key_F3_function()
-    
+
     def subtract_selected_item_to_table(self):
-        selected_item = self.tableWidget_2.currentRow()
-        # self.lineEdit_2.clear()
-        if selected_item>-1:
-            id = int(float(self.tableWidget_2.item(selected_item, 0).text()))
+        id = self.current_selected_product_id
+        self.lineEdit_2.clear()
+        if id > -1:
             check = self.check_tablewidget_add(id)
             if check!=-1:
                 cur.execute("SELECT * FROM Kitob WHERE id=?", (id,))
@@ -841,7 +896,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 is_present=row_index
                 break
         return is_present
-    
+
     def mahsulot_tab(self):
         self.populate_tableWidget_4()
 
@@ -850,7 +905,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.timer.timeout.connect(self.search_database_2)
         self.Key_F3_2_function()
         self.Key_F3_function()
-    
+
     def search_database_2(self):
         user_input = self.lineEdit_3.text()
         if user_input:
@@ -965,14 +1020,14 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             s_text+=money[3*i:3*i+3]+' '
         return s_text.strip()[::-1]
         self.Key_F3_function()
-    
+
     def is_numeric(self, value):
         try:
             float(value)
             return True
         except ValueError:
             return False
-        
+
     def populate_tableWidget_4(self, filter=''):
         if not filter: filter = self.lineEdit_3.text()
         self.tableWidget_4.setRowCount(0)
@@ -1071,7 +1126,6 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             self.populate_tableWidget_4()
             self.Key_F3_2_function()
         except Exception as e:
-            print(e)
             QTimer.singleShot(1000, self.close_message_box)
             self.message_info = "Xatolik"
             self.message_type = 0
@@ -1108,7 +1162,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.show_tarix()
         self.filter_history()
         self.Key_F3_function()
-    
+
     def filter_history_combo(self, index):
         today = QDate.currentDate()
 
@@ -1146,7 +1200,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             self.dateEdit.setDate(today.addDays(-365))
             self.dateEdit_2.setDate(today)
         self.filter_history()
-    
+
     def filter_history2_combo(self, index):
         today = QDate.currentDate()
 
@@ -1211,7 +1265,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         payment_type_sums = cur.fetchall()
         payment_summary_text = f"Jami: {self.spacecomma(total_hisob)} so'm\n"
         for payment_type, total in payment_type_sums:
-            payment_summary_text += f"{payment_type}: {self.spacecomma(total)} so'm\n"
+            payment_summary_text += f"{payment_type}: {self.spacecomma(total)} so'm.    "
         self.label_8.setText(payment_summary_text)
         self.Key_F3_function()
 
@@ -1222,7 +1276,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         for item in selected_items: row = int(float(item.row()))
         if selected_items: self.show_table_widget_3(row)
         self.Key_F3_function()
-    
+
     def show_table_widget_3(self, row):
         try:
             tarix_id = int(float(self.tableWidget_5.item(row, 0).text()))
@@ -1247,7 +1301,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         if total_hisob is None: total_hisob=0
         self.label_8.setText(f"Jami: {self.spacecomma(total_hisob)} so'm")
         self.Key_F3_function()
-    
+
     def display_data_in_table(self, data, table_widget):
         try:
             table_widget.setRowCount(len(data))
@@ -1338,7 +1392,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             if rows:
                 current_datetime = datetime.now()
                 formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
-                tex  = self.lineEdit_5.text()
+                tex = self.lineEdit_5.text()
                 umumiy_hisob = ''
                 for i in tex:
                     if i.isdigit():
@@ -1380,7 +1434,6 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             self.message_type = 1
             QTimer.singleShot(50, self.show_message)
         except Exception as e:
-            print(e)
             QTimer.singleShot(1000, self.close_message_box)
             self.message_info = "Xatolik"
             self.message_type = 0
@@ -1388,7 +1441,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.cancel_buy2()
         self.Key_F3_function2()
         self.Key_F3_function()
-    
+
     def on_line_edit_changed2(self):
         # Start the timer when the text in the line edit changes
         self.timer.start(1000)  # 1000 milliseconds = 1 second
@@ -1440,10 +1493,9 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.Key_F3_function()
 
     def add_selected_item_to_table2(self):
-        selected_item = self.tableWidget_6.currentRow()
+        id = self.current_selected_tovar_product_id
         self.lineEdit_4.clear()
-        if selected_item>-1:
-            id = int(float(self.tableWidget_6.item(selected_item, 0).text()))
+        if id > -1:
             check = self.check_tablewidget_add2(id)
             if check==-1:
                 row_position = self.tableWidget_7.rowCount()
@@ -1482,10 +1534,9 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.Key_F3_function()
 
     def subtract_selected_item_to_table2(self):
-        selected_item = self.tableWidget_6.currentRow()
+        id = self.current_selected_tovar_product_id
         self.lineEdit_4.clear()
-        if selected_item>-1:
-            id = int(float(self.tableWidget_6.item(selected_item, 0).text()))
+        if id > -1:
             check = self.check_tablewidget_add2(id)
             if check==-1:
                 row_position = self.tableWidget_7.rowCount()
@@ -1545,7 +1596,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.show_tarix2()
         self.filter_history2()
         self.Key_F3_function()
-    
+
     def filter_history2(self):
         self.tableWidget_9.setRowCount(0)
         start_date = self.dateEdit_3.date().toString("yyyy-MM-dd")
@@ -1570,7 +1621,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         for item in selected_items: row = int(float(item.row()))
         if selected_items: self.show_table_widget_8_tovar(row)
         self.Key_F3_function()
-    
+
     def show_table_widget_8_tovar(self, row):
         try:
             tarix_id = int(float(self.tableWidget_8.item(row, 0).text()))
@@ -1595,7 +1646,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         if total_hisob is None: total_hisob=0
         self.label_15.setText(f"Jami: {self.spacecomma(total_hisob)} so'm")
         self.Key_F3_function()
-    
+
     def display_data_in_table2(self, data, table_widget):
         try:
             table_widget.setRowCount(len(data))
@@ -1615,6 +1666,151 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                     table_widget.setItem(row_index, col_index, item)
         except:
             pass
+        self.Key_F3_function()
+
+    def client_tab(self):
+        self.populate_tableWidget_21()
+
+        self.timer = QTimer(self)
+        self.timer.setSingleShot(True)
+        self.timer.timeout.connect(self.search_client_database)
+        self.Key_F3_function()
+
+    def search_client_database(self):
+        user_input = self.lineEdit_18.text()
+        if user_input:
+            self.tableWidget_21.setRowCount(0)
+            self.populate_tableWidget_21(filter=user_input)
+        else: self.populate_tableWidget_21()
+        self.Key_F3_function()
+
+    def clicked_export_clients(self):
+        try:
+            query = "SELECT ism, familiya, ball, telefon, code, manzil, sana FROM Clients"
+            df = pd.read_sql_query(query, conn)
+
+            file_path, _ = QFileDialog.getSaveFileName(self, 'Save Excel File', '', 'Excel Files (*.xlsx)')
+
+            if file_path:
+                # Create a workbook and add a worksheet
+                workbook = Workbook()
+                worksheet = workbook.active
+
+                # Customize the header row
+                header_row = df.columns
+                for col_num, value in enumerate(header_row, 1):
+                    cell = worksheet.cell(row=1, column=col_num, value=value.title() if type(value)==str else value)
+                    cell.font = Font(size=20, bold=True)
+
+                # Add data to the worksheet
+                for row_num, (_, row) in enumerate(df.iterrows(), 2):
+                    for col_num, value in enumerate(row, 1):
+                        worksheet.cell(row=row_num, column=col_num, value=value)
+
+                # Save the workbook to the specified file path
+                workbook.save(file_path)
+        except: pass
+        self.Key_F3_function()
+
+    def populate_tableWidget_21(self, filter=''):
+        if not filter: filter = self.lineEdit_18.text()
+        self.tableWidget_21.setRowCount(0)
+        if filter:
+            query = "SELECT id, ism, familiya, telefon, ball, code, manzil, sana FROM Clients WHERE ism LIKE ? OR id LIKE ? OR familiya LIKE ? ORDER BY CAST(ism AS SIGNED) DESC"
+            cur.execute(query, (f'%{filter}%', f'%{filter}%', f'%{filter}%'))
+        else:
+            query = "SELECT id, ism, familiya, telefon, ball, code, manzil, sana FROM Clients ORDER BY CAST(ism AS SIGNED) DESC"
+            cur.execute(query)
+
+        data = cur.fetchall()
+        num_rows_to_add = 10 + len(data)
+        jami_ballar = 0
+        self.tableWidget_21.setSortingEnabled(False)
+        self.tableWidget_21.setRowCount(num_rows_to_add)
+        for row_index, row_data in enumerate(data):
+            jami_ballar += int(float(row_data[4]))
+            for col_index, col_data in enumerate(row_data):
+                truncated_data = str(col_data)
+
+                if len(truncated_data) > 35:
+                    truncated_data = truncated_data[:35] + "..."
+                item = QTableWidgetItem()
+                if len(str(col_data)) > 35:
+                    item.setToolTip(str(col_data))
+                item.setData(Qt.DisplayRole, truncated_data)
+
+                self.tableWidget_21.setItem(row_index, col_index, item)
+        formatted_ball = self.spacecomma(jami_ballar)
+        self.label_39.setText("Jami ballar qiymati: " + formatted_ball + " ball")
+
+        for i in range(len(data), num_rows_to_add):
+            for j in range(self.tableWidget_21.columnCount()):
+                item = QTableWidgetItem("")
+                self.tableWidget_21.setItem(i, j, item)
+        self.Key_F3_function()
+
+    def generate_unique_code(self, prefix="CL", length=8):
+        """
+        Generates a unique alphanumeric code.
+        
+        :param prefix: Optional string to start the code with (e.g. 'CL' for client).
+        :param length: Number of characters from UUID to use after the prefix.
+        :return: A unique code string.
+        """
+        unique_part = uuid.uuid4().hex[:length].upper()
+        return f"{prefix}{unique_part}"
+
+    def save_tableWidget_client_data_to_database(self):
+        try:
+            for row in range(self.tableWidget_21.rowCount()):
+                id = self.tableWidget_21.item(row, 0).text()
+                ism = self.tableWidget_21.item(row, 1).text()
+                familiya = self.tableWidget_21.item(row, 2).text()
+                telefon = self.tableWidget_21.item(row, 3).text()
+                ball = self.tableWidget_21.item(row, 4).text()
+                code = self.tableWidget_21.item(row, 5).text()
+                manzil = self.tableWidget_21.item(row, 6).text()
+                sana = self.tableWidget_21.item(row, 7).text()
+
+                if not code: code = self.generate_unique_code()
+                if ism and telefon and ball and code:
+                    cur.execute("SELECT id FROM Clients WHERE id=?", (id,))
+                    existing_id = cur.fetchone()
+                    if existing_id:
+                        if float((cur.execute("SELECT ball FROM Clients WHERE id=?", (id,))).fetchone()[0])==float(ball):
+                            # If the record exists, update it
+                            cur.execute("""
+                                UPDATE Clients
+                                SET ism=?, familiya=?, ball=?, telefon=?, code=?, manzil=?, sana=?
+                                WHERE id=?
+                            """, (ism, familiya, int(float(ball)), telefon, code, manzil, sana, existing_id[0]))
+                            conn.commit()
+                        else:
+                            cur.execute("""
+                                UPDATE Clients
+                                SET ism=?, familiya=?, ball=?, telefon=?, code=?, manzil=?, sana=?
+                                WHERE id=?
+                            """, (ism, familiya, int(float(ball)), telefon, code, manzil, date.today(), existing_id[0]))
+                            conn.commit()
+                    else:
+                        cur.execute("""
+                            INSERT INTO Clients (ism, familiya, ball, telefon, code, manzil, sana)
+                            VALUES (?, ?, ?, ?, ?, ?, ?)
+                        """, (ism, familiya, int(float(ball)), telefon, code, manzil, date.today()))
+                        conn.commit()
+                elif id and not ism and not familiya and not code and not ball:
+                    cur.execute("DELETE FROM Clients WHERE id=?", (id,))
+                    conn.commit()
+            QTimer.singleShot(1000, self.close_message_box)
+            self.message_info = "Klient ma'lumotlari muaffaqiyatli saqlandi"
+            self.message_type = 1
+            QTimer.singleShot(50, self.show_message)
+            self.populate_tableWidget_21()
+        except Exception as e:
+            QTimer.singleShot(1000, self.close_message_box)
+            self.message_info = "Xatolik"
+            self.message_type = 0
+            QTimer.singleShot(50, self.show_message)
         self.Key_F3_function()
 
 if __name__ == "__main__":

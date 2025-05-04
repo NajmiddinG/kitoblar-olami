@@ -1,0 +1,15 @@
+User wants to:
+	know how many times each item sold by the given date ranges.
+	know how much income come from each item by the given date ranges.
+	which items more profitable and how many should he need to buy now(advice) by the given date ranges
+
+
+
+
+
+
+Default range - This month
+
+
+what about this:
+quantity_to_buy = (curent_price-original_price) * ((this_months_sold/this_month_total)/(last_months_sold/last_month_total))

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1657</width>
+    <width>1043</width>
     <height>875</height>
    </rect>
   </property>
@@ -623,6 +623,11 @@ border-left: 0px
                      <item>
                       <property name="text">
                        <string>Nasiya</string>
+                      </property>
+                     </item>
+                     <item>
+                      <property name="text">
+                       <string>Imtiyoz</string>
                       </property>
                      </item>
                     </widget>
@@ -3044,6 +3049,278 @@ border-left: 0px
           </item>
          </layout>
         </widget>
+        <widget class="QWidget" name="tab_3">
+         <attribute name="icon">
+          <iconset resource="../../icons/images.qrc">
+           <normaloff>:/image/users.png</normaloff>:/image/users.png</iconset>
+         </attribute>
+         <attribute name="title">
+          <string>Mijozlar</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <layout class="QGridLayout" name="gridLayout_37">
+            <item row="2" column="1">
+             <widget class="QTableWidget" name="tableWidget_21">
+              <property name="font">
+               <font>
+                <family>Times New Roman</family>
+                <pointsize>14</pointsize>
+                <bold>false</bold>
+                <stylestrategy>PreferDefault</stylestrategy>
+               </font>
+              </property>
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
+              </property>
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectionBehavior::SelectItems</enum>
+              </property>
+              <property name="sortingEnabled">
+               <bool>false</bool>
+              </property>
+              <property name="rowCount">
+               <number>10</number>
+              </property>
+              <attribute name="horizontalHeaderDefaultSectionSize">
+               <number>200</number>
+              </attribute>
+              <attribute name="verticalHeaderVisible">
+               <bool>false</bool>
+              </attribute>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <row/>
+              <column>
+               <property name="text">
+                <string>Id</string>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>14</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Ism</string>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>14</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Familiya</string>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>14</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Telefon raqam</string>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>14</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Ball</string>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>14</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Code</string>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>14</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Manzil</string>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>14</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Sana</string>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Times New Roman</family>
+                 <pointsize>14</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </column>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <layout class="QHBoxLayout" name="horizontalLayout_33">
+              <item>
+               <widget class="QPushButton" name="pushButton_18">
+                <property name="font">
+                 <font>
+                  <family>Times New Roman</family>
+                  <pointsize>14</pointsize>
+                  <stylestrategy>PreferDefault</stylestrategy>
+                 </font>
+                </property>
+                <property name="autoFillBackground">
+                 <bool>false</bool>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(31, 118, 28); color: white;</string>
+                </property>
+                <property name="text">
+                 <string> Yuklab olish</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../../icons/images.qrc">
+                  <normaloff>:/image/excel.png</normaloff>:/image/excel.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_57">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+                <property name="sizeType">
+                 <enum>QSizePolicy::Policy::Minimum</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_43">
+                <property name="font">
+                 <font>
+                  <family>Times New Roman</family>
+                  <pointsize>14</pointsize>
+                  <bold>false</bold>
+                  <stylestrategy>PreferDefault</stylestrategy>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">background-color: rgb(31, 118, 28); color: white;</string>
+                </property>
+                <property name="text">
+                 <string> Saqlash </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_60">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_18">
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Times New Roman</family>
+                  <pointsize>14</pointsize>
+                  <stylestrategy>PreferDefault</stylestrategy>
+                 </font>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignmentFlag::AlignCenter</set>
+                </property>
+                <property name="placeholderText">
+                 <string> Qidirish</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_39">
+            <property name="font">
+             <font>
+              <family>Times New Roman</family>
+              <pointsize>14</pointsize>
+              <stylestrategy>PreferDefault</stylestrategy>
+             </font>
+            </property>
+            <property name="text">
+             <string>Jami ballar qiymati: 0 ball</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
       </item>
      </layout>
@@ -3055,7 +3332,7 @@ border-left: 0px
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1657</width>
+     <width>1043</width>
      <height>33</height>
     </rect>
    </property>

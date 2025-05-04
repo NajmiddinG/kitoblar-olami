@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="image">
+    <file>users.png</file>
     <file>diamond_books_logo.png</file>
     <file>plus.png</file>
     <file>excel.png</file>

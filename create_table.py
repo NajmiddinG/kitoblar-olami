@@ -52,6 +52,18 @@ try:
                 )""")
     conn.commit()
 
+    cur.execute("""CREATE TABLE IF NOT EXISTS Clients (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            familiya TEXT NOT NULL,
+            ism TEXT NOT NULL,
+            telefon TEXT NOT NULL,
+            ball TEXT NOT NULL,
+            code TEXT NOT NULL,
+            manzil TEXT NOT NULL,
+            sana DATE NOT NULL
+            )""")
+    conn.commit()
+
     cur.execute("PRAGMA table_info(Tovar)")
     columns = cur.fetchall()
     column_names = [col[1] for col in columns]

@@ -644,6 +644,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 if len(result)==1:
                     self.display_data_in_table(result, self.tableWidget_2)
                     self.tableWidget_2.selectRow(0)
+                    try: self.current_selected_product_id = result[0][0]
+                    except: pass
                     self.add_selected_item_to_table()
                 elif len(result)>1:
                     self.display_data_in_table(result, self.tableWidget_2)
@@ -1459,6 +1461,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                     if len(result)==1:
                         self.display_data_in_table2(result, self.tableWidget_6)
                         self.tableWidget_6.selectRow(0)
+                        try: self.current_selected_tovar_product_id = result[0][0]
+                        except: pass
                         self.add_selected_item_to_table2()
                     elif len(result)>1:
                         self.tableWidget_6.selectRow(0)

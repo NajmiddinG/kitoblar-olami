@@ -3,7 +3,7 @@ import uuid
 import pandas as pd
 import create_table as db
 from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QFileDialog, QMessageBox, QTableWidget, QToolTip 
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import QTimer, QEvent
 from PySide6 import QtWidgets
 from openpyxl import Workbook
 from openpyxl.styles import Font
@@ -104,6 +104,15 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.table_resize()
         self.initialize_variables()
         self.connect_handlers()
+
+        self.tableWidget_21.installEventFilter(self)
+    
+    def eventFilter(self, source, event):
+        if event.type() == QEvent.KeyPress:
+            key = event.key()
+            if source == self.tableWidget_21 and key == Qt.Key_Down and self.tableWidget_21.currentColumn() == 5:
+                return True
+        return super().eventFilter(source, event)
 
     def table_resize(self):
         tableResizeMode(self.tableWidget)
@@ -1776,6 +1785,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
                 manzil = self.tableWidget_21.item(row, 6).text()
                 sana = self.tableWidget_21.item(row, 7).text()
 
+                if not ball: ball = '0'
                 if not code: code = self.generate_unique_code()
                 if ism and telefon and ball and code:
                     cur.execute("SELECT id FROM Clients WHERE id=?", (id,))

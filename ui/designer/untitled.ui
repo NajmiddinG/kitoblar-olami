@@ -101,32 +101,6 @@ border-color: white;</string>
              <layout class="QGridLayout" name="gridLayout_10">
               <item row="0" column="0">
                <layout class="QGridLayout" name="gridLayout_13">
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_2">
-                  <property name="minimumSize">
-                   <size>
-                    <width>50</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>1000</width>
-                    <height>70</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <family>Times New Roman</family>
-                    <pointsize>14</pointsize>
-                    <stylestrategy>PreferDefault</stylestrategy>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Umumiy hisob&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="0">
                  <layout class="QGridLayout" name="gridLayout_14">
                   <item row="2" column="0">
@@ -296,32 +270,57 @@ border-color: white;</string>
                   </item>
                  </layout>
                 </item>
-                <item row="4" column="0">
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_2">
+                  <property name="minimumSize">
+                   <size>
+                    <width>50</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>1000</width>
+                    <height>70</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>Times New Roman</family>
+                    <pointsize>14</pointsize>
+                    <stylestrategy>PreferDefault</stylestrategy>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Umumiy hisob&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="0">
                  <layout class="QGridLayout" name="gridLayout_15">
-                  <item row="0" column="2">
-                   <spacer name="horizontalSpacer_18">
+                  <item row="1" column="3">
+                   <widget class="QPushButton" name="pushButton">
                     <property name="font">
                      <font>
                       <family>Times New Roman</family>
                       <pointsize>14</pointsize>
+                      <underline>false</underline>
+                      <strikeout>false</strikeout>
                       <stylestrategy>PreferDefault</stylestrategy>
                      </font>
                     </property>
-                    <property name="orientation">
-                     <enum>Qt::Orientation::Horizontal</enum>
+                    <property name="cursor">
+                     <cursorShape>ArrowCursor</cursorShape>
                     </property>
-                    <property name="sizeType">
-                     <enum>QSizePolicy::Policy::Minimum</enum>
+                    <property name="styleSheet">
+                     <string notr="true">background-color: rgb(160, 20, 20); color: white;</string>
                     </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>40</width>
-                      <height>20</height>
-                     </size>
+                    <property name="text">
+                     <string>Bekor qilish</string>
                     </property>
-                   </spacer>
+                   </widget>
                   </item>
-                  <item row="0" column="4">
+                  <item row="1" column="4">
                    <spacer name="horizontalSpacer_17">
                     <property name="font">
                      <font>
@@ -344,7 +343,7 @@ border-color: white;</string>
                     </property>
                    </spacer>
                   </item>
-                  <item row="0" column="0">
+                  <item row="1" column="0">
                    <spacer name="horizontalSpacer_19">
                     <property name="font">
                      <font>
@@ -367,29 +366,46 @@ border-color: white;</string>
                     </property>
                    </spacer>
                   </item>
-                  <item row="0" column="3">
-                   <widget class="QPushButton" name="pushButton">
+                  <item row="2" column="2">
+                   <spacer name="verticalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Orientation::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Policy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>100</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="1" column="2">
+                   <spacer name="horizontalSpacer_18">
                     <property name="font">
                      <font>
                       <family>Times New Roman</family>
                       <pointsize>14</pointsize>
-                      <underline>false</underline>
-                      <strikeout>false</strikeout>
                       <stylestrategy>PreferDefault</stylestrategy>
                      </font>
                     </property>
-                    <property name="cursor">
-                     <cursorShape>ArrowCursor</cursorShape>
+                    <property name="orientation">
+                     <enum>Qt::Orientation::Horizontal</enum>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true">background-color: rgb(160, 20, 20); color: white;</string>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Policy::Minimum</enum>
                     </property>
-                    <property name="text">
-                     <string>Bekor qilish</string>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
+                      <height>20</height>
+                     </size>
                     </property>
-                   </widget>
+                   </spacer>
                   </item>
-                  <item row="0" column="1">
+                  <item row="1" column="1">
                    <widget class="QPushButton" name="pushButton_2">
                     <property name="font">
                      <font>
@@ -407,25 +423,9 @@ border-color: white;</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="2">
-                   <spacer name="verticalSpacer_2">
-                    <property name="orientation">
-                     <enum>Qt::Orientation::Vertical</enum>
-                    </property>
-                    <property name="sizeType">
-                     <enum>QSizePolicy::Policy::Fixed</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>100</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
                  </layout>
                 </item>
-                <item row="2" column="0">
+                <item row="3" column="0">
                  <layout class="QHBoxLayout" name="horizontalLayout_4">
                   <item>
                    <spacer name="horizontalSpacer_4">
@@ -644,6 +644,53 @@ border-left: 0px
                     <property name="sizeHint" stdset="0">
                      <size>
                       <width>10</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+                <item row="2" column="0">
+                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <item>
+                   <spacer name="horizontalSpacer_9">
+                    <property name="orientation">
+                     <enum>Qt::Orientation::Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Policy::Minimum</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>60</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_18">
+                    <property name="font">
+                     <font>
+                      <family>Times New Roman</family>
+                      <pointsize>14</pointsize>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="horizontalSpacer_10">
+                    <property name="orientation">
+                     <enum>Qt::Orientation::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>40</width>
                       <height>20</height>
                      </size>
                     </property>
@@ -1627,6 +1674,29 @@ border-left: 0px
               </property>
              </spacer>
             </item>
+            <item>
+             <widget class="QLineEdit" name="lineEdit_8">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <family>Times New Roman</family>
+                <pointsize>14</pointsize>
+                <stylestrategy>PreferDefault</stylestrategy>
+               </font>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignmentFlag::AlignCenter</set>
+              </property>
+              <property name="placeholderText">
+               <string> Qidirish</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item row="5" column="0">
@@ -2266,6 +2336,29 @@ border-left: 0px
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_9">
+                <property name="maximumSize">
+                 <size>
+                  <width>200</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>Times New Roman</family>
+                  <pointsize>14</pointsize>
+                  <stylestrategy>PreferDefault</stylestrategy>
+                 </font>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignmentFlag::AlignCenter</set>
+                </property>
+                <property name="placeholderText">
+                 <string> Qidirish</string>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>

@@ -194,6 +194,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         """
         self.lineEdit_2.setStyleSheet(line_edit_style)
         self.lineEdit_3.setStyleSheet(line_edit_style)
+        self.lineEdit_8.setStyleSheet(line_edit_style)
+        self.lineEdit_9.setStyleSheet(line_edit_style)
         self.lineEdit_18.setStyleSheet(line_edit_style)
         self.lineEdit_4.setStyleSheet(line_edit_style)
         self.lineEdit_6.setStyleSheet(line_edit_style)
@@ -364,6 +366,8 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.pushButton_18.clicked.connect(self.clicked_export_clients, Qt.UniqueConnection)
         self.pushButton_4.clicked.connect(self.clicked_new_book, Qt.UniqueConnection)
         self.lineEdit_3.textChanged.connect(self.on_line_edit_changed, Qt.UniqueConnection)
+        self.lineEdit_8.textChanged.connect(self.on_line_edit_changed, Qt.UniqueConnection)
+        self.lineEdit_9.textChanged.connect(self.on_line_edit_changed, Qt.UniqueConnection)
         self.lineEdit_18.textChanged.connect(self.on_line_edit_changed, Qt.UniqueConnection)
         self.tableWidget_5.itemSelectionChanged.connect(self.handle_tableWidget_5_selected, Qt.UniqueConnection)
         self.pushButton_7.clicked.connect(self.filter_history, Qt.UniqueConnection)
@@ -381,6 +385,7 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.tableWidget_8.itemSelectionChanged.connect(self.handle_tableWidget_8_selected, Qt.UniqueConnection)
         self.pushButton_15.clicked.connect(self.filter_history2, Qt.UniqueConnection)
         self.pushButton_17.clicked.connect(self.return_product, Qt.UniqueConnection)
+        self.lineEdit_7.textChanged.connect(self.on_line_edit_7_changed, Qt.UniqueConnection)
 
     def convert_to_int(self, item, default=-1):
         if item:
@@ -421,6 +426,10 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
             self.lineEdit_3.setFocus()
         elif index==5:
             self.lineEdit_18.setFocus()
+        elif index==2:
+            self.lineEdit_8.setFocus()
+        elif index==3:
+            self.lineEdit_9.setFocus()
 
     def F4_func_control(self):
         index = self.tabWidget.currentIndex()
@@ -639,6 +648,25 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         # Start the timer when the text in the line edit changes
         self.timer.start(1000)  # 1000 milliseconds = 1 second
         self.Key_F3_function()
+
+    def on_line_edit_7_changed(self):
+        code = self.lineEdit_7.text().strip()
+    
+        if not code:
+            self.label_18.setText("Topilmadi")
+            self.label_18.setStyleSheet("color: red;")
+            return
+
+        cur.execute("SELECT ism FROM Clients WHERE code = ?", (code,))
+        result = cur.fetchone()
+        
+        if result and len(result) == 1:
+            ism = result[0]
+            self.label_18.setText(f"Ism: {ism}")
+            self.label_18.setStyleSheet("color: green;")
+        else:
+            self.label_18.setText("Topilmadi")
+            self.label_18.setStyleSheet("color: red;")
 
     def search_database(self):
         # Perform the database query based on user input
@@ -1170,7 +1198,13 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.dateEdit.setDate(today)
         self.comboBox_3.setCurrentIndex(0)
 
-        self.show_tarix()
+        self.filter_history()
+        self.timer = QTimer(self)
+        self.timer.setSingleShot(True)
+        self.timer.timeout.connect(self.search_database_sotuv_tarix)
+        self.Key_F3_function()
+
+    def search_database_sotuv_tarix(self):
         self.filter_history()
         self.Key_F3_function()
 
@@ -1254,28 +1288,30 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.tableWidget_3.setRowCount(0)
         start_date = self.dateEdit.date().toString("yyyy-MM-dd")
         end_date = self.dateEdit_2.date().addDays(1).toString("yyyy-MM-dd")
+        search_text = self.lineEdit_8.text().strip()
 
-        query = "SELECT * FROM Tarix WHERE sana >= ? AND sana <= ? ORDER BY sana DESC"
-        cur.execute(query, (start_date, end_date))
+        base_query = "SELECT * FROM Tarix WHERE sana >= ? AND sana <= ?"
+        params = [start_date, end_date]
+
+        if search_text:
+            base_query += " AND (kimga LIKE ?)"
+            params.append(f"%{search_text}%")
+        
+        base_query += " ORDER BY sana DESC"
+        cur.execute(base_query, params)
         
         tarix_data = cur.fetchall()
         self.display_data_in_table(tarix_data, self.tableWidget_5)
-        query_sum = "SELECT SUM(hisob) AS total_hisob FROM Tarix WHERE sana >= ? AND sana <= ?"
-        cur.execute(query_sum, (start_date, end_date))
-        total_hisob = cur.fetchone()[0]
-        if total_hisob is None:
-            total_hisob = 0
 
-        query_payment_types = """
-            SELECT tolov_turi, SUM(hisob) 
-            FROM Tarix 
-            WHERE sana >= ? AND sana <= ? 
-            GROUP BY tolov_turi
-        """
-        cur.execute(query_payment_types, (start_date, end_date))
-        payment_type_sums = cur.fetchall()
+        total_hisob = 0
+        payment_sums = {}
+        for row in tarix_data:
+            tolov_turi = row[3]
+            total_hisob += row[2]
+            payment_sums[tolov_turi] = payment_sums.get(tolov_turi, 0) + row[2]
+
         payment_summary_text = f"Jami: {self.spacecomma(total_hisob)} so'm\n"
-        for payment_type, total in payment_type_sums:
+        for payment_type, total in payment_sums.items():
             payment_summary_text += f"{payment_type}: {self.spacecomma(total)} so'm.    "
         self.label_8.setText(payment_summary_text)
         self.Key_F3_function()
@@ -1606,7 +1642,14 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.dateEdit_3.setDate(today)
         self.comboBox_4.setCurrentIndex(0)
 
-        self.show_tarix2()
+        self.filter_history2()
+
+        self.timer = QTimer(self)
+        self.timer.setSingleShot(True)
+        self.timer.timeout.connect(self.search_database_tovar_tarix)
+        self.Key_F3_function()
+
+    def search_database_tovar_tarix(self):
         self.filter_history2()
         self.Key_F3_function()
 
@@ -1614,16 +1657,25 @@ class DiamondWindow(QMainWindow, Ui_MainWindow):
         self.tableWidget_9.setRowCount(0)
         start_date = self.dateEdit_3.date().toString("yyyy-MM-dd")
         end_date = self.dateEdit_4.date().addDays(1).toString("yyyy-MM-dd")
+        search_text = self.lineEdit_9.text().strip()
 
-        query = "SELECT * FROM Tovar WHERE sana >= ? AND sana <= ? ORDER BY sana DESC"
-        cur.execute(query, (start_date, end_date))
+        base_query = "SELECT * FROM Tovar WHERE sana >= ? AND sana <= ?"
+        params = [start_date, end_date]
+
+        if search_text:
+            base_query += " AND (kimdan LIKE ?)"
+            params.append(f"%{search_text}%")
+        
+        base_query += " ORDER BY sana DESC"
+        cur.execute(base_query, params)
         
         tarix_data = cur.fetchall()
         self.display_data_in_table2(tarix_data, self.tableWidget_8)
-        query_sum = "SELECT SUM(hisob) AS total_hisob FROM Tovar WHERE sana >= ? AND sana <= ?"
-        cur.execute(query_sum, (start_date, end_date))  # Replace start_date and end_date with your actual date values
-        total_hisob = cur.fetchone()[0]
-        if total_hisob is None: total_hisob=0
+
+        total_hisob = 0
+        for row in tarix_data:
+            total_hisob += row[2]
+
         self.label_15.setText(f"Jami: {self.spacecomma(total_hisob)} so'm")
         self.Key_F3_function()
 
